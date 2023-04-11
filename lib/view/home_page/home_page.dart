@@ -17,16 +17,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Placeholder(),
       appBar: AppBar(
-        backgroundColor: Color(0xff211F26),
         title: const Text(
           'Beats',
           style: TextStyle(
-            color: Colors.white,
           ),
         ),
       ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Color(0xff211F26),
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -37,14 +34,12 @@ class _HomePageState extends State<HomePage> {
           NavigationDestination(
             icon: Icon(
                 Icons.search,
-                color: Colors.white
             ),
             label: 'Search',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.add,
-              color: Colors.white,
               size: 45,
             ),
             label: 'Add Track',
@@ -52,7 +47,6 @@ class _HomePageState extends State<HomePage> {
           NavigationDestination(
             icon: Icon(
                 Icons.person,
-                color: Colors.white
             ),
             label: 'Profile',
           ),
