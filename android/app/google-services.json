@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "886145540803",
+    "project_id": "mvara-beats",
+    "storage_bucket": "mvara-beats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886145540803:android:7b9bac81cd4529b32d7876",
+        "android_client_info": {
+          "package_name": "com.example.beats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886145540803-0c8tef6g7dprfs3rp90d4lck1c6h2o2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBajlvjNnJLVcOMF8Z39UnKOD8-mekOBbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886145540803-0c8tef6g7dprfs3rp90d4lck1c6h2o2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
