@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/ui/color_schemes.g.dart';
+import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../main.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,12 +39,16 @@ class _HomePageState extends State<HomePage> {
             ),
             label: 'Search',
           ),
-          GestureDetector(
+          BouncingGestureDetector(
+            onTap: () {},
             child: Container(
-              decoration: const BoxDecoration(
+              height: 52,
+              width: 52,
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: lightColorScheme.secondaryContainer,
               ),
-              child: const Icon(Icons.add),
+              child: const Icon(Icons.add, size: 32,),
             ),
           ),
           const NavigationDestination(
