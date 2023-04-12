@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'core/di/di.dart';
 import 'core/ui/color_schemes.g.dart';
 
 void main() {
+  configureDependencies();
   runApp(const App());
 }
 
@@ -12,7 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Beats',
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: Container(),
