@@ -9,6 +9,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:beats/data/repository/auth_repository_impl.dart' as _i4;
+import 'package:beats/domain/auth/repository/auth_repository.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -23,6 +25,7 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
+    gh.singleton<_i3.AuthRepository>(_i4.AuthRepositoryImpl());
     return this;
   }
 }
