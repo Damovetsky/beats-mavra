@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Placeholder(),
+      body: const Placeholder(),
       appBar: AppBar(
         title: const Text(
           'Beats',
@@ -30,21 +30,22 @@ class _HomePageState extends State<HomePage> {
           });
         },
         selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
+        destinations: <Widget>[
+          const NavigationDestination(
             icon: Icon(
                 Icons.search,
             ),
             label: 'Search',
           ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.add,
-              size: 45,
+          GestureDetector(
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.add),
             ),
-            label: 'Add Track',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(
                 Icons.person,
             ),
