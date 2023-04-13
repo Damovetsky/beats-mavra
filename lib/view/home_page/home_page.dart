@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.g.dart';
@@ -27,9 +28,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       appBar: AppBar(
-        title: const Text(
-          'Beats',
-          style: TextStyle(),
+        title: Text(
+          'app_title'.tr(),
+          style: const TextStyle(),
         ),
       ),
       bottomNavigationBar: NavigationBar(
