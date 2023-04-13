@@ -5,6 +5,7 @@ class AppImage extends StatelessWidget {
   final ImageProvider image;
   final double? height;
   final double? width;
+  final BorderRadius? borderRadius;
   final BoxFit? fit;
 
   const AppImage({
@@ -12,6 +13,7 @@ class AppImage extends StatelessWidget {
     required this.image,
     this.height,
     this.width,
+    this.borderRadius,
     this.fit = BoxFit.cover,
   });
 
@@ -21,6 +23,9 @@ class AppImage extends StatelessWidget {
       height: height,
       width: width,
       image: image,
+      borderRadius: borderRadius,
+      shape: BoxShape.rectangle,
+      fit: fit,
       loadStateChanged: (state) {},
     );
   }
