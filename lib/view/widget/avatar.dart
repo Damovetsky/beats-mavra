@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/image.dart';
 
 class Avatar extends StatelessWidget {
@@ -14,19 +15,17 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     if (url != null) {
       return Container(
         height: size,
         width: size,
         decoration: BoxDecoration(
-          color: colorScheme.secondaryContainer,
+          color: currentColorScheme(context).secondaryContainer,
           shape: BoxShape.circle,
         ),
         child: Icon(
           Icons.person,
-          color: colorScheme.primary,
+          color: currentColorScheme(context).primary,
           size: size / 2,
         ),
       );

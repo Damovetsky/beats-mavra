@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
-import 'core/ui/color_schemes.g.dart';
+import 'core/ui/color_schemes.dart';
 import 'core/ui/text_styles.dart';
 import 'view/home_page/home_page.dart';
 

@@ -1,7 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/ui/color_schemes.g.dart';
+import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../profile_page/profile_page.dart';
 

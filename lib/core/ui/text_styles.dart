@@ -40,3 +40,5 @@ final textTheme = TextTheme(
   labelMedium: labelMedium,
   labelSmall: labelSmall,
 );
+
+TextTheme currentTextStyle(context) => Theme.of(context).textTheme;
