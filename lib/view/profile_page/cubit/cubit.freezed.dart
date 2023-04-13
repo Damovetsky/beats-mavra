@@ -34,17 +34,17 @@ mixin _$ProfileState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$ProfileState value) loading,
+    required TResult Function(_$ProfileLoadingState value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$ProfileState value)? loading,
+    TResult? Function(_$ProfileLoadingState value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$ProfileState value)? loading,
+    TResult Function(_$ProfileLoadingState value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,25 +69,25 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
 }
 
 /// @nodoc
-abstract class _$$_$ProfileStateCopyWith<$Res> {
-  factory _$$_$ProfileStateCopyWith(
-          _$_$ProfileState value, $Res Function(_$_$ProfileState) then) =
-      __$$_$ProfileStateCopyWithImpl<$Res>;
+abstract class _$$_$ProfileLoadingStateCopyWith<$Res> {
+  factory _$$_$ProfileLoadingStateCopyWith(_$_$ProfileLoadingState value,
+          $Res Function(_$_$ProfileLoadingState) then) =
+      __$$_$ProfileLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_$ProfileStateCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$_$ProfileState>
-    implements _$$_$ProfileStateCopyWith<$Res> {
-  __$$_$ProfileStateCopyWithImpl(
-      _$_$ProfileState _value, $Res Function(_$_$ProfileState) _then)
+class __$$_$ProfileLoadingStateCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$_$ProfileLoadingState>
+    implements _$$_$ProfileLoadingStateCopyWith<$Res> {
+  __$$_$ProfileLoadingStateCopyWithImpl(_$_$ProfileLoadingState _value,
+      $Res Function(_$_$ProfileLoadingState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_$ProfileState implements _$ProfileState {
-  const _$_$ProfileState();
+class _$_$ProfileLoadingState implements _$ProfileLoadingState {
+  const _$_$ProfileLoadingState();
 
   @override
   String toString() {
@@ -97,7 +97,7 @@ class _$_$ProfileState implements _$ProfileState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_$ProfileState);
+        (other.runtimeType == runtimeType && other is _$_$ProfileLoadingState);
   }
 
   @override
@@ -134,7 +134,7 @@ class _$_$ProfileState implements _$ProfileState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$ProfileState value) loading,
+    required TResult Function(_$ProfileLoadingState value) loading,
   }) {
     return loading(this);
   }
@@ -142,7 +142,7 @@ class _$_$ProfileState implements _$ProfileState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$ProfileState value)? loading,
+    TResult? Function(_$ProfileLoadingState value)? loading,
   }) {
     return loading?.call(this);
   }
@@ -150,7 +150,7 @@ class _$_$ProfileState implements _$ProfileState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$ProfileState value)? loading,
+    TResult Function(_$ProfileLoadingState value)? loading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -160,6 +160,6 @@ class _$_$ProfileState implements _$ProfileState {
   }
 }
 
-abstract class _$ProfileState implements ProfileState {
-  const factory _$ProfileState() = _$_$ProfileState;
+abstract class _$ProfileLoadingState implements ProfileState {
+  const factory _$ProfileLoadingState() = _$_$ProfileLoadingState;
 }
