@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.g.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
-import '../../main.dart';
 import '../profile_page/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,12 +25,6 @@ class _HomePageState extends State<HomePage> {
           Container(),
           const ProfilePage(),
         ],
-      ),
-      appBar: AppBar(
-        title: Text(
-          'app_title'.tr(),
-          style: const TextStyle(),
-        ),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

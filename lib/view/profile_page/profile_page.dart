@@ -17,9 +17,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return BlocProvider(
       create: (context) => getIt.get<ProfileCubit>(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('Profile'),
+        ),
         body: ListView(
-          children: [],
+          children: [
+            
+          ],
         ),
       ),
     );
