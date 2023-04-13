@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'purchase_entity.freezed.dart';
+part '../../entity/purchase_entity.freezed.dart';
 
 @freezed
 class PurchaseEntity with _$PurchaseEntity{
