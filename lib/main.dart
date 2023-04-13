@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
 import 'core/ui/color_schemes.g.dart';
+import 'core/ui/text_styles.dart';
 import 'view/home_page/home_page.dart';
 
 Future<void> main() async {
@@ -30,8 +31,16 @@ class App extends StatelessWidget {
       title: 'app_title'.tr(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: lightColorScheme,
+        textTheme: textTheme,
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: darkColorScheme,
+        textTheme: textTheme,
+      ),
       home: const HomePage(),
     );
   }
