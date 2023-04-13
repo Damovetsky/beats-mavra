@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/ui/color_schemes.g.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../main.dart';
+import '../profile_page/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,12 +18,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Placeholder(),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: [
+          Container(),
+          Container(),
+          const ProfilePage(),
+        ],
+      ),
       appBar: AppBar(
         title: const Text(
           'Beats',
-          style: TextStyle(
-          ),
+          style: TextStyle(),
         ),
       ),
       bottomNavigationBar: NavigationBar(
@@ -35,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         destinations: <Widget>[
           const NavigationDestination(
             icon: Icon(
-                Icons.search,
+              Icons.search,
             ),
             label: 'Search',
           ),
@@ -48,12 +55,15 @@ class _HomePageState extends State<HomePage> {
                 shape: BoxShape.circle,
                 color: lightColorScheme.secondaryContainer,
               ),
-              child: const Icon(Icons.add, size: 32,),
+              child: const Icon(
+                Icons.add,
+                size: 32,
+              ),
             ),
           ),
           const NavigationDestination(
             icon: Icon(
-                Icons.person,
+              Icons.person,
             ),
             label: 'Profile',
           ),
