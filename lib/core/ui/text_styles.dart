@@ -9,7 +9,7 @@ final displaySmall = _baseFont.copyWith(fontSize: 36, height: 44 / 36);
 
 final headlineLarge = _baseFont.copyWith(fontSize: 32, height: 36 / 28);
 final headlineMedium = _baseFont.copyWith(fontSize: 28, height: 36 / 28);
-final headlineSmal = _baseFont.copyWith(fontSize: 24, height: 32 / 24);
+final headlineSmall = _baseFont.copyWith(fontSize: 24, height: 32 / 24);
 
 final titleLarge = _baseFont.copyWith(fontSize: 22, height: 28 / 22);
 final titleMedium = _baseFont.copyWith(fontSize: 16, height: 24 / 16);
@@ -28,15 +28,15 @@ final textTheme = TextTheme(
   displayMedium: displayMedium,
   displaySmall: displaySmall,
   headlineLarge: headlineLarge,
-  headlineMedium: headlineLarge,
-  headlineSmall: headlineMedium,
-  titleLarge: headlineSmal,
-  titleMedium: titleLarge,
-  titleSmall: titleMedium,
+  headlineMedium: headlineMedium,
+  headlineSmall: headlineSmall,
+  titleLarge: titleLarge,
+  titleMedium: titleMedium,
+  titleSmall: titleSmall,
   bodyLarge: bodyLarge,
   bodyMedium: bodyMedium,
-  bodySmall: labelLarge,
-  labelLarge: titleSmall,
+  bodySmall: bodySmall,
+  labelLarge: labelLarge,
   labelMedium: labelMedium,
-  labelSmall: labelMedium,
+  labelSmall: labelSmall,
 );
