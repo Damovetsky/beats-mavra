@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.dart';
@@ -16,51 +17,53 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: currentPageIndex,
-        children: [
-          Container(),
-          Container(),
-          const ProfilePage(),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: <Widget>[
-          const NavigationDestination(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: 'Search',
-          ),
-          BouncingGestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 52,
-              width: 52,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: lightColorScheme.secondaryContainer,
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        body: IndexedStack(
+          index: currentPageIndex,
+          children: [
+            Container(),
+            Container(),
+            const ProfilePage(),
+          ],
+        ),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          selectedIndex: currentPageIndex,
+          destinations: <Widget>[
+            const NavigationDestination(
+              icon: Icon(
+                Icons.search,
               ),
-              child: const Icon(
-                Icons.add,
-                size: 32,
+              label: 'Search',
+            ),
+            BouncingGestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 52,
+                width: 52,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: currentColorScheme(context).secondaryContainer,
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 32,
+                ),
               ),
             ),
-          ),
-          const NavigationDestination(
-            icon: Icon(
-              Icons.person,
+            const NavigationDestination(
+              icon: Icon(
+                Icons.person,
+              ),
+              label: 'Profile',
             ),
-            label: 'Profile',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

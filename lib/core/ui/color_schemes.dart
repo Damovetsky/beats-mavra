@@ -1,19 +1,6 @@
-import 'text_styles.dart';
 import 'package:flutter/material.dart';
 
 ColorScheme currentColorScheme(context) => Theme.of(context).colorScheme;
-
-final lightTheme = ThemeData(
-  useMaterial3: true,
-  colorScheme: lightColorScheme,
-  textTheme: textTheme,
-);
-
-final darkTheme = ThemeData(
-  useMaterial3: true,
-  colorScheme: darkColorScheme,
-  textTheme: textTheme,
-);
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,

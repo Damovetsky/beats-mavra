@@ -1,9 +1,9 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'core/ui/color_schemes.dart';
 
 import 'core/di/di.dart';
+import 'core/ui/theme.dart';
 import 'view/home_page/home_page.dart';
 
 Future<void> main() async {
@@ -30,6 +30,7 @@ class App extends StatelessWidget {
       initTheme: lightTheme,
       builder: (context, theme) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'app_title'.tr(),
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
