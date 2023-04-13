@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../../entity/beat_entity.freezed.dart';
+part 'beat_entity.freezed.dart';
 
 @freezed
 class BeatEntity with _$BeatEntity {
