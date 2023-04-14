@@ -10,6 +10,7 @@ import 'exceptions.dart';
 abstract class AuthService {
   void createUserWithEmailAndPassword(String emailAddress, String password);
   void signInWithEmailAndPassword(String emailAddress, String password);
+  String getUserID();
   void signOut();
 
   void signInWithGoogle();
@@ -88,6 +89,7 @@ class AuthServiceImpl implements AuthService {
     await FirebaseAuth.instance.signOut();
   }
 
+  @override
   String getUserID() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -95,5 +97,4 @@ class AuthServiceImpl implements AuthService {
     }
     return user.uid;
   }
-
 }
