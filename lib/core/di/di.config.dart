@@ -17,7 +17,8 @@ import 'package:beats/domain/auth/repository/auth_repository.dart' as _i3;
 import 'package:beats/domain/beats/repository/beats_repository.dart' as _i5;
 import 'package:beats/domain/profile/repository/profile_repository.dart' as _i7;
 import 'package:beats/domain/users/repository/users_repository.dart' as _i10;
-import 'package:beats/view/splash_screen/cubit/cubit.dart' as _i9;
+import 'package:beats/view/profile_page/cubit/cubit.dart' as _i12;
+import 'package:beats/view/splash_page/cubit/cubit.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -37,6 +38,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i7.ProfileRepository>(() => _i8.ProfileRepositoryImpl());
     gh.factory<_i9.SplashCubit>(() => _i9.SplashCubit());
     gh.lazySingleton<_i10.UsersRepository>(() => _i11.UsersRepositoryImpl());
+    gh.factory<_i12.ProfileCubit>(
+        () => _i12.ProfileCubit(gh<_i7.ProfileRepository>()));
     return this;
   }
 }

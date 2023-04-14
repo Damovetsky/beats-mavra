@@ -1,0 +1,11 @@
+{
+    "app_title": "Beats",
+    "search_title": "Поиск",
+    "profile_title": "Профиль",
+    "profile_description_hint": "Опиши свой стиль",
+    "profile_your_purchases": "Ваши покупки",
+    "profile_your_beats": "Ваши биты",
+    "profile_favorite": "Избранное",
+    "profile_logout": "Выйти",
+    "profile_load_error": "Ошибка загрузка профиля"
+}

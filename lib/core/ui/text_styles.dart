@@ -3,25 +3,56 @@ import 'package:google_fonts/google_fonts.dart';
 
 final _baseFont = GoogleFonts.poppins();
 
-final displayLarge = _baseFont.copyWith(fontSize: 57, height: 64 / 57);
-final displayMedium = _baseFont.copyWith(fontSize: 45, height: 52 / 45);
-final displaySmall = _baseFont.copyWith(fontSize: 36, height: 44 / 36);
+const double displayLargeSize = 57;
+const double displayMediumSize = 45;
+const double displaySmallSize = 36;
+const double displayLargeHeight = 64;
+const double displayMediumHeight = 52;
+const double displaySmallHeight = 44;
+final displayLarge = _baseFont.copyWith(fontSize: displayLargeSize, height: displayLargeHeight / displayLargeSize);
+final displayMedium = _baseFont.copyWith(fontSize: displayMediumSize, height: displayMediumHeight / displayMediumSize);
+final displaySmall = _baseFont.copyWith(fontSize: displaySmallSize, height: displaySmallHeight / displaySmallSize);
 
-final headlineLarge = _baseFont.copyWith(fontSize: 32, height: 36 / 28);
-final headlineMedium = _baseFont.copyWith(fontSize: 28, height: 36 / 28);
-final headlineSmall = _baseFont.copyWith(fontSize: 24, height: 32 / 24);
+const double headlineLargeSize = 32;
+const double headlineMediumSize = 28;
+const double headlineSmallSize = 24;
+const double headlineLargeHeight = 36;
+const double headlineMediumHeight = 36;
+const double headlineSmallHeight = 32;
+final headlineLarge = _baseFont.copyWith(fontSize: headlineLargeSize, height: headlineLargeHeight / headlineLargeSize);
+final headlineMedium =
+    _baseFont.copyWith(fontSize: headlineMediumSize, height: headlineMediumHeight / headlineMediumSize);
+final headlineSmall = _baseFont.copyWith(fontSize: headlineSmallSize, height: headlineSmallHeight / headlineSmallSize);
 
-final titleLarge = _baseFont.copyWith(fontSize: 22, height: 28 / 22);
-final titleMedium = _baseFont.copyWith(fontSize: 16, height: 24 / 16);
-final titleSmall = _baseFont.copyWith(fontSize: 14, height: 20 / 14);
+const double titleLargeSize = 22;
+const double titleMediumSize = 16;
+const double titleSmallSize = 14;
+const double titleLargeHeight = 28;
+const double titleMediumHeight = 24;
+const double titleSmallHeight = 20;
+final titleLarge = _baseFont.copyWith(fontSize: titleLargeSize, height: titleLargeHeight / titleLargeSize);
+final titleMedium = _baseFont.copyWith(fontSize: titleMediumSize, height: titleMediumHeight / titleMediumSize);
+final titleSmall = _baseFont.copyWith(fontSize: titleSmallSize, height: titleSmallHeight / titleSmallSize);
 
-final bodyLarge = _baseFont.copyWith(fontSize: 16, height: 24 / 16);
-final bodyMedium = _baseFont.copyWith(fontSize: 14, height: 20 / 14);
-final bodySmall = _baseFont.copyWith(fontSize: 12, height: 16 / 12);
+const double bodyLargeSize = 16;
+const double bodyMediumSize = 14;
+const double bodySmallSize = 12;
+const double bodyLargeHeight = 24;
+const double bodyMediumHeight = 20;
+const double bodySmallHeight = 16;
+final bodyLarge = _baseFont.copyWith(fontSize: bodyLargeSize, height: bodyLargeHeight / bodyLargeSize);
+final bodyMedium = _baseFont.copyWith(fontSize: bodyMediumSize, height: bodyMediumHeight / bodyMediumSize);
+final bodySmall = _baseFont.copyWith(fontSize: bodySmallSize, height: bodySmallHeight / bodySmallSize);
 
-final labelLarge = _baseFont.copyWith(fontSize: 14, height: 20 / 14);
-final labelMedium = _baseFont.copyWith(fontSize: 12, height: 16 / 12);
-final labelSmall = _baseFont.copyWith(fontSize: 11, height: 16 / 11);
+const double labelLargeSize = 14;
+const double labelMediumSize = 12;
+const double labelSmallSize = 11;
+const double labelLargeHeight = 20;
+const double labelMediumHeight = 16;
+const double labelSmallHeight = 16;
+final labelLarge = _baseFont.copyWith(fontSize: labelLargeSize, height: labelLargeHeight / labelLargeSize);
+final labelMedium = _baseFont.copyWith(fontSize: labelMediumSize, height: labelMediumHeight / labelMediumSize);
+final labelSmall = _baseFont.copyWith(fontSize: labelSmallSize, height: labelSmallHeight / labelSmallSize);
 
 final textTheme = TextTheme(
   displayLarge: displayLarge,
@@ -40,3 +71,5 @@ final textTheme = TextTheme(
   labelMedium: labelMedium,
   labelSmall: labelSmall,
 );
+
+TextTheme currentTextStyle(context) => Theme.of(context).textTheme;

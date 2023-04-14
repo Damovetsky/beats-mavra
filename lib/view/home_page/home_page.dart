@@ -1,66 +1,75 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
-import '../../main.dart';
+import '../profile_page/profile_page.dart';
+
+final _pagesGlobalKey = GlobalKey();
+
+const pages = [
+  SizedBox(),
+  SizedBox(),
+  ProfilePage(),
+];
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Placeholder(),
-      appBar: AppBar(
-        title: Text(
-          'app_title'.tr(),
-          style: const TextStyle(),
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        body: IndexedStack(
+          key: _pagesGlobalKey,
+          index: currentPageIndex,
+          children: pages,
         ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: <Widget>[
-          const NavigationDestination(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: 'Search',
-          ),
-          BouncingGestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 52,
-              width: 52,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: lightColorScheme.secondaryContainer,
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          selectedIndex: currentPageIndex,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: const Icon(
+                Icons.search,
               ),
-              child: const Icon(
-                Icons.add,
-                size: 32,
+              label: 'search_title'.tr(),
+            ),
+            BouncingGestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 52,
+                width: 52,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: currentColorScheme(context).secondaryContainer,
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 32,
+                ),
               ),
             ),
-          ),
-          const NavigationDestination(
-            icon: Icon(
-              Icons.person,
+            NavigationDestination(
+              icon: const Icon(
+                Icons.person,
+              ),
+              label: 'profile_title'.tr(),
             ),
-            label: 'Profile',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
