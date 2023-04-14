@@ -30,14 +30,16 @@ class BeatsServiceImpl implements BeatsService {
         .set(beatModel.toJson())
         .then((value) => getBeat(beatModel.beatId))
         .onError(
-          (FirebaseException error, stackTrace) => throw BeatsException(),
+          (FirebaseException error, stackTrace) =>
+              throw BeatsExceptionFactory().generateException(error.code),
         );
   }
 
   @override
   Future<void> deleteBeat(String beatId) async {
     return beatsCollection.doc(beatId).delete().then((value) => null).onError(
-          (FirebaseException error, stackTrace) => throw BeatsException(),
+          (FirebaseException error, stackTrace) =>
+              throw BeatsExceptionFactory().generateException(error.code),
         );
   }
 
@@ -49,10 +51,11 @@ class BeatsServiceImpl implements BeatsService {
         .then(
           (value) => value.exists
               ? BeatModel.fromJson(value.data()!)
-              : throw BeatsException(),
+              : throw BeatsExceptionFactory().generateException('not-found'),
         )
         .onError(
-          (FirebaseException error, stackTrace) => throw BeatsException(),
+          (FirebaseException error, stackTrace) =>
+              throw BeatsExceptionFactory().generateException(error.code),
         );
   }
 
@@ -75,7 +78,8 @@ class BeatsServiceImpl implements BeatsService {
               .toList(growable: false),
         )
         .onError(
-          (FirebaseException error, stackTrace) => throw BeatsException(),
+          (FirebaseException error, stackTrace) =>
+              throw BeatsExceptionFactory().generateException(error.code),
         );
   }
 
@@ -87,9 +91,9 @@ class BeatsServiceImpl implements BeatsService {
           .set(beatModel.toJson())
           .then((value) => getBeat(beatModel.beatId))
           .onError(
-            (FirebaseException error, stackTrace) => throw BeatsException(),
-          )
-          .onError((error, stackTrace) => throw BeatsException()),
+            (FirebaseException error, stackTrace) =>
+                throw BeatsExceptionFactory().generateException(error.code),
+          ),
     );
   }
 }
