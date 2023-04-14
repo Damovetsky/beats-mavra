@@ -46,7 +46,8 @@ class AppImage extends StatelessWidget {
             child: Icon(Icons.error),
           );
         } else {
-          throw UnsupportedError('Unsupported load state: ${state.extendedImageLoadState.name}');
+          assert(false, 'Unsupported load state: ${state.extendedImageLoadState.name}');
+          return const SizedBox.shrink();
         }
 
         return AnimatedSwitcher(

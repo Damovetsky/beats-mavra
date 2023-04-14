@@ -15,8 +15,6 @@ class LocaleBuilder extends StatefulWidget {
   State<LocaleBuilder> createState() => LocaleBuilderState();
 }
 
-
-
 class LocaleBuilderState extends State<LocaleBuilder> {
   void updateLocale(Locale locale) {
     setState(() {

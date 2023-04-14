@@ -77,8 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.only(
                   left: screenHorizontalMargin,
                   right: screenHorizontalMargin,
-                  top: 8,
-                  bottom: 32,
+                  top: screenTopScrollPadding,
+                  bottom: screenBottomScrollPadding,
                 ),
                 children: [
                   Row(
@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           ShimmerBuilder(
                             data: state.mapOrNull(profile: (value) => value.user.avatarUrl),
-                            loadingChild: circleShimmer(_profileAvatarSize / 2),
+                            loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
                             builder: (context, data) {
                               return EditableAvatar(
                                 size: _profileAvatarSize,
@@ -118,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   data: state.mapOrNull(
                                     profile: (value) => value.user.nickname,
                                   ),
-                                  loadingChild: circleBordersShimmer(height: titleLargeHeight),
+                                  loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
                                   builder: (context, data) {
                                     return Row(
                                       children: [
@@ -139,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   data: state.mapOrNull(
                                     profile: (value) => 'example@example.com',
                                   ),
-                                  loadingChild: circleBordersShimmer(height: titleLargeHeight),
+                                  loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
                                   builder: (context, data) {
                                     return Text(
                                       data,
@@ -161,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     data: state.mapOrNull(
                       profile: (value) => value.user.description,
                     ),
-                    loadingChild: borderRadiusShimmer(
+                    loadingChild: BorderRadiusShimmer(
                       height: 96,
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -211,12 +211,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    print("dispose");
-    super.dispose();
-  }
 }
 
 class _ProfileThemeButton extends StatelessWidget {
@@ -248,6 +242,8 @@ class _ProfileLanguagePopupButton extends StatelessWidget {
       onSelected: (locale) {
         localeGlobalKey.currentState?.updateLocale(locale);
       },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 1,
       icon: const Icon(Icons.language),
       itemBuilder: (context) {
         return context.supportedLocales.map(
@@ -294,7 +290,7 @@ class _ProfileBalance extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerBuilder(
       data: balance,
-      loadingChild: circleBordersShimmer(height: 32, width: _profileAvatarSize),
+      loadingChild: const CircleBordersShimmer(height: 32, width: _profileAvatarSize),
       builder: (context, data) {
         return Container(
           height: 32,
