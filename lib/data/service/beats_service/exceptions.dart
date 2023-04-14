@@ -1,0 +1,1 @@
+class BeatsException implements Exception {}
