@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart'
     show kIsWeb;
+import 'package:injectable/injectable.dart';
 import '../../../core/error/exception.dart';
 import 'exceptions.dart';
 
@@ -17,6 +18,7 @@ abstract class AuthService {
   void signInWithApple();
 }
 
+@Injectable(as: AuthService)
 class AuthServiceImpl implements AuthService {
 
   @override
