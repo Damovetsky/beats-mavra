@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           ShimmerBuilder(
-                            data: state.mapOrNull(profile: (value) => value.user.avatarUrl),
+                            data: state.mapOrNull(profile: (value) => value.profile.user.avatarUrl),
                             loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
                             builder: (context, data) {
                               return EditableAvatar(
@@ -116,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Expanded(
                                 child: ShimmerBuilder(
                                   data: state.mapOrNull(
-                                    profile: (value) => value.user.nickname,
+                                    profile: (value) => value.profile.user.nickname,
                                   ),
                                   loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
                                   builder: (context, data) {
@@ -136,9 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               const SizedBox(height: 4),
                               Expanded(
                                 child: ShimmerBuilder(
-                                  data: state.mapOrNull(
-                                    profile: (value) => 'example@example.com',
-                                  ),
+                                  data: state.mapOrNull(profile: (value) => value.profile.email),
                                   loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
                                   builder: (context, data) {
                                     return Text(
@@ -159,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 24),
                   ShimmerBuilder(
                     data: state.mapOrNull(
-                      profile: (value) => value.user.description,
+                      profile: (value) => value.profile.user.description,
                     ),
                     loadingChild: BorderRadiusShimmer(
                       height: 96,
