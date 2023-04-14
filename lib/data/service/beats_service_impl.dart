@@ -1,61 +1,96 @@
-import 'package:uuid/uuid.dart';
-
+import 'package:dartz/dartz.dart';
+import '../../core/error/failure.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 import '../../domain/beats/service/beats_service.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseError extends Error {}
+class BeatsFailure extends Failure {
+  late String msg;
+
+  BeatsFailure(String message) {
+    msg = message;
+  }
+
+  @override
+  get message => msg;
+}
 
 class BeatsFirbase implements BeatsService {
   final beatsCollection = FirebaseFirestore.instance.collection('beats');
 
   @override
-  Future<BeatEntity> createBeat(CreateBeat createBeat) async {
-    final jsonData = createBeat.toJson();
-    jsonData['beatId'] = const Uuid().v4();
-
-    await beatsCollection.doc(jsonData['beatId']).set(jsonData);
-    return await getBeat(jsonData['beatId']);
-  }
-
-  @override
-  Future<void> deleteBeat(String beatId) async {
-    await beatsCollection.doc(beatId).delete();
-  }
-
-  @override
-  Future<BeatEntity> getBeat(String beatId) async {
-    return await beatsCollection.doc(beatId).get().then(
-          (snapshot) => BeatEntity.fromJson(snapshot.data()!),
+  Future<Either<Failure, BeatEntity>> createBeat(BeatEntity beatEntity) {
+    return beatsCollection
+        .doc(beatEntity.beatId)
+        .set(beatEntity.toJson())
+        .then((value) => getBeat(beatEntity.beatId))
+        .onError(
+          (FirebaseException error, stackTrace) =>
+              left(BeatsFailure(error.code + (error.message ?? ''))),
         );
   }
 
   @override
-  Future<List<BeatEntity>> getBeats({
+  Future<Either<Failure, void>> deleteBeat(String beatId) {
+    return beatsCollection
+        .doc(beatId)
+        .delete()
+        .then((value) => right(null) as Either<Failure, void>)
+        .onError(
+          (FirebaseException error, stackTrace) =>
+              left(BeatsFailure(error.code + (error.message ?? ''))),
+        );
+  }
+
+  @override
+  Future<Either<Failure, BeatEntity>> getBeat(String beatId) {
+    return beatsCollection
+        .doc(beatId)
+        .get()
+        .then(
+          (value) => right(BeatEntity.fromJson(value.data()!))
+              as Either<Failure, BeatEntity>,
+        )
+        .onError(
+          (FirebaseException error, stackTrace) =>
+              left(BeatsFailure(error.code)),
+        );
+  }
+
+  @override
+  Future<Either<Failure, List<BeatEntity>>> getBeats({
     BeatEntity? lastVisible,
     int limit = 25,
-  }) async {
+  }) {
     final cursor = lastVisible == null
         ? beatsCollection.orderBy('beatId').limit(limit)
         : beatsCollection
             .orderBy('beatId')
             .limit(limit)
             .startAfter([lastVisible.beatId]);
-    return await cursor.get().then((snapshots) =>
-        snapshots.docs.map((element) => BeatEntity.fromJson(element.data())).toList(growable: false),);
+    return cursor
+        .get()
+        .then(
+          (snapshots) => right(
+            snapshots.docs
+                .map((element) => BeatEntity.fromJson(element.data()))
+                .toList(growable: false),
+          ) as Either<Failure, List<BeatEntity>>,
+        )
+        .onError((FirebaseException error, stackTrace) =>
+            left(BeatsFailure(error.code + (error.message ?? ''))));
   }
 
   @override
-  Future<BeatEntity> updateBeat(String beatId, UpdateBeat updateBeat) async {
-    final beat = await beatsCollection.doc(beatId).get().then(
-          (snapshot) => BeatEntity.fromJson(snapshot.data()!),
+  Future<Either<Failure, BeatEntity>> updateBeat(BeatEntity beatEntity) async {
+    return beatsCollection
+        .doc(beatEntity.beatId)
+        .set(beatEntity.toJson())
+        .then((value) => getBeat(beatEntity.beatId))
+        .onError(
+          (FirebaseException error, stackTrace) =>
+              left(BeatsFailure(error.code + (error.message ?? ''))),
         );
-    final oldData = beat.toJson();
-    final newData = updateBeat.toJson();
-    newData['beatId'] = oldData['beatId'];
-    newData['authorId'] = oldData['authorId'];
-    await beatsCollection.doc(newData['beatId']).set(newData);
-    return await getBeat(newData['beatId']);
   }
 }

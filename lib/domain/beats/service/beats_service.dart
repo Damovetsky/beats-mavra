@@ -1,12 +1,15 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../core/error/failure.dart';
 import '../entity/beat_entity.dart';
 
 abstract class BeatsService {
-  Future<List<BeatEntity>> getBeats({
+  Future<Either<Failure, List<BeatEntity>>> getBeats({
     BeatEntity? lastVisible,
     int limit = 25,
   });
-  Future<BeatEntity> createBeat(CreateBeat createBeat);
-  Future<BeatEntity> getBeat(String beatId);
-  Future<BeatEntity> updateBeat(String beatId, UpdateBeat updateBeat);
-  Future<void> deleteBeat(String beatId);
+  Future<Either<Failure, BeatEntity>> createBeat(BeatEntity createBeat);
+  Future<Either<Failure, BeatEntity>> getBeat(String beatId);
+  Future<Either<Failure, BeatEntity>> updateBeat(BeatEntity updateBeat);
+  Future<Either<Failure, void>> deleteBeat(String beatId);
 }
