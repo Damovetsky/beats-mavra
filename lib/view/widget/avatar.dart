@@ -17,7 +17,7 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (url != null) {
+    if (url == null) {
       return Container(
         height: size,
         width: size,

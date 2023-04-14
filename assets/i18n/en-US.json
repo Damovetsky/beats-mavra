@@ -6,5 +6,6 @@
     "profile_your_purchases": "Your purchases",
     "profile_your_beats": "Your beats",
     "profile_favorite": "Favorite",
-    "profile_logout": "Logout"
+    "profile_logout": "Logout",
+    "profile_load_error": "Failed to load profile"
 }

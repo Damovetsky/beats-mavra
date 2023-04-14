@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:beats/view/profile_page/profile_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
     return ThemeProvider(
       initTheme: lightTheme,
       builder: (context, theme) {

@@ -26,7 +26,36 @@ class AppImage extends StatelessWidget {
       borderRadius: borderRadius,
       shape: BoxShape.rectangle,
       fit: fit,
-      loadStateChanged: (state) {},
+      loadStateChanged: (state) {
+        final Widget child;
+
+        if (state.extendedImageLoadState == LoadState.loading) {
+          child = const Center(
+            child: SizedBox(
+              height: 24,
+              width: 24,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+          );
+        } else if (state.extendedImageLoadState == LoadState.completed) {
+          child = state.completedWidget;
+        } else if (state.extendedImageLoadState == LoadState.failed) {
+          child = const Center(
+            child: Icon(Icons.error),
+          );
+        } else {
+          throw UnsupportedError('Unsupported load state: ${state.extendedImageLoadState.name}');
+        }
+
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          switchInCurve: Curves.fastOutSlowIn,
+          switchOutCurve: Curves.fastOutSlowIn,
+          child: child,
+        );
+      },
     );
   }
 }

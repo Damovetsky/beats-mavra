@@ -6,5 +6,6 @@
     "profile_your_purchases": "Ваши покупки",
     "profile_your_beats": "Ваши биты",
     "profile_favorite": "Избранное",
-    "profile_logout": "Выйти"
+    "profile_logout": "Выйти",
+    "profile_load_error": "Ошибка загрузка профиля"
 }

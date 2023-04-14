@@ -6,14 +6,22 @@ import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../profile_page/profile_page.dart';
 
+final _pagesGlobalKey = GlobalKey();
+
+const pages = [
+  SizedBox(),
+  SizedBox(),
+  ProfilePage(),
+];
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   @override
@@ -21,12 +29,9 @@ class _HomePageState extends State<HomePage> {
     return ThemeSwitchingArea(
       child: Scaffold(
         body: IndexedStack(
+          key: _pagesGlobalKey,
           index: currentPageIndex,
-          children: [
-            Container(),
-            Container(),
-            const ProfilePage(),
-          ],
+          children: pages,
         ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
