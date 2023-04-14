@@ -3,13 +3,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/const.dart';
 import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
+import '../../main.dart';
 import '../widget/avatar.dart';
 import 'cubit/cubit.dart';
+import 'widget/editable_avatar.dart';
 
 const double _profileAvatarSize = 96;
 
@@ -44,42 +47,65 @@ class _ProfilePageState extends State<ProfilePage> {
                       builder: (context, state, theme) {
                         return IconButton(
                           onPressed: () {
-                            state.changeTheme(theme: theme == lightTheme ? darkTheme : lightTheme);
+                            state.changeTheme(
+                                theme: theme == lightTheme ? darkTheme : lightTheme, isReversed: theme != lightTheme);
                           },
                           icon: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 200),
                             child: Icon(
                               key: ValueKey(theme),
-                              theme != lightTheme ? Icons.dark_mode : Icons.dark_mode_outlined,
+                              theme != lightTheme ? Icons.sunny : Icons.dark_mode_outlined,
                             ),
                           ),
                         );
                       },
                     ),
-                    // Transform.scale(
-                    //   scale: 0.75,
-                    //   child: ThemeSwitcher.withTheme(
-                    //     builder: (context, state, theme) {
-                    //       return Switch(
-                    //         value: theme != lightTheme,
-                    //         onChanged: (isLight) {
-                    //           state.changeTheme(theme: isLight ? darkTheme : lightTheme);
-                    //         },
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                   ],
                 ),
               ],
             ),
             actions: [
-              const SizedBox(width: 8),
+              PopupMenuButton(
+                onSelected: (locale) {
+                  localeGlobalKey.currentState?.updateLocale(locale);
+                },
+                icon: const Icon(Icons.language),
+                itemBuilder: (context) {
+                  return context.supportedLocales.map(
+                    (locale) {
+                      String? flag;
+                      if (locale.countryCode != null) {
+                        flag = locale.countryCode!.toUpperCase().replaceAllMapped(
+                              RegExp(r'[A-Z]'),
+                              (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397),
+                            );
+                      }
+
+                      return PopupMenuItem(
+                        value: locale,
+                        child: Row(
+                          children: [
+                            Text(
+                              '$flag',
+                              style: currentTextStyle(context).headlineSmall,
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              '${languageLocalizedNames[locale.countryCode]}',
+                              style: currentTextStyle(context).bodyMedium?.copyWith(),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(growable: false);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(right: screenHorizontalMargin),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.logout),
+                  icon: const Icon(Icons.logout),
                 ),
               ),
             ],
@@ -97,7 +123,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Column(
                     children: [
-                      Avatar(size: _profileAvatarSize, url: "https://picsum.photos/200/300"),
+                      EditableAvatar(
+                        size: _profileAvatarSize,
+                        url: 'https://picsum.photos/200/300',
+                      ),
                       const SizedBox(height: 12),
                       Container(
                         height: 32,
@@ -160,23 +189,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 controller: _descriptionController,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  hintText: 'Опишите ваш стиль',
-                  // labelText: 'Описание',
+                  hintText: 'profile_description_hint'.tr(),
                 ),
               ),
               const SizedBox(height: 24),
-              const _ProfilePageTile(
-                title: 'Ваши покупки',
+              _ProfilePageTile(
+                title: 'profile_your_purchases'.tr(),
                 icon: Icons.shopping_cart,
               ),
               const SizedBox(height: 8),
-              const _ProfilePageTile(
-                title: 'Ваши биты',
+              _ProfilePageTile(
+                title: 'profile_your_beats'.tr(),
                 icon: Icons.folder_special,
               ),
               const SizedBox(height: 8),
-              const _ProfilePageTile(
-                title: 'Избранное',
+              _ProfilePageTile(
+                title: 'profile_favorite'.tr(),
                 icon: Icons.favorite,
               ),
             ],
@@ -185,13 +213,11 @@ class _ProfilePageState extends State<ProfilePage> {
           floatingActionButton: Padding(
             padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
             child: FilledButton(
-              onPressed: () {
-                EasyLocalization.of(context)?.setLocale(Locale('en'));
-              },
+              onPressed: () {},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Выйти'),
+                  Text('profile_logout'.tr()),
                 ],
               ),
             ),

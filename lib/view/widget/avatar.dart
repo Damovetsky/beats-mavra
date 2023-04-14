@@ -6,11 +6,13 @@ import '../../core/ui/kit/image.dart';
 class Avatar extends StatelessWidget {
   final double size;
   final String? url;
+  final IconData icon;
 
   const Avatar({
     super.key,
     required this.size,
     required this.url,
+    this.icon = Icons.person,
   });
 
   @override
@@ -24,9 +26,9 @@ class Avatar extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          Icons.person,
+          icon,
           color: currentColorScheme(context).primary,
-          size: size / 2,
+          size: size / 3,
         ),
       );
     }

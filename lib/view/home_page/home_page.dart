@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.dart';
@@ -35,11 +36,11 @@ class _HomePageState extends State<HomePage> {
           },
           selectedIndex: currentPageIndex,
           destinations: <Widget>[
-            const NavigationDestination(
-              icon: Icon(
+            NavigationDestination(
+              icon: const Icon(
                 Icons.search,
               ),
-              label: 'Search',
+              label: 'search_title'.tr(),
             ),
             BouncingGestureDetector(
               onTap: () {},
@@ -56,11 +57,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const NavigationDestination(
-              icon: Icon(
+            NavigationDestination(
+              icon: const Icon(
                 Icons.person,
               ),
-              label: 'Profile',
+              label: 'profile_title'.tr(),
             ),
           ],
         ),

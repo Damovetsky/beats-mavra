@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
 import 'core/ui/theme.dart';
+import 'locale_builder.dart';
 import 'view/home_page/home_page.dart';
+
+const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
 Future<void> main() async {
   configureDependencies();
@@ -13,9 +16,9 @@ Future<void> main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('ru'), Locale('en')],
+      supportedLocales: const [Locale('ru', 'RU'), Locale('en', 'US')],
       path: 'assets/i18n',
-      fallbackLocale: const Locale('ru'),
+      fallbackLocale: const Locale('ru', 'RU'),
       child: const App(),
     ),
   );
@@ -29,13 +32,19 @@ class App extends StatelessWidget {
     return ThemeProvider(
       initTheme: lightTheme,
       builder: (context, theme) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'app_title'.tr(),
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          theme: theme,
-          home: const HomePage(),
+        return LocaleBuilder(
+          key: localeGlobalKey,
+          builder: (context, locale) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'app_title'.tr(),
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: locale,
+              theme: theme,
+              home: const HomePage(),
+            );
+          },
         );
       },
     );
