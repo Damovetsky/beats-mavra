@@ -44,14 +44,14 @@ class AuthServiceImpl implements AuthService {
           email: emailAddress,
           password: password,
       );
+      // return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw NotFoundUserException();
       } else if (e.code == 'wrong-password') {
         throw PasswordWrongException();
-      } else {
-        throw UnknownException();
       }
+      throw UnknownException();
     }
   }
 
@@ -87,4 +87,13 @@ class AuthServiceImpl implements AuthService {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
+
+  String getUserID() {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw UnknownException();
+    }
+    return user.uid;
+  }
+
 }
