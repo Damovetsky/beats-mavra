@@ -1,13 +1,24 @@
-import 'package:flutter/foundation.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'core/ui/color_schemes.dart';
 
 import 'core/di/di.dart';
-import 'core/ui/color_schemes.g.dart';
 import 'view/home_page/home_page.dart';
 
-void main() {
+Future<void> main() async {
   configureDependencies();
-  runApp(const App());
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('ru'), Locale('en')],
+      path: 'assets/i18n',
+      fallbackLocale: const Locale('ru'),
+      child: const App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -15,11 +26,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Beats',
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: HomePage(),
+    return ThemeProvider(
+      initTheme: lightTheme,
+      builder: (context, theme) {
+        return MaterialApp(
+          title: 'app_title'.tr(),
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          theme: theme,
+          home: const HomePage(),
+        );
+      },
     );
   }
 }

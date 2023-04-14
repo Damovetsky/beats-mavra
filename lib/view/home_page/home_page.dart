@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/ui/color_schemes.g.dart';
+import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../main.dart';
 
@@ -19,10 +20,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: const Placeholder(),
       appBar: AppBar(
-        title: const Text(
-          'Beats',
-          style: TextStyle(
-          ),
+        title: Text(
+          'app_title'.tr(),
+          style: const TextStyle(),
         ),
       ),
       bottomNavigationBar: NavigationBar(
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         destinations: <Widget>[
           const NavigationDestination(
             icon: Icon(
-                Icons.search,
+              Icons.search,
             ),
             label: 'Search',
           ),
@@ -48,12 +48,15 @@ class _HomePageState extends State<HomePage> {
                 shape: BoxShape.circle,
                 color: lightColorScheme.secondaryContainer,
               ),
-              child: const Icon(Icons.add, size: 32,),
+              child: const Icon(
+                Icons.add,
+                size: 32,
+              ),
             ),
           ),
           const NavigationDestination(
             icon: Icon(
-                Icons.person,
+              Icons.person,
             ),
             label: 'Profile',
           ),
