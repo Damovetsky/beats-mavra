@@ -21,7 +21,12 @@ abstract class BeatsService {
 
 @Injectable(as: BeatsService)
 class BeatsServiceImpl implements BeatsService {
-  final beatsCollection = FirebaseFirestore.instance.collection('beats');
+  final FirebaseFirestore firestoreInstance;
+  late CollectionReference<Map<String, dynamic>> beatsCollection;
+
+  BeatsServiceImpl(this.firestoreInstance) {
+    beatsCollection = firestoreInstance.collection('beats');
+  }
 
   @override
   Future<BeatModel> createBeat(BeatModel beatModel) async {
