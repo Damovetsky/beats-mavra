@@ -1,8 +1,9 @@
-import 'package:dartz/dartz.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import './models/beat_model.dart';
 import './exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 
 abstract class BeatsService {
   Future<List<BeatModel>> getBeats({
@@ -17,14 +18,19 @@ abstract class BeatsService {
   Future<BeatModel> updateBeat(BeatModel beatModel);
 
   Future<void> deleteBeat(String beatId);
+
+  Future<UploadTask> uploadFile(String beatId, String filePath);
+
+  Future<DownloadTask> downloadFile(String downloadUrl, String destinationPath);
 }
 
 @Injectable(as: BeatsService)
 class BeatsServiceImpl implements BeatsService {
   final FirebaseFirestore firestoreInstance;
+  final FirebaseStorage firebaseStorage;
   late CollectionReference<Map<String, dynamic>> beatsCollection;
 
-  BeatsServiceImpl(this.firestoreInstance) {
+  BeatsServiceImpl(this.firestoreInstance, this.firebaseStorage) {
     beatsCollection = firestoreInstance.collection('beats');
   }
 
@@ -100,5 +106,20 @@ class BeatsServiceImpl implements BeatsService {
                 throw BeatsExceptionFactory().generateException(error.code),
           ),
     );
+  }
+
+  @override
+  Future<UploadTask> uploadFile(String beatId, String filePath) async {
+    final ref = firebaseStorage
+        .ref()
+        .child('beatsFiles/${beatId}/${filePath.split('.').last}');
+    return ref.putFile(File(filePath));
+  }
+
+  @override
+  Future<DownloadTask> downloadFile(
+      String downloadUrl, String destinationPath) async {
+    final ref = firebaseStorage.ref().child(downloadUrl);
+    return ref.writeToFile(File(destinationPath));
   }
 }
