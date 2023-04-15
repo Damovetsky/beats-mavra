@@ -14,8 +14,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<Either<Failure, UserEntity>> getProfile() async {
-    final t = authService.getUserID();
-
     return const Right(
       UserEntity(
         id: 'uuid',
