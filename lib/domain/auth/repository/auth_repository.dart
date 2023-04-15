@@ -4,22 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/error/failure.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, bool>> get isAuthorized;
 
-  Future<Either<Failure, User>> signIn({
+  Future<Either<Failure, void>> signIn({
     required String email,
     required String password,
   });
 
-  Future<Either<Failure, User>> signUp({
+  Future<Either<Failure, void>> signUp({
     required String nickname,
     required String email,
     required String password,
   });
 
-  Future<Either<Failure, User>> signInWithGoogle();
+  Future<Either<Failure, void>> signInWithGoogle();
 
-  Future<Either<Failure, User>> signInWithApple();
+  Future<Either<Failure, void>> signInWithApple();
 
   Future<Either<Failure, void>> logout();
 }

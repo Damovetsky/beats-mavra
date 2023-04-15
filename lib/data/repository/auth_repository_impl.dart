@@ -1,43 +1,73 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/error/failure.dart';
 import '../../domain/auth/repository/auth_repository.dart';
+import '../../domain/auth/repository/failure.dart';
+import '../service/auth_service/auth_service.dart';
+import '../service/auth_service/exceptions.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
-  @override
-  // TODO: implement isAuthorized
-  Future<Either<Failure, bool>> get isAuthorized async => const Right(false);
+
+  final AuthService authService;
+  AuthRepositoryImpl(this.authService);
 
   @override
-  Future<Either<Failure, User>> signIn({required String email, required String password}) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<Either<Failure, void>> signIn({required String email, required String password}) async {
+    try {
+      authService.signInWithEmailAndPassword(email, password);
+      return const Right(null);
+    } on AccountAlreadyExistsException {
+      return Left(AccountAlreadyExistsFailure());
+    } on PasswordIsWeakException {
+      return Left(AccountAlreadyExistsFailure());
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, User>> signUp({required String nickname, required String email, required String password}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
+    try {
+      authService.createUserWithEmailAndPassword(email, password);
+      return const Right(null);
+    } on NotFoundUserException {
+      return Left(EmailNotFoundFailure());
+    } on PasswordWrongException {
+      return Left(WrongPasswordFailure());
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
   }
 
-  @override
-  Future<Either<Failure, User>> signInWithApple() {
-    // TODO: implement signInWithApple
-    throw UnimplementedError();
-  }
+    @override
+    Future<Either<Failure, void>> signInWithApple() async {
+      try {
+        authService.signInWithApple();
+        return const Right(null);
+      } catch (_) {
+        return Left(UnknownFailure());
+      }
+    }
 
-  @override
-  Future<Either<Failure, User>> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
-  }
+    @override
+    Future<Either<Failure, void>> signInWithGoogle() async {
+      try {
+        authService.signInWithGoogle();
+        return const Right(null);
+      } catch (_) {
+        return Left(UnknownFailure());
+      }
+    }
 
-  @override
-  Future<Either<Failure, void>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+    @override
+    Future<Either<Failure, void>> logout() async {
+      try {
+        authService.signOut();
+        return const Right(null);
+      } catch (_) {
+        return Left(UnknownFailure());
+      }
   }
 }
