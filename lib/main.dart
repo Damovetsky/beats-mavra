@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:beats/view/profile_page/profile_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
@@ -11,8 +12,8 @@ import 'view/home_page/home_page.dart';
 const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
 Future<void> main() async {
-  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   await EasyLocalization.ensureInitialized();
 
   runApp(
@@ -30,7 +31,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return ThemeProvider(
       initTheme: lightTheme,
       builder: (context, theme) {

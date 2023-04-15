@@ -4,9 +4,14 @@ import 'package:injectable/injectable.dart';
 import '../../domain/entity/user_entity.dart';
 import '../../core/error/failure.dart';
 import '../../domain/profile/repository/profile_repository.dart';
+import '../service/auth_sevice/auth_service.dart';
 
 @LazySingleton(as: ProfileRepository)
 class ProfileRepositoryImpl extends ProfileRepository {
+  final AuthService authService;
+
+  ProfileRepositoryImpl(this.authService);
+
   @override
   Future<Either<Failure, UserEntity>> getProfile() async {
     return const Right(
