@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/shimmer_builder.dart';
+import '../../core/ui/kit/snackbar.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
 import '../../main.dart';
@@ -71,7 +73,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          body: BlocBuilder<ProfileCubit, ProfileState>(
+          body: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              unawaited(
+                state.mapOrNull(
+                  failure: (value) async {
+                    showSnackbar(
+                      context,
+                      title: 'profile_unknown_error_title'.tr(),
+                      message: 'profile_unknown_error_message'.tr(),
+                      position: FlushbarPosition.TOP,
+                    );
+                  },
+                ),
+              );
+            },
             builder: (context, state) {
               return ListView(
                 padding: const EdgeInsets.only(

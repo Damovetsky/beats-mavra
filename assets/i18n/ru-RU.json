@@ -2,6 +2,8 @@
     "app_title": "Beats",
     "search_title": "Поиск",
     "profile_title": "Профиль",
+    "profile_unknown_error_title": "Неизвестная ошибка",
+    "profile_unknown_error_message": "Пожалуйста, обратитесь в поддержку об этой ошибке",
     "profile_description_hint": "Опиши свой стиль",
     "profile_your_purchases": "Ваши покупки",
     "profile_your_beats": "Ваши биты",

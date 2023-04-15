@@ -2,6 +2,8 @@
     "app_title": "Beats",
     "search_title": "Search",
     "profile_title": "Profile",
+    "profile_unknown_error_title": "Unknown error",
+    "profile_unknown_error_message": "Please, ask the support about this issue",
     "profile_description_hint": "Describe your style",
     "profile_your_purchases": "Your purchases",
     "profile_your_beats": "Your beats",
