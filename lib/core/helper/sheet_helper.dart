@@ -36,15 +36,19 @@ class BottomSheetHelper {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Center(
                 child: Container(
-                  height: 6,
-                  width: 32,
-                  margin: const EdgeInsets.only(top: 16),
-                  decoration: BoxDecoration(
-                    color: currentColorScheme(context).onBackground.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(3),
+                  height: 36,
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: 6,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      color: currentColorScheme(context).onBackground.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
                   ),
                 ),
               ),
