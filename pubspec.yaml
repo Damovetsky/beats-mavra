@@ -24,7 +24,6 @@ dependencies:
   extended_image: ^7.0.2
   animated_theme_switcher: ^2.0.8
   shimmer: ^2.0.0
-  cloud_firestore: ^4.5.1
 
 dev_dependencies:
   flutter_test:
