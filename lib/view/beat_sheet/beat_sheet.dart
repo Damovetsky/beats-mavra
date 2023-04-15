@@ -141,9 +141,14 @@ class _BeatSheetState extends State<BeatSheet> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: screenBottomScrollPadding * 2,
+                const SizedBox(height: 32),
+                FilledButton(
+                  onPressed: () {},
+                  child: Center(
+                    child: Text('Создать'),
+                  ),
                 ),
+                const SizedBox(height: screenBottomScrollPadding * 2),
               ],
             ),
           ),
@@ -230,7 +235,9 @@ class _Genre extends StatelessWidget {
           onChanged: (genres) {
             onChanged(genres);
           },
-          onRemoved: (index) {},
+          onRemoved: (index) {
+            onChanged([...genres]..removeAt(index));
+          },
         ),
       ],
     );

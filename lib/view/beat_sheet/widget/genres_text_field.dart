@@ -68,10 +68,14 @@ class GenreTextField extends StatelessWidget {
                 );
               },
               optionsBuilder: (textEditingValue) {
-                return availableGenres.where(
-                  (element) =>
-                      element.toLowerCase().contains(textEditingValue.text) && textEditingValue.text.isNotEmpty,
-                );
+                return availableGenres
+                    .where(
+                      (element) => !genres.contains(element),
+                    )
+                    .where(
+                      (element) =>
+                          element.toLowerCase().contains(textEditingValue.text) && textEditingValue.text.isNotEmpty,
+                    );
               },
               fieldViewBuilder: (context, searchController, focusNode, onFieldSubmitted) {
                 searchControllerRef = searchController;
@@ -88,7 +92,7 @@ class GenreTextField extends StatelessWidget {
           },
         ),
         const SizedBox(height: 8),
-        AppTags(tags: genres)
+        AppTags(tags: genres, onRemove: onRemoved)
       ],
     );
   }

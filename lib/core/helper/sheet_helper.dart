@@ -18,7 +18,7 @@ class BottomSheetHelper {
       useRootNavigator: useRootNavigator,
       backgroundColor: backgroundColor ?? currentColorScheme(context).background,
       enableDrag: enableDrag,
-      barrierColor: currentColorScheme(context).shadow.withOpacity(0.1),
+      barrierColor: currentColorScheme(context).shadow.withOpacity(0.4),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
