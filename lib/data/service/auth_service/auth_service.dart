@@ -10,7 +10,7 @@ import 'exceptions.dart';
 abstract class AuthService {
   void createUserWithEmailAndPassword(String emailAddress, String password);
   void signInWithEmailAndPassword(String emailAddress, String password);
-  Stream<String> getUserID();
+  Stream<String?> getUserID();
   void signOut();
 
   void signInWithGoogle();
@@ -93,15 +93,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Stream<String> getUserID() {
-    final user = firebaseAuth.authStateChanges();
-
-    return user.map((event) {
-      if (event == null) {
-        throw UnknownException();
-      }
-
-      return event.uid;
-    });
+  Stream<String?> getUserID() {
+    return firebaseAuth.authStateChanges().map((user) => user?.uid);
   }
 }

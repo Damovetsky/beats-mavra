@@ -20,7 +20,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, void>> signInWithApple();
 
-  Future<Either<Failure, String>> getUserID();
+  Stream<String?> getUserID();
 
   Future<Either<Failure, void>> logout();
 }

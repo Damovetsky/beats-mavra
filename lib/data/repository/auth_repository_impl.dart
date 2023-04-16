@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../core/error/failure.dart';
 import '../../domain/auth/repository/auth_repository.dart';
@@ -73,13 +74,5 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> getUserID() async {
-    try {
-      final id = authService.getUserID();
-      return Right(id);
-    } catch (_) {
-      return Left(UnknownFailure());
-    }
-  }
-
+  Stream<String?> getUserID() => authService.getUserID();
 }
