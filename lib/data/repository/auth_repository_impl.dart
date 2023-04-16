@@ -31,6 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
     try {
       authService.createUserWithEmailAndPassword(email, password);
+      //TODO: req to User service (add nickname)
       return const Right(null);
     } on NotFoundUserException {
       return Left(EmailNotFoundFailure());
@@ -70,4 +71,15 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(UnknownFailure());
       }
   }
+
+  @override
+  Future<Either<Failure, String>> getUserID() async {
+    try {
+      final id = authService.getUserID();
+      return Right(id);
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
+  }
+
 }
