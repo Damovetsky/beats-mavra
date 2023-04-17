@@ -18,22 +18,22 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool hasText) signIn,
-    required TResult Function(bool hasText) signUp,
+    required TResult Function() signIn,
+    required TResult Function() signUp,
     required TResult Function(String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool hasText)? signIn,
-    TResult? Function(bool hasText)? signUp,
+    TResult? Function()? signIn,
+    TResult? Function()? signUp,
     TResult? Function(String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool hasText)? signIn,
-    TResult Function(bool hasText)? signUp,
+    TResult Function()? signIn,
+    TResult Function()? signUp,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) =>
@@ -84,8 +84,6 @@ abstract class _$$_AuthSignInStateCopyWith<$Res> {
   factory _$$_AuthSignInStateCopyWith(
           _$_AuthSignInState value, $Res Function(_$_AuthSignInState) then) =
       __$$_AuthSignInStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool hasText});
 }
 
 /// @nodoc
@@ -95,81 +93,57 @@ class __$$_AuthSignInStateCopyWithImpl<$Res>
   __$$_AuthSignInStateCopyWithImpl(
       _$_AuthSignInState _value, $Res Function(_$_AuthSignInState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hasText = null,
-  }) {
-    return _then(_$_AuthSignInState(
-      hasText: null == hasText
-          ? _value.hasText
-          : hasText // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_AuthSignInState implements _AuthSignInState {
-  const _$_AuthSignInState({required this.hasText});
-
-  @override
-  final bool hasText;
+  const _$_AuthSignInState();
 
   @override
   String toString() {
-    return 'AuthState.signIn(hasText: $hasText)';
+    return 'AuthState.signIn()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AuthSignInState &&
-            (identical(other.hasText, hasText) || other.hasText == hasText));
+        (other.runtimeType == runtimeType && other is _$_AuthSignInState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hasText);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthSignInStateCopyWith<_$_AuthSignInState> get copyWith =>
-      __$$_AuthSignInStateCopyWithImpl<_$_AuthSignInState>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool hasText) signIn,
-    required TResult Function(bool hasText) signUp,
+    required TResult Function() signIn,
+    required TResult Function() signUp,
     required TResult Function(String message) failure,
   }) {
-    return signIn(hasText);
+    return signIn();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool hasText)? signIn,
-    TResult? Function(bool hasText)? signUp,
+    TResult? Function()? signIn,
+    TResult? Function()? signUp,
     TResult? Function(String message)? failure,
   }) {
-    return signIn?.call(hasText);
+    return signIn?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool hasText)? signIn,
-    TResult Function(bool hasText)? signUp,
+    TResult Function()? signIn,
+    TResult Function()? signUp,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
     if (signIn != null) {
-      return signIn(hasText);
+      return signIn();
     }
     return orElse();
   }
@@ -210,13 +184,7 @@ class _$_AuthSignInState implements _AuthSignInState {
 }
 
 abstract class _AuthSignInState implements AuthState {
-  const factory _AuthSignInState({required final bool hasText}) =
-      _$_AuthSignInState;
-
-  bool get hasText;
-  @JsonKey(ignore: true)
-  _$$_AuthSignInStateCopyWith<_$_AuthSignInState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _AuthSignInState() = _$_AuthSignInState;
 }
 
 /// @nodoc
@@ -224,8 +192,6 @@ abstract class _$$_AuthSignUpStateCopyWith<$Res> {
   factory _$$_AuthSignUpStateCopyWith(
           _$_AuthSignUpState value, $Res Function(_$_AuthSignUpState) then) =
       __$$_AuthSignUpStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool hasText});
 }
 
 /// @nodoc
@@ -235,81 +201,57 @@ class __$$_AuthSignUpStateCopyWithImpl<$Res>
   __$$_AuthSignUpStateCopyWithImpl(
       _$_AuthSignUpState _value, $Res Function(_$_AuthSignUpState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hasText = null,
-  }) {
-    return _then(_$_AuthSignUpState(
-      hasText: null == hasText
-          ? _value.hasText
-          : hasText // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_AuthSignUpState implements _AuthSignUpState {
-  const _$_AuthSignUpState({required this.hasText});
-
-  @override
-  final bool hasText;
+  const _$_AuthSignUpState();
 
   @override
   String toString() {
-    return 'AuthState.signUp(hasText: $hasText)';
+    return 'AuthState.signUp()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AuthSignUpState &&
-            (identical(other.hasText, hasText) || other.hasText == hasText));
+        (other.runtimeType == runtimeType && other is _$_AuthSignUpState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hasText);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthSignUpStateCopyWith<_$_AuthSignUpState> get copyWith =>
-      __$$_AuthSignUpStateCopyWithImpl<_$_AuthSignUpState>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool hasText) signIn,
-    required TResult Function(bool hasText) signUp,
+    required TResult Function() signIn,
+    required TResult Function() signUp,
     required TResult Function(String message) failure,
   }) {
-    return signUp(hasText);
+    return signUp();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool hasText)? signIn,
-    TResult? Function(bool hasText)? signUp,
+    TResult? Function()? signIn,
+    TResult? Function()? signUp,
     TResult? Function(String message)? failure,
   }) {
-    return signUp?.call(hasText);
+    return signUp?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool hasText)? signIn,
-    TResult Function(bool hasText)? signUp,
+    TResult Function()? signIn,
+    TResult Function()? signUp,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
     if (signUp != null) {
-      return signUp(hasText);
+      return signUp();
     }
     return orElse();
   }
@@ -350,13 +292,7 @@ class _$_AuthSignUpState implements _AuthSignUpState {
 }
 
 abstract class _AuthSignUpState implements AuthState {
-  const factory _AuthSignUpState({required final bool hasText}) =
-      _$_AuthSignUpState;
-
-  bool get hasText;
-  @JsonKey(ignore: true)
-  _$$_AuthSignUpStateCopyWith<_$_AuthSignUpState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _AuthSignUpState() = _$_AuthSignUpState;
 }
 
 /// @nodoc
@@ -423,8 +359,8 @@ class _$_AuthFailureState implements _AuthFailureState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool hasText) signIn,
-    required TResult Function(bool hasText) signUp,
+    required TResult Function() signIn,
+    required TResult Function() signUp,
     required TResult Function(String message) failure,
   }) {
     return failure(message);
@@ -433,8 +369,8 @@ class _$_AuthFailureState implements _AuthFailureState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool hasText)? signIn,
-    TResult? Function(bool hasText)? signUp,
+    TResult? Function()? signIn,
+    TResult? Function()? signUp,
     TResult? Function(String message)? failure,
   }) {
     return failure?.call(message);
@@ -443,8 +379,8 @@ class _$_AuthFailureState implements _AuthFailureState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool hasText)? signIn,
-    TResult Function(bool hasText)? signUp,
+    TResult Function()? signIn,
+    TResult Function()? signUp,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {

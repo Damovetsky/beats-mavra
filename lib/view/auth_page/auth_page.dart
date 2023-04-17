@@ -2,12 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_animator/flutter_animator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/di/di.dart';
 import '../../core/reg_exp.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/text_styles.dart';
+import 'cubit/cubit.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -35,116 +38,130 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            padding: const EdgeInsets.only(
-              left: screenHorizontalMargin,
-              right: screenHorizontalMargin,
-              top: screenTopScrollPadding,
-              bottom: screenBottomScrollPadding,
-            ),
-            children: [
-              Pulse(
-                preferences: const AnimationPreferences(
-                  autoPlay: AnimationPlayStates.Loop,
-                  duration: Duration(milliseconds: 300),
-                  offset: Duration(milliseconds: 200),
-                  magnitude: 0.3,
-                ),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-                  child: Image.asset(
-                    'assets/images/beats.png',
+    return BlocProvider(
+      create: (context) {
+        return getIt.get<AuthCubit>();
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                return ListView(
+                  padding: const EdgeInsets.only(
+                    left: screenHorizontalMargin,
+                    right: screenHorizontalMargin,
+                    top: screenTopScrollPadding,
+                    bottom: screenBottomScrollPadding,
                   ),
-                ),
-              ),
-              Form(
-                child: Column(
                   children: [
-                    //Email textfield
-                    _EmailTextField(_emailController),
-
-                    //Username
-                    _UsernameTextField(isSigningIn: _isSigningIn),
-
-                    //Password textfield
-                    const _PasswordTextField(),
-
-                    const SizedBox(height: 8),
-
-                    //Sibmit button
-                    Builder(
-                      builder: (ctx) {
-                        return FilledButton(
-                          onPressed: _emailController.text.isEmpty
-                              ? null
-                              : () {
-                                  _trySubmit(ctx);
-                                },
-                          style: FilledButton.styleFrom(
-                            minimumSize: const Size(double.maxFinite, 52),
-                          ),
-                          child: Text(
-                            _isSigningIn
-                                ? 'auth_sign_in'.tr()
-                                : 'auth_sign_up'.tr(),
-                            style: currentTextStyle(context)
-                                .bodyLarge
-                                ?.copyWith(
-                                  color: currentColorScheme(context).onPrimary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        );
-                      },
-                    ),
-
-                    //Or continue with
-                    _AlternativeSigning(isSigningIn: _isSigningIn),
-
-                    //Not a member?
-                    BouncingGestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isSigningIn = !_isSigningIn;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30),
-                        child: RichText(
-                          text: TextSpan(
-                            style: currentTextStyle(context).bodyLarge,
-                            children: [
-                              TextSpan(
-                                text: _isSigningIn
-                                    ? 'auth_not_registered'.tr()
-                                    : 'auth_already_registered'.tr(),
-                                style: TextStyle(
-                                  color:
-                                      currentColorScheme(context).onBackground,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'auth_change_screen'.tr(),
-                                style: TextStyle(
-                                  color: currentColorScheme(context).primary,
-                                ),
-                              ),
-                            ],
-                          ),
+                    Pulse(
+                      preferences: const AnimationPreferences(
+                        autoPlay: AnimationPlayStates.Loop,
+                        duration: Duration(milliseconds: 300),
+                        offset: Duration(milliseconds: 200),
+                        magnitude: 0.3,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 100,
+                          horizontal: 50,
+                        ),
+                        child: Image.asset(
+                          'assets/images/beats.png',
                         ),
                       ),
                     ),
+                    Form(
+                      child: Column(
+                        children: [
+                          //Email textfield
+                          _EmailTextField(_emailController),
+
+                          //Username
+                          _UsernameTextField(isSigningIn: _isSigningIn),
+
+                          //Password textfield
+                          const _PasswordTextField(),
+
+                          const SizedBox(height: 8),
+
+                          //Sibmit button
+                          Builder(
+                            builder: (ctx) {
+                              return FilledButton(
+                                onPressed: _emailController.text.isEmpty
+                                    ? null
+                                    : () {
+                                        _trySubmit(ctx);
+                                      },
+                                style: FilledButton.styleFrom(
+                                  minimumSize: const Size(double.maxFinite, 52),
+                                ),
+                                child: Text(
+                                  _isSigningIn
+                                      ? 'auth_sign_in'.tr()
+                                      : 'auth_sign_up'.tr(),
+                                  style: currentTextStyle(context)
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: currentColorScheme(context)
+                                            .onPrimary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                              );
+                            },
+                          ),
+
+                          //Or continue with
+                          _AlternativeSigning(),
+
+                          //Not a member?
+                          BouncingGestureDetector(
+                            onTap: () {
+                              context.read<AuthCubit>().changeAuthState();
+                              // setState(() {
+                              //   _isSigningIn = !_isSigningIn;
+                              // });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 30),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: currentTextStyle(context).bodyLarge,
+                                  children: [
+                                    TextSpan(
+                                      text: _isSigningIn
+                                          ? 'auth_not_registered'.tr()
+                                          : 'auth_already_registered'.tr(),
+                                      style: TextStyle(
+                                        color: currentColorScheme(context)
+                                            .onBackground,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'auth_change_screen'.tr(),
+                                      style: TextStyle(
+                                        color:
+                                            currentColorScheme(context).primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -226,64 +243,73 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 }
 
 class _AlternativeSigning extends StatelessWidget {
-  const _AlternativeSigning({
-    required bool isSigningIn,
-  }) : _isSigningIn = isSigningIn;
-
-  final bool _isSigningIn;
-
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      transitionBuilder: (child, animation) {
-        return FadeTransition(
-          opacity: animation,
-          child: SizeTransition(
-            sizeFactor: animation.drive(CurveTween(curve: Curves.easeInOut)),
-            child: child,
+    return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (_, current) {
+        return current.mapOrNull(
+              signIn: (_) => true,
+              signUp: (_) => true,
+            ) ??
+            false;
+      },
+      builder: (context, state) {
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: SizeTransition(
+                sizeFactor:
+                    animation.drive(CurveTween(curve: Curves.easeInOut)),
+                child: child,
+              ),
+            );
+          },
+          child: state.maybeWhen(
+            orElse: () => const SizedBox.shrink(),
+            signIn: () {
+              return Column(
+                children: [
+                  const SizedBox(height: 45),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Expanded(
+                        child: Divider(thickness: 0.5),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        child: Text('auth_continue_with'.tr()),
+                      ),
+                      const Expanded(
+                        child: Divider(thickness: 0.5),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      _LogoCard(
+                        'assets/images/logos/google-icon.svg',
+                        32,
+                      ),
+                      SizedBox(width: 30),
+                      _LogoCard(
+                        'assets/images/logos/apple-logo.svg',
+                        36,
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
           ),
         );
       },
-      child: _isSigningIn
-          ? Column(
-              children: [
-                const SizedBox(height: 45),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Expanded(
-                      child: Divider(thickness: 0.5),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                      ),
-                      child: Text('auth_continue_with'.tr()),
-                    ),
-                    const Expanded(
-                      child: Divider(thickness: 0.5),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    _LogoCard(
-                      'assets/images/logos/google-icon.svg',
-                      32,
-                    ),
-                    SizedBox(width: 30),
-                    _LogoCard(
-                      'assets/images/logos/apple-logo.svg',
-                      36,
-                    ),
-                  ],
-                ),
-              ],
-            )
-          : const SizedBox.shrink(),
     );
   }
 }
@@ -297,40 +323,54 @@ class _UsernameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      transitionBuilder: (child, animation) {
-        return FadeTransition(
-          opacity: animation,
-          child: SizeTransition(
-            axisAlignment: 1,
-            sizeFactor: animation.drive(
-              CurveTween(curve: Curves.easeInOut),
-            ),
-            child: child,
+    return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (_, current) {
+        return current.mapOrNull(
+              signIn: (_) => true,
+              signUp: (_) => true,
+            ) ??
+            false;
+      },
+      builder: (context, state) {
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: SizeTransition(
+                axisAlignment: 1,
+                sizeFactor: animation.drive(
+                  CurveTween(curve: Curves.easeInOut),
+                ),
+                child: child,
+              ),
+            );
+          },
+          child: state.maybeWhen(
+            orElse: () => const SizedBox.shrink(),
+            signUp: () {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: TextFormField(
+                  key: const ValueKey('username'),
+                  validator: (text) {
+                    if (text == null || text.length < 4) {
+                      return 'Please enter at least 4 characters';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    //...
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'username'.tr(),
+                  ),
+                ),
+              );
+            },
           ),
         );
       },
-      child: !_isSigningIn
-          ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: TextFormField(
-                key: const ValueKey('username'),
-                validator: (text) {
-                  if (text == null || text.length < 4) {
-                    return 'Please enter at least 4 characters';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  //...
-                },
-                decoration: InputDecoration(
-                  labelText: 'username'.tr(),
-                ),
-              ),
-            )
-          : SizedBox.shrink(key: UniqueKey()),
     );
   }
 }

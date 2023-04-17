@@ -11,6 +11,13 @@ part 'state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepository;
 
-  AuthCubit(this.authRepository)
-      : super(const AuthState.signIn(hasText: false));
+  AuthCubit(this.authRepository) : super(const AuthState.signIn());
+
+  void changeAuthState() {
+    emit(
+      state is _AuthSignInState
+          ? const AuthState.signUp()
+          : const AuthState.signIn(),
+    );
+  }
 }
