@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:injectable/injectable.dart';
-
 import '../../domain/beats/entity/beat_entity.dart';
 import '../service/beats_service/models/beat_model.dart';
 
-@Injectable(as: Converter<BeatModel, BeatEntity>)
 class BeatModelToBeatEntityConverter extends Converter<BeatModel, BeatEntity> {
   @override
   BeatEntity convert(BeatModel input) => BeatEntity(
