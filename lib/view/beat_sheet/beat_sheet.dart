@@ -57,7 +57,7 @@ class _BeatSheetState extends State<BeatSheet> {
               children: [
                 Text(
                   'beat_sheet_add_title'.tr(),
-                  style: currentTextStyle(context).titleLarge?.copyWith(
+                  style: currentTextTheme(context).titleLarge?.copyWith(
                         color: currentColorScheme(context).primary,
                       ),
                 ),
@@ -104,7 +104,7 @@ class _BeatSheetState extends State<BeatSheet> {
                   children: [
                     Text(
                       'beat_sheet_tracks_title'.tr(),
-                      style: currentTextStyle(context).titleMedium?.copyWith(
+                      style: currentTextTheme(context).titleMedium?.copyWith(
                             color: currentColorScheme(context).primary,
                             fontWeight: FontWeight.w600,
                           ),
@@ -112,7 +112,7 @@ class _BeatSheetState extends State<BeatSheet> {
                     const SizedBox(height: 4),
                     Text(
                       'beats_sheet_tracks_hint'.tr(),
-                      style: currentTextStyle(context).bodyMedium?.copyWith(
+                      style: currentTextTheme(context).bodyMedium?.copyWith(
                             color: currentColorScheme(context).onBackground.withOpacity(0.7),
                           ),
                     ),
@@ -189,7 +189,7 @@ class _Genre extends StatelessWidget {
       children: [
         Text(
           'beats_sheet_genre_title'.tr(),
-          style: currentTextStyle(context).titleMedium?.copyWith(
+          style: currentTextTheme(context).titleMedium?.copyWith(
                 color: currentColorScheme(context).primary,
                 fontWeight: FontWeight.w600,
               ),
@@ -197,7 +197,7 @@ class _Genre extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           'beats_sheet_genre_hint'.tr(),
-          style: currentTextStyle(context).bodyMedium?.copyWith(
+          style: currentTextTheme(context).bodyMedium?.copyWith(
                 color: currentColorScheme(context).onBackground.withOpacity(0.7),
               ),
         ),
@@ -234,7 +234,7 @@ class _TempoSlider extends StatelessWidget {
       children: [
         Text(
           'beats_sheet_tempo_title'.tr(),
-          style: currentTextStyle(context).titleMedium?.copyWith(
+          style: currentTextTheme(context).titleMedium?.copyWith(
                 color: currentColorScheme(context).primary,
                 fontWeight: FontWeight.w600,
               ),
@@ -242,7 +242,7 @@ class _TempoSlider extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           'beats_sheet_tempo_hint'.tr(),
-          style: currentTextStyle(context).bodyMedium?.copyWith(
+          style: currentTextTheme(context).bodyMedium?.copyWith(
                 color: currentColorScheme(context).onBackground.withOpacity(0.7),
               ),
         ),
@@ -251,7 +251,7 @@ class _TempoSlider extends StatelessWidget {
           children: [
             Text(
               '20',
-              style: currentTextStyle(context).bodyLarge?.copyWith(
+              style: currentTextTheme(context).bodyLarge?.copyWith(
                     color: currentColorScheme(context).onBackground.withOpacity(0.5),
                     fontWeight: FontWeight.w600,
                   ),
@@ -270,7 +270,7 @@ class _TempoSlider extends StatelessWidget {
             ),
             Text(
               '300',
-              style: currentTextStyle(context).bodyLarge?.copyWith(
+              style: currentTextTheme(context).bodyLarge?.copyWith(
                     color: currentColorScheme(context).onBackground.withOpacity(0.5),
                     fontWeight: FontWeight.w600,
                   ),
@@ -300,7 +300,7 @@ class _Dimension extends StatelessWidget {
       children: [
         Text(
           'beats_sheet_dimensions_title'.tr(),
-          style: currentTextStyle(context).titleMedium?.copyWith(
+          style: currentTextTheme(context).titleMedium?.copyWith(
                 color: currentColorScheme(context).primary,
                 fontWeight: FontWeight.w600,
               ),
@@ -308,7 +308,7 @@ class _Dimension extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           'beats_sheet_dimensions_hint'.tr(),
-          style: currentTextStyle(context).bodyMedium?.copyWith(
+          style: currentTextTheme(context).bodyMedium?.copyWith(
                 color: currentColorScheme(context).onBackground.withOpacity(0.7),
               ),
         ),

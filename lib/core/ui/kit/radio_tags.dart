@@ -42,7 +42,7 @@ class RadioTags extends StatelessWidget {
             ),
             child: Text(
               tags[index],
-              style: currentTextStyle(context).bodyMedium?.copyWith(
+              style: currentTextTheme(context).bodyMedium?.copyWith(
                     color: currentIndex == index
                         ? currentColorScheme(context).onPrimary
                         : currentColorScheme(context).primary,
