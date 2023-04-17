@@ -26,13 +26,14 @@ final darkTheme = ThemeData(
 );
 
 final inputDecorationTheme = InputDecorationTheme(
+  isDense: true,
   enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
+    borderRadius: BorderRadius.circular(8),
   ),
   errorBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
+    borderRadius: BorderRadius.circular(8),
   ),
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
+    borderRadius: BorderRadius.circular(8),
   ),
 );
