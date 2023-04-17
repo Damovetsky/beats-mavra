@@ -72,7 +72,7 @@ class BeatCard extends StatelessWidget {
               children: [
                 Pulse(
                   preferences: AnimationPreferences(
-                    duration: Duration(milliseconds: (60 * 1000 / 60).round()),
+                    duration: Duration(milliseconds: (60 * 1000 / 300).round()),
                     autoPlay: AnimationPlayStates.Loop,
                   ),
                   child: AppChip(
