@@ -11,6 +11,7 @@ final lightTheme = ThemeData(
     enabledBorder: inputDecorationTheme.enabledBorder?.copyWith(
       borderSide: BorderSide(color: lightColorScheme.outlineVariant),
     ),
+    suffixIconColor: lightColorScheme.onBackground,
   ),
 );
 
@@ -22,6 +23,7 @@ final darkTheme = ThemeData(
     enabledBorder: inputDecorationTheme.enabledBorder?.copyWith(
       borderSide: BorderSide(color: lightColorScheme.outline),
     ),
+    suffixIconColor: darkColorScheme.onBackground,
   ),
 );
 

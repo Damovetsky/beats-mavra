@@ -14,7 +14,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
         id: 'uuid',
         avatarUrl: 'https://picsum.photos/200/300',
         nickname: 'KerJen',
-        description: 'Я мега крут',
+        description: 'Я есть Грут',
       ),
     );
   }

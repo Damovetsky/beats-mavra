@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'core/di/di.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
+import 'view/auth_page/auth_page.dart';
 import 'view/home_page/home_page.dart';
 
 const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
@@ -30,7 +31,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return ThemeProvider(
       initTheme: lightTheme,
       builder: (context, theme) {
@@ -44,7 +44,7 @@ class App extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: locale,
               theme: theme,
-              home: const HomePage(),
+              home: const AuthPage(),
             );
           },
         );
