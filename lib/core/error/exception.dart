@@ -7,3 +7,5 @@ class BadRequestException implements Exception {}
 class UnknownException implements Exception {}
 
 class NotFoundException implements Exception {}
+
+class AlreadyExistException implements Exception {}

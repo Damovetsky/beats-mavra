@@ -1,18 +1,21 @@
-class BeatAlreadyExistsException implements Exception {}
+import 'package:injectable/injectable.dart';
+
+import '../../../core/error/exception.dart';
 
 class BeatNotFoundException implements Exception {}
 
 class BeatsUnknownException implements Exception {}
 
+@injectable
 class BeatsExceptionFactory {
   Exception generateException(String code) {
     switch (code) {
       case 'already-exists':
-        return BeatAlreadyExistsException();
+        return AlreadyExistException();
       case 'not-found':
-        return BeatNotFoundException();
+        return NotFoundException();
       default:
-        return BeatNotFoundException();
+        return UnknownException();
     }
   }
 }

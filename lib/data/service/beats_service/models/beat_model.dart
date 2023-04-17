@@ -17,6 +17,7 @@ class BeatModel with _$BeatModel {
     required List<String> genres,
     required int temp,
     required String dimension,
+    required List<double> graph,
   }) = _BeatModel;
 
   factory BeatModel.fromJson(Map<String, dynamic> json) => _$BeatModelFromJson(json);

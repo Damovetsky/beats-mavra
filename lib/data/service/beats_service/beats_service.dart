@@ -17,14 +17,17 @@ abstract class BeatsService {
   Future<BeatModel> updateBeat(BeatModel beatModel);
 
   Future<void> deleteBeat(String beatId);
+
+  Future<List<double>> getGraph();
 }
 
 @Injectable(as: BeatsService)
 class BeatsServiceImpl implements BeatsService {
   final FirebaseFirestore firestoreInstance;
+  final BeatsExceptionFactory exceptionFactory;
   late CollectionReference<Map<String, dynamic>> beatsCollection;
 
-  BeatsServiceImpl(this.firestoreInstance) {
+  BeatsServiceImpl(this.firestoreInstance, this.exceptionFactory) {
     beatsCollection = firestoreInstance.collection('beats');
   }
 
@@ -36,7 +39,7 @@ class BeatsServiceImpl implements BeatsService {
         .then((value) => getBeat(beatModel.beatId))
         .onError(
           (FirebaseException error, stackTrace) =>
-              throw BeatsExceptionFactory().generateException(error.code),
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -44,7 +47,7 @@ class BeatsServiceImpl implements BeatsService {
   Future<void> deleteBeat(String beatId) async {
     return beatsCollection.doc(beatId).delete().then((value) => null).onError(
           (FirebaseException error, stackTrace) =>
-              throw BeatsExceptionFactory().generateException(error.code),
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -56,11 +59,11 @@ class BeatsServiceImpl implements BeatsService {
         .then(
           (value) => value.exists
               ? BeatModel.fromJson(value.data()!)
-              : throw BeatsExceptionFactory().generateException('not-found'),
+              : throw exceptionFactory.generateException('not-found'),
         )
         .onError(
           (FirebaseException error, stackTrace) =>
-              throw BeatsExceptionFactory().generateException(error.code),
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -84,7 +87,7 @@ class BeatsServiceImpl implements BeatsService {
         )
         .onError(
           (FirebaseException error, stackTrace) =>
-              throw BeatsExceptionFactory().generateException(error.code),
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -97,8 +100,13 @@ class BeatsServiceImpl implements BeatsService {
           .then((value) => getBeat(beatModel.beatId))
           .onError(
             (FirebaseException error, stackTrace) =>
-                throw BeatsExceptionFactory().generateException(error.code),
+                throw exceptionFactory.generateException(error.code),
           ),
     );
+  }
+
+  @override
+  Future<List<double>> getGraph() {
+    throw UnimplementedError();
   }
 }
