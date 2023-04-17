@@ -26,7 +26,7 @@ class BeatSheet extends StatefulWidget {
 }
 
 class _BeatSheetState extends State<BeatSheet> {
-  final currentFiles = <String, BeatFile?>{
+  final currentFiles = <String, BeatViewObject?>{
     '.mp3': null,
     '.wav': null,
     '.zip': null,
@@ -117,7 +117,7 @@ class _BeatSheetState extends State<BeatSheet> {
                           ),
                     ),
                     const SizedBox(height: 16),
-                    BeatFiles(
+                    BeatFilesWidget(
                       files: currentFiles,
                       onFileChanged: (fileType, file) {
                         setState(() {

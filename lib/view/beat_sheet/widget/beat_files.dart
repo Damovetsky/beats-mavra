@@ -11,18 +11,18 @@ import '../../../core/ui/text_styles.dart';
 part 'beat_files.freezed.dart';
 
 @freezed
-class BeatFile with _$BeatFile {
-  const factory BeatFile({
+class BeatViewObject with _$BeatViewObject {
+  const factory BeatViewObject({
     required File file,
     required TextEditingController priceController,
-  }) = _BeatFile;
+  }) = _BeatViewObject;
 }
 
-class BeatFiles extends StatelessWidget {
-  final Map<String, BeatFile?> files;
-  final Function(String fileType, BeatFile? file) onFileChanged;
+class BeatFilesWidget extends StatelessWidget {
+  final Map<String, BeatViewObject?> files;
+  final Function(String fileType, BeatViewObject? file) onFileChanged;
 
-  const BeatFiles({
+  const BeatFilesWidget({
     super.key,
     required this.files,
     required this.onFileChanged,
@@ -55,7 +55,7 @@ class BeatFiles extends StatelessWidget {
                       onFileChanged(
                         fileType,
                         beatFile?.copyWith(file: file) ??
-                            BeatFile(
+                            BeatViewObject(
                               file: file,
                               priceController: TextEditingController(),
                             ),
@@ -82,7 +82,7 @@ class BeatFiles extends StatelessWidget {
 
 class _BeatFileType extends StatelessWidget {
   final String fileType;
-  final BeatFile? beatFile;
+  final BeatViewObject? beatFile;
 
   const _BeatFileType({
     required this.fileType,

@@ -15,28 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$BeatFile {
+mixin _$BeatViewObject {
   File get file => throw _privateConstructorUsedError;
   TextEditingController get priceController =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $BeatFileCopyWith<BeatFile> get copyWith =>
+  $BeatViewObjectCopyWith<BeatViewObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BeatFileCopyWith<$Res> {
-  factory $BeatFileCopyWith(BeatFile value, $Res Function(BeatFile) then) =
-      _$BeatFileCopyWithImpl<$Res, BeatFile>;
+abstract class $BeatViewObjectCopyWith<$Res> {
+  factory $BeatViewObjectCopyWith(
+          BeatViewObject value, $Res Function(BeatViewObject) then) =
+      _$BeatViewObjectCopyWithImpl<$Res, BeatViewObject>;
   @useResult
   $Res call({File file, TextEditingController priceController});
 }
 
 /// @nodoc
-class _$BeatFileCopyWithImpl<$Res, $Val extends BeatFile>
-    implements $BeatFileCopyWith<$Res> {
-  _$BeatFileCopyWithImpl(this._value, this._then);
+class _$BeatViewObjectCopyWithImpl<$Res, $Val extends BeatViewObject>
+    implements $BeatViewObjectCopyWith<$Res> {
+  _$BeatViewObjectCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -63,21 +64,22 @@ class _$BeatFileCopyWithImpl<$Res, $Val extends BeatFile>
 }
 
 /// @nodoc
-abstract class _$$_BeatFileCopyWith<$Res> implements $BeatFileCopyWith<$Res> {
-  factory _$$_BeatFileCopyWith(
-          _$_BeatFile value, $Res Function(_$_BeatFile) then) =
-      __$$_BeatFileCopyWithImpl<$Res>;
+abstract class _$$_BeatViewObjectCopyWith<$Res>
+    implements $BeatViewObjectCopyWith<$Res> {
+  factory _$$_BeatViewObjectCopyWith(
+          _$_BeatViewObject value, $Res Function(_$_BeatViewObject) then) =
+      __$$_BeatViewObjectCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({File file, TextEditingController priceController});
 }
 
 /// @nodoc
-class __$$_BeatFileCopyWithImpl<$Res>
-    extends _$BeatFileCopyWithImpl<$Res, _$_BeatFile>
-    implements _$$_BeatFileCopyWith<$Res> {
-  __$$_BeatFileCopyWithImpl(
-      _$_BeatFile _value, $Res Function(_$_BeatFile) _then)
+class __$$_BeatViewObjectCopyWithImpl<$Res>
+    extends _$BeatViewObjectCopyWithImpl<$Res, _$_BeatViewObject>
+    implements _$$_BeatViewObjectCopyWith<$Res> {
+  __$$_BeatViewObjectCopyWithImpl(
+      _$_BeatViewObject _value, $Res Function(_$_BeatViewObject) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -86,7 +88,7 @@ class __$$_BeatFileCopyWithImpl<$Res>
     Object? file = null,
     Object? priceController = null,
   }) {
-    return _then(_$_BeatFile(
+    return _then(_$_BeatViewObject(
       file: null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -101,8 +103,8 @@ class __$$_BeatFileCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BeatFile implements _BeatFile {
-  const _$_BeatFile({required this.file, required this.priceController});
+class _$_BeatViewObject implements _BeatViewObject {
+  const _$_BeatViewObject({required this.file, required this.priceController});
 
   @override
   final File file;
@@ -111,14 +113,14 @@ class _$_BeatFile implements _BeatFile {
 
   @override
   String toString() {
-    return 'BeatFile(file: $file, priceController: $priceController)';
+    return 'BeatViewObject(file: $file, priceController: $priceController)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BeatFile &&
+            other is _$_BeatViewObject &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.priceController, priceController) ||
                 other.priceController == priceController));
@@ -130,14 +132,15 @@ class _$_BeatFile implements _BeatFile {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BeatFileCopyWith<_$_BeatFile> get copyWith =>
-      __$$_BeatFileCopyWithImpl<_$_BeatFile>(this, _$identity);
+  _$$_BeatViewObjectCopyWith<_$_BeatViewObject> get copyWith =>
+      __$$_BeatViewObjectCopyWithImpl<_$_BeatViewObject>(this, _$identity);
 }
 
-abstract class _BeatFile implements BeatFile {
-  const factory _BeatFile(
-      {required final File file,
-      required final TextEditingController priceController}) = _$_BeatFile;
+abstract class _BeatViewObject implements BeatViewObject {
+  const factory _BeatViewObject(
+          {required final File file,
+          required final TextEditingController priceController}) =
+      _$_BeatViewObject;
 
   @override
   File get file;
@@ -145,6 +148,6 @@ abstract class _BeatFile implements BeatFile {
   TextEditingController get priceController;
   @override
   @JsonKey(ignore: true)
-  _$$_BeatFileCopyWith<_$_BeatFile> get copyWith =>
+  _$$_BeatViewObjectCopyWith<_$_BeatViewObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
