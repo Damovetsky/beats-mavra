@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
+import 'package:flutter_animator/widgets/attention_seekers/pulse.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/chip.dart';
@@ -64,14 +66,24 @@ class BeatCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24),
-          
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 16),
             child: Row(
               children: [
-                AppChip(
-                  color: currentColorScheme(context).primary,
-                  child: Text('fff'),
+                Pulse(
+                  preferences: AnimationPreferences(
+                    duration: Duration(milliseconds: 200),
+                    autoPlay: AnimationPlayStates.Loop,
+                  ),
+                  child: AppChip(
+                    color: currentColorScheme(context).background,
+                    child: Text(
+                      'fff',
+                      style: currentTextStyle(context).bodyMedium?.copyWith(
+                            color: currentColorScheme(context).primary,
+                          ),
+                    ),
+                  ),
                 )
               ],
             ),
