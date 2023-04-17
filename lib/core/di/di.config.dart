@@ -9,19 +9,20 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:beats/data/module/firebase_module.dart' as _i18;
+import 'package:beats/data/module/firebase_module.dart' as _i19;
 import 'package:beats/data/repository/auth_repository_impl.dart' as _i4;
 import 'package:beats/data/repository/beats_repository_impl.dart' as _i6;
-import 'package:beats/data/repository/profile_repository_impl.dart' as _i16;
-import 'package:beats/data/repository/users_repository_impl.dart' as _i12;
-import 'package:beats/data/service/auth_sevice/auth_service.dart' as _i13;
-import 'package:beats/data/service/beats_service/beats_service.dart' as _i14;
+import 'package:beats/data/repository/profile_repository_impl.dart' as _i17;
+import 'package:beats/data/repository/users_repository_impl.dart' as _i13;
+import 'package:beats/data/service/auth_sevice/auth_service.dart' as _i14;
+import 'package:beats/data/service/beats_service/beats_service.dart' as _i15;
+import 'package:beats/data/service/users_service/users_service.dart' as _i11;
 import 'package:beats/domain/auth/repository/auth_repository.dart' as _i3;
 import 'package:beats/domain/beats/repository/beats_repository.dart' as _i5;
 import 'package:beats/domain/profile/repository/profile_repository.dart'
-    as _i15;
-import 'package:beats/domain/users/repository/users_repository.dart' as _i11;
-import 'package:beats/view/profile_page/cubit/cubit.dart' as _i17;
+    as _i16;
+import 'package:beats/domain/users/repository/users_repository.dart' as _i12;
+import 'package:beats/view/profile_page/cubit/cubit.dart' as _i18;
 import 'package:beats/view/splash_page/cubit/cubit.dart' as _i10;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i9;
 import 'package:firebase_auth/firebase_auth.dart' as _i8;
@@ -50,17 +51,20 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i8.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.factory<_i9.FirebaseFirestore>(() => firebaseModule.firebaseStore);
     gh.factory<_i10.SplashCubit>(() => _i10.SplashCubit());
-    gh.lazySingleton<_i11.UsersRepository>(() => _i12.UsersRepositoryImpl());
-    gh.factory<_i13.AuthService>(
-        () => _i13.AuthServiceImpl(gh<_i8.FirebaseAuth>()));
-    gh.factory<_i14.BeatsService>(
-        () => _i14.BeatsServiceImpl(gh<_i9.FirebaseFirestore>()));
-    gh.lazySingleton<_i15.ProfileRepository>(
-        () => _i16.ProfileRepositoryImpl(gh<_i13.AuthService>()));
-    gh.factory<_i17.ProfileCubit>(
-        () => _i17.ProfileCubit(gh<_i15.ProfileRepository>()));
+    gh.factory<_i11.UserService>(
+        () => _i11.UserServiceImpl(gh<_i9.FirebaseFirestore>()));
+    gh.lazySingleton<_i12.UsersRepository>(
+        () => _i13.UsersRepositoryImpl(gh<_i11.UserService>()));
+    gh.factory<_i14.AuthService>(
+        () => _i14.AuthServiceImpl(gh<_i8.FirebaseAuth>()));
+    gh.factory<_i15.BeatsService>(
+        () => _i15.BeatsServiceImpl(gh<_i9.FirebaseFirestore>()));
+    gh.lazySingleton<_i16.ProfileRepository>(
+        () => _i17.ProfileRepositoryImpl(gh<_i14.AuthService>()));
+    gh.factory<_i18.ProfileCubit>(
+        () => _i18.ProfileCubit(gh<_i16.ProfileRepository>()));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i18.FirebaseModule {}
+class _$FirebaseModule extends _i19.FirebaseModule {}

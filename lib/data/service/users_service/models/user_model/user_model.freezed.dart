@@ -20,9 +20,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
+  String get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   List<String> get favourites => throw _privateConstructorUsedError;
   double get balance => throw _privateConstructorUsedError;
 
@@ -38,9 +39,10 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {String username,
+      {String userId,
+      String username,
       String avatar,
-      String email,
+      String description,
       List<String> favourites,
       double balance});
 }
@@ -58,13 +60,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userId = null,
     Object? username = null,
     Object? avatar = null,
-    Object? email = null,
+    Object? description = null,
     Object? favourites = null,
     Object? balance = null,
   }) {
     return _then(_value.copyWith(
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -73,9 +80,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       favourites: null == favourites
           ? _value.favourites
@@ -97,9 +104,10 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String username,
+      {String userId,
+      String username,
       String avatar,
-      String email,
+      String description,
       List<String> favourites,
       double balance});
 }
@@ -115,13 +123,18 @@ class __$$_UserModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userId = null,
     Object? username = null,
     Object? avatar = null,
-    Object? email = null,
+    Object? description = null,
     Object? favourites = null,
     Object? balance = null,
   }) {
     return _then(_$_UserModel(
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -130,9 +143,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       favourites: null == favourites
           ? _value._favourites
@@ -150,9 +163,10 @@ class __$$_UserModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserModel implements _UserModel {
   const _$_UserModel(
-      {required this.username,
+      {required this.userId,
+      required this.username,
       required this.avatar,
-      required this.email,
+      required this.description,
       required final List<String> favourites,
       required this.balance})
       : _favourites = favourites;
@@ -161,11 +175,13 @@ class _$_UserModel implements _UserModel {
       _$$_UserModelFromJson(json);
 
   @override
+  final String userId;
+  @override
   final String username;
   @override
   final String avatar;
   @override
-  final String email;
+  final String description;
   final List<String> _favourites;
   @override
   List<String> get favourites {
@@ -179,7 +195,7 @@ class _$_UserModel implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(username: $username, avatar: $avatar, email: $email, favourites: $favourites, balance: $balance)';
+    return 'UserModel(userId: $userId, username: $username, avatar: $avatar, description: $description, favourites: $favourites, balance: $balance)';
   }
 
   @override
@@ -187,10 +203,12 @@ class _$_UserModel implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.email, email) || other.email == email) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality()
                 .equals(other._favourites, _favourites) &&
             (identical(other.balance, balance) || other.balance == balance));
@@ -198,8 +216,8 @@ class _$_UserModel implements _UserModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, username, avatar, email,
-      const DeepCollectionEquality().hash(_favourites), balance);
+  int get hashCode => Object.hash(runtimeType, userId, username, avatar,
+      description, const DeepCollectionEquality().hash(_favourites), balance);
 
   @JsonKey(ignore: true)
   @override
@@ -217,9 +235,10 @@ class _$_UserModel implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {required final String username,
+      {required final String userId,
+      required final String username,
       required final String avatar,
-      required final String email,
+      required final String description,
       required final List<String> favourites,
       required final double balance}) = _$_UserModel;
 
@@ -227,11 +246,13 @@ abstract class _UserModel implements UserModel {
       _$_UserModel.fromJson;
 
   @override
+  String get userId;
+  @override
   String get username;
   @override
   String get avatar;
   @override
-  String get email;
+  String get description;
   @override
   List<String> get favourites;
   @override
