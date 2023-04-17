@@ -58,7 +58,7 @@ class GenreTextField extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                               child: Text(
                                 listOptions[index],
-                                style: currentTextStyle(context).bodyMedium,
+                                style: currentTextTheme(context).bodyMedium,
                               ),
                             ),
                           );

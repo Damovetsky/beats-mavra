@@ -19,21 +19,21 @@ mixin _$ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileEntity profile) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileEntity profile)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileEntity profile)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) =>
@@ -119,7 +119,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileEntity profile) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
     return loading();
@@ -129,7 +129,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileEntity profile)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
     return loading?.call();
@@ -139,7 +139,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileEntity profile)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -194,9 +194,9 @@ abstract class _$$_ProfileStateCopyWith<$Res> {
           _$_ProfileState value, $Res Function(_$_ProfileState) then) =
       __$$_ProfileStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProfileEntity profile});
+  $Res call({UserEntity profile});
 
-  $ProfileEntityCopyWith<$Res> get profile;
+  $UserEntityCopyWith<$Res> get profile;
 }
 
 /// @nodoc
@@ -216,14 +216,14 @@ class __$$_ProfileStateCopyWithImpl<$Res>
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as ProfileEntity,
+              as UserEntity,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ProfileEntityCopyWith<$Res> get profile {
-    return $ProfileEntityCopyWith<$Res>(_value.profile, (value) {
+  $UserEntityCopyWith<$Res> get profile {
+    return $UserEntityCopyWith<$Res>(_value.profile, (value) {
       return _then(_value.copyWith(profile: value));
     });
   }
@@ -235,7 +235,7 @@ class _$_ProfileState implements _ProfileState {
   const _$_ProfileState({required this.profile});
 
   @override
-  final ProfileEntity profile;
+  final UserEntity profile;
 
   @override
   String toString() {
@@ -263,7 +263,7 @@ class _$_ProfileState implements _ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileEntity profile) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
     return profile(this.profile);
@@ -273,7 +273,7 @@ class _$_ProfileState implements _ProfileState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileEntity profile)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
     return profile?.call(this.profile);
@@ -283,7 +283,7 @@ class _$_ProfileState implements _ProfileState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileEntity profile)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -329,10 +329,10 @@ class _$_ProfileState implements _ProfileState {
 }
 
 abstract class _ProfileState implements ProfileState {
-  const factory _ProfileState({required final ProfileEntity profile}) =
+  const factory _ProfileState({required final UserEntity profile}) =
       _$_ProfileState;
 
-  ProfileEntity get profile;
+  UserEntity get profile;
   @JsonKey(ignore: true)
   _$$_ProfileStateCopyWith<_$_ProfileState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -404,7 +404,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileEntity profile) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
     return failure(message);
@@ -414,7 +414,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileEntity profile)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
     return failure?.call(message);
@@ -424,7 +424,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileEntity profile)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {

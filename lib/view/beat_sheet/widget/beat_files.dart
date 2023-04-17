@@ -121,7 +121,7 @@ class _BeatFileType extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
                         beatFile!.file.path.split('/').last,
-                        style: currentTextStyle(context).bodySmall?.copyWith(
+                        style: currentTextTheme(context).bodySmall?.copyWith(
                               color: currentColorScheme(context).primary,
                             ),
                         textAlign: TextAlign.center,
@@ -148,7 +148,7 @@ class _BeatFileType extends StatelessWidget {
                   ),
                   child: Text(
                     fileType,
-                    style: currentTextStyle(context)
+                    style: currentTextTheme(context)
                         .labelSmall
                         ?.copyWith(color: currentColorScheme(context).onPrimary, height: 1),
                     textAlign: TextAlign.center,
@@ -199,7 +199,7 @@ class _Price extends StatelessWidget {
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          style: currentTextStyle(context).labelMedium,
+          style: currentTextTheme(context).labelMedium,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
             suffixIconConstraints: const BoxConstraints(minWidth: 36),

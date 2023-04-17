@@ -21,13 +21,13 @@ Future<void> showSnackbar(
     backgroundColor: currentColorScheme(context).errorContainer,
     titleText: Text(
       title,
-      style: currentTextStyle(context).bodyLarge?.copyWith(
+      style: currentTextTheme(context).bodyLarge?.copyWith(
             color: currentColorScheme(context).error,
           ),
     ),
     messageText: Text(
       message,
-      style: currentTextStyle(context).bodyMedium?.copyWith(
+      style: currentTextTheme(context).bodyMedium?.copyWith(
             color: currentColorScheme(context).onErrorContainer,
           ),
     ),
