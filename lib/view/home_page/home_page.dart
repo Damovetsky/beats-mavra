@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../profile_page/profile_page.dart';
+import '../search_page/search_page.dart';
 
 final _pagesGlobalKey = GlobalKey();
 
 const pages = [
-  SizedBox(),
-  SizedBox(),
+  SearchPage(),
+  SizedBox.shrink(),
   ProfilePage(),
 ];
 
