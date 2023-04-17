@@ -8,21 +8,20 @@ part of 'user_model.dart';
 
 _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       userId: json['userId'] as String,
-      username: json['username'] as String,
+      nickname: json['nickname'] as String,
       avatar: json['avatar'] as String,
       description: json['description'] as String,
-      favourites: (json['favourites'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      favorites:
+          (json['favorites'] as List<dynamic>).map((e) => e as String).toList(),
       balance: (json['balance'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     <String, dynamic>{
       'userId': instance.userId,
-      'username': instance.username,
+      'nickname': instance.nickname,
       'avatar': instance.avatar,
       'description': instance.description,
-      'favourites': instance.favourites,
+      'favorites': instance.favorites,
       'balance': instance.balance,
     };

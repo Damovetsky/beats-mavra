@@ -13,9 +13,11 @@ abstract class UserService {
 @Injectable(as: UserService)
 class UserServiceImpl implements UserService {
   final FirebaseFirestore firestoreInstance;
+  final UsersExceptionFactory exceptionFactory;
   late CollectionReference<Map<String, dynamic>> usersCollection;
 
-  UserServiceImpl(this.firestoreInstance) {
+
+  UserServiceImpl(this.firestoreInstance, this.exceptionFactory) {
     usersCollection = firestoreInstance.collection('users');
   }
 
@@ -29,7 +31,7 @@ class UserServiceImpl implements UserService {
         ? UserModel.fromJson(value.data()!)
         : throw UsersExceptionFactory().generateException('does-not-exist'),)
         .onError((FirebaseException error, stackTrace) =>
-    throw UsersExceptionFactory().generateException(error.code),);
+    throw exceptionFactory.generateException(error.code),);
   }
 
   @override
@@ -39,6 +41,6 @@ class UserServiceImpl implements UserService {
         .set(user.toJson())
         .then((value) => getUser(user.userId))
         .onError((FirebaseException error, stackTrace) =>
-    throw UsersExceptionFactory().generateException(error.code),);
+    throw exceptionFactory.generateException(error.code),);
   }
 }

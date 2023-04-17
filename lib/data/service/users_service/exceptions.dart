@@ -1,14 +1,15 @@
-class UserNotFoundException implements Exception {}
+import 'package:injectable/injectable.dart';
 
-class UsersUnknownException implements Exception {}
+import '../../../core/error/exception.dart';
 
+@injectable
 class UsersExceptionFactory {
   Exception generateException(String code) {
     switch (code) {
       case 'not-found':
-        return UserNotFoundException();
+        return NotFoundException();
       default:
-        return UserNotFoundException();
+        return UnknownException();
     }
   }
 }

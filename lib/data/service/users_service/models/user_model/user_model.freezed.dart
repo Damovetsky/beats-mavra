@@ -21,10 +21,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String get userId => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<String> get favourites => throw _privateConstructorUsedError;
+  List<String> get favorites => throw _privateConstructorUsedError;
   double get balance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,10 +40,10 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String userId,
-      String username,
+      String nickname,
       String avatar,
       String description,
-      List<String> favourites,
+      List<String> favorites,
       double balance});
 }
 
@@ -61,10 +61,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? userId = null,
-    Object? username = null,
+    Object? nickname = null,
     Object? avatar = null,
     Object? description = null,
-    Object? favourites = null,
+    Object? favorites = null,
     Object? balance = null,
   }) {
     return _then(_value.copyWith(
@@ -72,9 +72,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
       avatar: null == avatar
           ? _value.avatar
@@ -84,9 +84,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      favourites: null == favourites
-          ? _value.favourites
-          : favourites // ignore: cast_nullable_to_non_nullable
+      favorites: null == favorites
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
               as List<String>,
       balance: null == balance
           ? _value.balance
@@ -105,10 +105,10 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String userId,
-      String username,
+      String nickname,
       String avatar,
       String description,
-      List<String> favourites,
+      List<String> favorites,
       double balance});
 }
 
@@ -124,10 +124,10 @@ class __$$_UserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userId = null,
-    Object? username = null,
+    Object? nickname = null,
     Object? avatar = null,
     Object? description = null,
-    Object? favourites = null,
+    Object? favorites = null,
     Object? balance = null,
   }) {
     return _then(_$_UserModel(
@@ -135,9 +135,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
       avatar: null == avatar
           ? _value.avatar
@@ -147,9 +147,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      favourites: null == favourites
-          ? _value._favourites
-          : favourites // ignore: cast_nullable_to_non_nullable
+      favorites: null == favorites
+          ? _value._favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
               as List<String>,
       balance: null == balance
           ? _value.balance
@@ -164,12 +164,12 @@ class __$$_UserModelCopyWithImpl<$Res>
 class _$_UserModel implements _UserModel {
   const _$_UserModel(
       {required this.userId,
-      required this.username,
+      required this.nickname,
       required this.avatar,
       required this.description,
-      required final List<String> favourites,
+      required final List<String> favorites,
       required this.balance})
-      : _favourites = favourites;
+      : _favorites = favorites;
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -177,17 +177,17 @@ class _$_UserModel implements _UserModel {
   @override
   final String userId;
   @override
-  final String username;
+  final String nickname;
   @override
   final String avatar;
   @override
   final String description;
-  final List<String> _favourites;
+  final List<String> _favorites;
   @override
-  List<String> get favourites {
-    if (_favourites is EqualUnmodifiableListView) return _favourites;
+  List<String> get favorites {
+    if (_favorites is EqualUnmodifiableListView) return _favorites;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_favourites);
+    return EqualUnmodifiableListView(_favorites);
   }
 
   @override
@@ -195,7 +195,7 @@ class _$_UserModel implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userId: $userId, username: $username, avatar: $avatar, description: $description, favourites: $favourites, balance: $balance)';
+    return 'UserModel(userId: $userId, nickname: $nickname, avatar: $avatar, description: $description, favorites: $favorites, balance: $balance)';
   }
 
   @override
@@ -204,20 +204,20 @@ class _$_UserModel implements _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
-                .equals(other._favourites, _favourites) &&
+                .equals(other._favorites, _favorites) &&
             (identical(other.balance, balance) || other.balance == balance));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, username, avatar,
-      description, const DeepCollectionEquality().hash(_favourites), balance);
+  int get hashCode => Object.hash(runtimeType, userId, nickname, avatar,
+      description, const DeepCollectionEquality().hash(_favorites), balance);
 
   @JsonKey(ignore: true)
   @override
@@ -236,10 +236,10 @@ class _$_UserModel implements _UserModel {
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
       {required final String userId,
-      required final String username,
+      required final String nickname,
       required final String avatar,
       required final String description,
-      required final List<String> favourites,
+      required final List<String> favorites,
       required final double balance}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -248,13 +248,13 @@ abstract class _UserModel implements UserModel {
   @override
   String get userId;
   @override
-  String get username;
+  String get nickname;
   @override
   String get avatar;
   @override
   String get description;
   @override
-  List<String> get favourites;
+  List<String> get favorites;
   @override
   double get balance;
   @override

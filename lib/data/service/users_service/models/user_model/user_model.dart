@@ -9,10 +9,10 @@ part 'user_model.g.dart';
 class UserModel with _$UserModel{
   const factory UserModel({
     required String userId,
-    required String username,
+    required String nickname,
     required String avatar,
     required String description,
-    required List<String> favourites,
+    required List<String> favorites,
     required double balance,
 }) = _UserModel;
 
