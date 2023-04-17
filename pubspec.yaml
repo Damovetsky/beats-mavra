@@ -25,6 +25,7 @@ dependencies:
   animated_theme_switcher: ^2.0.8
   shimmer: ^2.0.0
   rxdart: ^0.27.7
+  firebase_storage: ^11.1.0
 
 dev_dependencies:
   flutter_test:
