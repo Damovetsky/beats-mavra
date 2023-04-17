@@ -13,12 +13,12 @@ class AppChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 24,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      height: 28,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: child,
     );

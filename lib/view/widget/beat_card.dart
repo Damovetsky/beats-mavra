@@ -26,7 +26,7 @@ class BeatCard extends StatelessWidget {
                 AppImage(
                   height: 72,
                   width: 108,
-                  image: NetworkImage('https://picsum.photos/200/300'),
+                  image: NetworkImage('http://placekitten.com/200/300'),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(46),
@@ -37,7 +37,7 @@ class BeatCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Travis Scott Sample Beat with TRACKOUT',
-                    style: currentTextStyle(context).bodyMedium?.copyWith(
+                    style: currentTextTheme(context).bodyMedium?.copyWith(
                           color: currentColorScheme(context).primary,
                           fontWeight: FontWeight.w600,
                         ),
@@ -50,7 +50,7 @@ class BeatCard extends StatelessWidget {
                   height: 36,
                   width: 36,
                   borderRadius: BorderRadius.circular(18),
-                  image: NetworkImage('https://picsum.photos/200/300'),
+                  image: NetworkImage('http://placekitten.com/200/300'),
                 )
               ],
             ),
@@ -60,35 +60,72 @@ class BeatCard extends StatelessWidget {
             padding: const EdgeInsets.only(left: 12, right: 16),
             child: Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              style: currentTextStyle(context).bodySmall?.copyWith(
+              style: currentTextTheme(context).bodySmall?.copyWith(
                     color: currentColorScheme(context).onSurfaceVariant,
                   ),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 16),
             child: Row(
               children: [
                 Pulse(
                   preferences: AnimationPreferences(
-                    duration: Duration(milliseconds: 200),
+                    duration: Duration(milliseconds: (60 * 1000 / 60).round()),
                     autoPlay: AnimationPlayStates.Loop,
                   ),
                   child: AppChip(
-                    color: currentColorScheme(context).background,
+                    color: currentColorScheme(context).secondaryContainer,
                     child: Text(
-                      'fff',
-                      style: currentTextStyle(context).bodyMedium?.copyWith(
+                      '150 BMP',
+                      style: currentTextTheme(context).bodyMedium?.copyWith(
                             color: currentColorScheme(context).primary,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  '4/4',
+                  style: currentTextTheme(context).bodyMedium?.copyWith(
+                        color: currentColorScheme(context).primary,
+                      ),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.favorite,
+                    color: redColor.withOpacity(0.3),
+                  ),
+                ),
+                AppChip(
+                  color: currentColorScheme(context).secondaryContainer,
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 18,
+                    color: currentColorScheme(context).primary,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Container(
+                  height: 32,
+                  width: 32,
+                  decoration: BoxDecoration(
+                    color: currentColorScheme(context).secondaryContainer,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.play_arrow,
+                    color: currentColorScheme(context).primary,
                   ),
                 )
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
         ],
       ),
     );

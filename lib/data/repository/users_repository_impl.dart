@@ -14,7 +14,7 @@ class UsersRepositoryImpl extends UsersRepository {
     return const Right(
       UserEntity(
         id: 'uuid',
-        avatarUrl: 'https://picsum.photos/200/300',
+        avatarUrl: 'http://placekitten.com/200/300',
         nickname: 'KerJen',
         description: 'Я мега крут',
       ),
