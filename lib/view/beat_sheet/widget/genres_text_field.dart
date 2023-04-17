@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/ui/color_schemes.dart';
@@ -83,8 +84,8 @@ class GenreTextField extends StatelessWidget {
                   focusNode: focusNode,
                   controller: searchController,
                   scrollPadding: const EdgeInsets.only(bottom: 128),
-                  decoration: const InputDecoration(
-                    hintText: 'Введите жанры',
+                  decoration: InputDecoration(
+                    hintText: 'beats_sheet_genre_search_hint'.tr(),
                   ),
                 );
               },

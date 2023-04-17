@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/const.dart';
@@ -57,7 +56,7 @@ class _BeatSheetState extends State<BeatSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Добавить инструментал',
+                  'beat_sheet_add_title'.tr(),
                   style: currentTextStyle(context).titleLarge?.copyWith(
                         color: currentColorScheme(context).primary,
                       ),
@@ -81,21 +80,21 @@ class _BeatSheetState extends State<BeatSheet> {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: 'Введите название',
-                          labelText: 'Название',
+                          hintText: 'beat_sheet_title_hint'.tr(),
+                          labelText: 'beat_sheet_title_label'.tr(),
                         ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                const TextField(
+                TextField(
                   decoration: InputDecoration(
-                    hintText: 'Введите описание...',
-                    labelText: 'Описание',
+                    hintText: 'beat_sheet_description_hint'.tr(),
+                    labelText: 'beat_sheet_description_label'.tr(),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -104,7 +103,7 @@ class _BeatSheetState extends State<BeatSheet> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Дорожки',
+                      'beat_sheet_tracks_title'.tr(),
                       style: currentTextStyle(context).titleMedium?.copyWith(
                             color: currentColorScheme(context).primary,
                             fontWeight: FontWeight.w600,
@@ -112,7 +111,7 @@ class _BeatSheetState extends State<BeatSheet> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Добавьте ваш инструментал в виде WAV, MP3 или архива с каждой дорожкой проекта в вашем секвенсоре',
+                      'beats_sheet_tracks_hint'.tr(),
                       style: currentTextStyle(context).bodyMedium?.copyWith(
                             color: currentColorScheme(context).onBackground.withOpacity(0.7),
                           ),
@@ -173,47 +172,6 @@ class _BeatSheetState extends State<BeatSheet> {
   }
 }
 
-class _Dimension extends StatelessWidget {
-  final int currentIndex;
-  final List<String> dimensions;
-  final Function(int index) onChanged;
-
-  const _Dimension({
-    required this.currentIndex,
-    required this.dimensions,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Размерность',
-          style: currentTextStyle(context).titleMedium?.copyWith(
-                color: currentColorScheme(context).primary,
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Выставите основную размерность инструментала',
-          style: currentTextStyle(context).bodyMedium?.copyWith(
-                color: currentColorScheme(context).onBackground.withOpacity(0.7),
-              ),
-        ),
-        const SizedBox(height: 16),
-        RadioTags(
-          currentIndex: currentIndex,
-          tags: dimensions,
-          onChoosed: onChanged,
-        )
-      ],
-    );
-  }
-}
-
 class _Genre extends StatelessWidget {
   final List<String> genres;
   final Function(List<String> newGenres) onChanged;
@@ -230,7 +188,7 @@ class _Genre extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Жанр',
+          'beats_sheet_genre_title'.tr(),
           style: currentTextStyle(context).titleMedium?.copyWith(
                 color: currentColorScheme(context).primary,
                 fontWeight: FontWeight.w600,
@@ -238,7 +196,7 @@ class _Genre extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Выберите жанры вашего инструментала',
+          'beats_sheet_genre_hint'.tr(),
           style: currentTextStyle(context).bodyMedium?.copyWith(
                 color: currentColorScheme(context).onBackground.withOpacity(0.7),
               ),
@@ -275,7 +233,7 @@ class _TempoSlider extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Темп',
+          'beats_sheet_tempo_title'.tr(),
           style: currentTextStyle(context).titleMedium?.copyWith(
                 color: currentColorScheme(context).primary,
                 fontWeight: FontWeight.w600,
@@ -283,7 +241,7 @@ class _TempoSlider extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Выставите основной темп инструментала в ударах в минуту',
+          'beats_sheet_tempo_hint'.tr(),
           style: currentTextStyle(context).bodyMedium?.copyWith(
                 color: currentColorScheme(context).onBackground.withOpacity(0.7),
               ),
@@ -319,6 +277,47 @@ class _TempoSlider extends StatelessWidget {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+class _Dimension extends StatelessWidget {
+  final int currentIndex;
+  final List<String> dimensions;
+  final Function(int index) onChanged;
+
+  const _Dimension({
+    required this.currentIndex,
+    required this.dimensions,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'beats_sheet_dimensions_title'.tr(),
+          style: currentTextStyle(context).titleMedium?.copyWith(
+                color: currentColorScheme(context).primary,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'beats_sheet_dimensions_hint'.tr(),
+          style: currentTextStyle(context).bodyMedium?.copyWith(
+                color: currentColorScheme(context).onBackground.withOpacity(0.7),
+              ),
+        ),
+        const SizedBox(height: 16),
+        RadioTags(
+          currentIndex: currentIndex,
+          tags: dimensions,
+          onChoosed: onChanged,
+        )
       ],
     );
   }

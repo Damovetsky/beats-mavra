@@ -9,5 +9,21 @@
     "profile_your_beats": "Your beats",
     "profile_favorite": "Favorite",
     "profile_logout": "Logout",
-    "profile_load_error": "Failed to load profile"
+    "profile_load_error": "Failed to load profile",
+    "beat_sheet_add_title": "Add instrumental",
+    "beat_sheet_edit_title": "Edit instumental",
+    "beat_sheet_title_hint": "Enter the title",
+    "beat_sheet_title_label": "Title",
+    "beat_sheet_description_hint": "Enter the description",
+    "beat_sheet_description_label": "Description",
+    "beat_sheet_tracks_title": "Trackouts",
+    "beats_sheet_tracks_hint": "Add your instrumental as WAV, MP3 or archive with each project track in your sequencer",
+    "beats_sheet_genre_title": "Genre",
+    "beats_sheet_genre_hint": "Choose the genres of your instrumental",
+    "beats_sheet_genre_search_hint": "Search genre",
+    "beats_sheet_dimensions_title": "Dimensions",
+    "beats_sheet_dimensions_hint": "Set the main instrumental size",
+    "beats_sheet_tempo_title": "Tempo",
+    "beats_sheet_tempo_hint": "Set the main tempo of the instrumental in beats per minute",
+    "beats_sheet_create": "Create"
 }
