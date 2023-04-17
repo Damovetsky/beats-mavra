@@ -6,7 +6,7 @@ import '../../domain/entity/user_entity.dart';
 import '../../core/error/failure.dart';
 import '../../domain/profile/entity/profile_entity.dart';
 import '../../domain/profile/repository/profile_repository.dart';
-import '../service/auth_sevice/auth_service.dart';
+import '../service/auth_service/auth_service.dart';
 
 @LazySingleton(as: ProfileRepository)
 class ProfileRepositoryImpl extends ProfileRepository {

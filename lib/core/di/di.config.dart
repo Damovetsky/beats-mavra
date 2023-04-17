@@ -14,7 +14,7 @@ import 'package:beats/data/repository/auth_repository_impl.dart' as _i4;
 import 'package:beats/data/repository/beats_repository_impl.dart' as _i6;
 import 'package:beats/data/repository/profile_repository_impl.dart' as _i16;
 import 'package:beats/data/repository/users_repository_impl.dart' as _i12;
-import 'package:beats/data/service/auth_sevice/auth_service.dart' as _i13;
+import 'package:beats/data/service/auth_service/auth_service.dart' as _i13;
 import 'package:beats/data/service/beats_service/beats_service.dart' as _i14;
 import 'package:beats/domain/auth/repository/auth_repository.dart' as _i3;
 import 'package:beats/domain/beats/repository/beats_repository.dart' as _i5;
