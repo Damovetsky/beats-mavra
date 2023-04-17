@@ -86,7 +86,7 @@ class _BouncingGestureDetectorState extends State<BouncingGestureDetector> with 
                     Future.delayed(Duration(milliseconds: 100 + widget.animationDelay), () {
                       _bounceController.reverse();
                     });
-                    HapticFeedback.mediumImpact();
+                    unawaited(HapticFeedback.mediumImpact());
                     widget.onLongPress!.call();
                   };
                 }

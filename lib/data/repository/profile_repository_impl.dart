@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/error/exception.dart';
 import '../../domain/entity/user_entity.dart';
 import '../../core/error/failure.dart';
+import '../../domain/profile/entity/profile_entity.dart';
 import '../../domain/profile/repository/profile_repository.dart';
 import '../service/auth_service/auth_service.dart';
 
@@ -13,14 +15,18 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl(this.authService);
 
   @override
-  Future<Either<Failure, UserEntity>> getProfile() async {
-    return const Right(
-      UserEntity(
-        id: 'uuid',
-        avatarUrl: 'https://picsum.photos/200/300',
-        nickname: 'KerJen',
-        description: 'Я мега крут',
-      ),
-    );
+  Future<Either<Failure, ProfileEntity>> getProfile() async {
+    try {
+      final userId = authService.getUserID();
+
+      return Right(
+        ProfileEntity(
+          user: UserEntity(id: '', avatarUrl: '', nickname: 'KerJen', description: 'COOOOL'),
+          email: 'example@email.com',
+        ),
+      );
+    } on UnknownException {
+      return Left(UnknownFailure());
+    }
   }
 }
