@@ -21,7 +21,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
       return Right(
         ProfileEntity(
-          user: UserEntity(id: userId, avatarUrl: '', nickname: 'KerJen', description: 'COOOOL'),
+          user: UserEntity(id: '', avatarUrl: '', nickname: 'KerJen', description: 'COOOOL'),
           email: 'example@email.com',
         ),
       );
