@@ -81,7 +81,7 @@ class _BouncingGestureDetectorState extends State<BouncingGestureDetector> with 
               ),
               (LongPressGestureRecognizer instance) {
                 if (widget.onLongPress != null) {
-                  instance.onLongPress = () {
+                  instance.onLongPress = () async {
                     _bounceController.forward();
                     Future.delayed(Duration(milliseconds: 100 + widget.animationDelay), () {
                       _bounceController.reverse();

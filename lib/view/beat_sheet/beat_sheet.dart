@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../core/const.dart';
@@ -25,6 +27,11 @@ class BeatSheet extends StatefulWidget {
 }
 
 class _BeatSheetState extends State<BeatSheet> {
+  final currentFiles = <String, BeatFile?>{
+    '.mp3': null,
+    '.wav': null,
+    '.zip': null,
+  };
   List<String> currentGenres = [];
   int currentTempo = 20;
   int currentDimensionIndex = 0;
@@ -84,7 +91,7 @@ class _BeatSheetState extends State<BeatSheet> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 const TextField(
                   decoration: InputDecoration(
                     hintText: 'Введите описание...',
@@ -111,9 +118,17 @@ class _BeatSheetState extends State<BeatSheet> {
                           ),
                     ),
                     const SizedBox(height: 16),
-                    const BeatFiles(),
+                    BeatFiles(
+                      files: currentFiles,
+                      onFileChanged: (fileType, file) {
+                        setState(() {
+                          currentFiles[fileType] = file;
+                        });
+                      },
+                    ),
                   ],
                 ),
+                const SizedBox(height: 24),
                 _Genre(
                   genres: currentGenres,
                   onChanged: (newGenres) {
@@ -144,7 +159,7 @@ class _BeatSheetState extends State<BeatSheet> {
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: () {},
-                  child: Center(
+                  child: const Center(
                     child: Text('Создать'),
                   ),
                 ),
