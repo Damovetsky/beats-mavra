@@ -2,6 +2,30 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+class WaveWidget extends StatefulWidget {
+  final List<double> graph;
+  const WaveWidget({Key? key, required this.graph}) : super(key: key);
+
+  @override
+  State<WaveWidget> createState() => _WaveWidgetState(graph);
+}
+
+class _WaveWidgetState extends State<WaveWidget> {
+  late final List<double> graph;
+
+  _WaveWidgetState(List<double> graphInit) {
+    graph = graphInit;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: AmplitudePainter(amplitudeData: graph),
+    );
+  }
+}
+
+
 class AmplitudePainter extends CustomPainter {
   final List<double> amplitudeData;
 
