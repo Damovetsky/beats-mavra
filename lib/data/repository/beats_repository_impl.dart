@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/error/exception.dart';
 import '../../core/error/failure.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 import '../../domain/beats/entity/create_beat_entity.dart';
@@ -53,9 +54,9 @@ class BeatsRepositoryImpl extends BeatsRepository {
           ),
         ),
       );
-    } on BeatAlreadyExistsException catch (e) {
+    } on AlreadyExistException catch (e) {
       return Left(UnknownFailure());
-    } on BeatsUnknownException catch (e) {
+    } on UnknownException catch (e) {
       return Left(UnknownFailure());
     }
   }

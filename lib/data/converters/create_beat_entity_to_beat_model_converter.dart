@@ -25,5 +25,6 @@ class CreateBeatEntityToBeatModelConverter
         genres: input.genres,
         temp: input.temp,
         dimension: input.dimension,
+        graph: [],
       );
 }

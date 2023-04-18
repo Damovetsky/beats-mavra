@@ -3,11 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'upload_file_model.freezed.dart';
 
-
 @freezed
 class UploadFileModel with _$UploadFileModel {
   const factory UploadFileModel({
     required String fileId,
     required UploadTask uploadTask,
-}) = _UploadFileModel;
+  }) = _UploadFileModel;
 }
