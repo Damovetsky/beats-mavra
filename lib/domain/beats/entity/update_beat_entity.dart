@@ -1,13 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'beat_model.freezed.dart';
-part 'beat_model.g.dart';
+part 'update_beat_entity.freezed.dart';
 
 @freezed
-class BeatModel with _$BeatModel {
-  const factory BeatModel({
-    required String beatId,
-    required String authorId,
+class UpdateBeatEntity with _$UpdateBeatEntity {
+  const factory UpdateBeatEntity({
     required String cover,
     required String title,
     required String description,
@@ -17,7 +14,5 @@ class BeatModel with _$BeatModel {
     required List<String> genres,
     required int temp,
     required String dimension,
-  }) = _BeatModel;
-
-  factory BeatModel.fromJson(Map<String, dynamic> json) => _$BeatModelFromJson(json);
+  }) = _UpdateBeatEntity;
 }
