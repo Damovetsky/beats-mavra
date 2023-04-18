@@ -29,7 +29,7 @@ class UserServiceImpl implements UserService {
         .then((value) =>
     value.exists
         ? UserModel.fromJson(value.data()!)
-        : throw UsersExceptionFactory().generateException('does-not-exist'),)
+        : throw UsersExceptionFactory().generateException('not-found'),)
         .onError((FirebaseException error, stackTrace) =>
     throw exceptionFactory.generateException(error.code),);
   }
