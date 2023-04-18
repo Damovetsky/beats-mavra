@@ -35,7 +35,6 @@ class FilesServiceImpl extends FilesService {
     final ref = firebaseStorage.ref().child(fileRef);
     return UploadFileModel(
       fileId: fileId,
-      ref: fileRef,
       uploadTask: ref.putFile(srcFile),
     );
   }

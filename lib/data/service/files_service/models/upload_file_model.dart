@@ -8,7 +8,6 @@ part 'upload_file_model.freezed.dart';
 class UploadFileModel with _$UploadFileModel {
   const factory UploadFileModel({
     required String fileId,
-    required String ref,
     required UploadTask uploadTask,
 }) = _UploadFileModel;
 }
