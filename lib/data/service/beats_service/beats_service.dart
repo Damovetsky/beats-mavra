@@ -84,7 +84,7 @@ class BeatsServiceImpl implements BeatsService {
   }) async {
     var cursor = beatsCollection.orderBy(orderby).limit(limit);
     if (beatsIds != null) {
-      cursor = cursor.where("beatId", whereIn: beatsIds);
+      cursor = cursor.where('beatId', whereIn: beatsIds);
     }
     if (lastVisible != null) {
       cursor = cursor.startAfter([lastVisible]);
