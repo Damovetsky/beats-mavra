@@ -8,6 +8,7 @@ import 'core/di/di.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
 import 'view/home_page/home_page.dart';
+import 'view/profile_page/beat_list_page/beat_list_page.dart';
 
 const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
@@ -44,7 +45,7 @@ class App extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: locale,
               theme: theme,
-              home: const HomePage(),
+              home: BeatListPage(title: 'hi', beatIds: []),
             );
           },
         );
