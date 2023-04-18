@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:beats/view/profile_page/profile_page.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
+import 'core/http_crutch.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
 import 'view/home_page/home_page.dart';
@@ -13,6 +16,7 @@ const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global =  AppHttpOverrides();
   configureDependencies();
   await EasyLocalization.ensureInitialized();
 

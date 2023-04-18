@@ -37,10 +37,11 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       authService.createUserWithEmailAndPassword(email, password);
       final id = await getUserID().first;
+      print(id);
       if (id == null) {
         return Left(EmailNotFoundFailure());
       }
-      userService.createUser(UserModel(
+      await userService.createUser(UserModel(
         userId: id,
         nickname: nickname,
         avatar: '',
