@@ -25,12 +25,12 @@ class BeatsRepositoryImpl extends BeatsRepository {
 
   @override
   Stream<Either<Failure, List<BeatEntity>>> get(
-    StreamController<BeatEntity> lastEntityStream, [
-    int limit = 25,
-  ]) {
+      StreamController<BeatEntity> lastEntityStream,
+      [int limit = 25,
+      List<String>? beatsIds,]) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
-        final beats = (await beatsService.getBeats(lastVisible: last.beatId));
+        final beats = (await beatsService.getBeats(lastVisible: last.beatId, limit: limit, beatsIds: beatsIds));
         return Right(
           beats.map(BeatModelToBeatEntityConverter().convert).toList(),
         );
