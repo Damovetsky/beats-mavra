@@ -12,9 +12,10 @@ import 'package:http/http.dart' as http;
 
 abstract class BeatsService {
   Future<List<BeatModel>> getBeats<T>({
-    T? lastVisible,
     String orderby,
     int limit = 25,
+    T? lastVisible,
+    List<String>? beatsIds,
   });
 
   Future<BeatModel> createBeat(BeatModel beatModel);
@@ -76,11 +77,15 @@ class BeatsServiceImpl implements BeatsService {
 
   @override
   Future<List<BeatModel>> getBeats<T>({
-    T? lastVisible,
     String orderby = 'beatId',
     int limit = 25,
+    T? lastVisible,
+    List<String>? beatsIds,
   }) async {
     var cursor = beatsCollection.orderBy(orderby).limit(limit);
+    if (beatsIds != null) {
+      cursor = cursor.where("beatId", whereIn: beatsIds);
+    }
     if (lastVisible != null) {
       cursor = cursor.startAfter([lastVisible]);
     }
