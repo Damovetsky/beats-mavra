@@ -11,8 +11,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 abstract class BeatsService {
-  Future<List<BeatModel>> getBeats({
-    BeatModel? lastVisible,
+  Future<List<BeatModel>> getBeats<T>({
+    T? lastVisible,
+    String orderby,
     int limit = 25,
   });
 
@@ -75,16 +76,15 @@ class BeatsServiceImpl implements BeatsService {
   }
 
   @override
-  Future<List<BeatModel>> getBeats({
-    BeatModel? lastVisible,
+  Future<List<BeatModel>> getBeats<T>({
+    T? lastVisible,
+    String orderby = 'beatId',
     int limit = 25,
   }) async {
-    final cursor = lastVisible == null
-        ? beatsCollection.orderBy('beatId').limit(limit)
-        : beatsCollection
-        .orderBy('beatId')
-        .limit(limit)
-        .startAfter([lastVisible.beatId]);
+    var cursor = beatsCollection.orderBy(orderby).limit(limit);
+    if (lastVisible != null) {
+      cursor = cursor.startAfter([lastVisible]);
+    }
     return cursor
         .get()
         .then(

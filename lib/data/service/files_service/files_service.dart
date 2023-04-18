@@ -9,7 +9,7 @@ abstract class FilesService {
 }
 
 @Injectable(as: FilesService)
-class FilesServiceImpl extends FilesService{
+class FilesServiceImpl extends FilesService {
   final FirebaseStorage firebaseStorage;
 
   FilesServiceImpl(this.firebaseStorage);

@@ -25,7 +25,7 @@ const lightColorScheme = ColorScheme(
   onBackground: Color(0xFF1C1B1F),
   surface: Color(0xFFFFFBFE),
   onSurface: Color(0xFF1C1B1F),
-  surfaceVariant: Color(0xFFE7E0EC),
+  surfaceVariant: Color(0xFFF7F7F8), // #FFF7F7F8
   onSurfaceVariant: Color(0xFF49454F),
   inverseSurface: Color(0xFF313033),
   onInverseSurface: Color(0xFFF4EFF4),
@@ -58,7 +58,7 @@ const darkColorScheme = ColorScheme(
   onBackground: Color(0xFFE6E1E5),
   surface: Color(0xFF1C1B1F),
   onSurface: Color(0xFFE6E1E5),
-  surfaceVariant: Color(0xFF49454F),
+  surfaceVariant: Color(0xFF27262C), // #FF27262C
   onSurfaceVariant: Color(0xFFCAC4D0),
   inverseSurface: Color(0xFFE6E1E5),
   onInverseSurface: Color(0xFF313033),
@@ -68,3 +68,5 @@ const darkColorScheme = ColorScheme(
   outlineVariant: Color(0xFF49454F),
   scrim: Color(0xFF000000),
 );
+
+const redColor = Color(0xFFFF5858);

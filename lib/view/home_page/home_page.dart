@@ -1,16 +1,20 @@
+import 'dart:async';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
+import '../beat_sheet/beat_sheet.dart';
 import '../profile_page/profile_page.dart';
+import '../search_page/search_page.dart';
 
 final _pagesGlobalKey = GlobalKey();
 
 const pages = [
-  SizedBox(),
-  SizedBox(),
+  SearchPage(),
+  SizedBox.shrink(),
   ProfilePage(),
 ];
 
@@ -48,7 +52,9 @@ class HomePageState extends State<HomePage> {
               label: 'search_title'.tr(),
             ),
             BouncingGestureDetector(
-              onTap: () {},
+              onTap: () {
+                unawaited(BeatSheet.show(context));
+              },
               child: Container(
                 height: 52,
                 width: 52,
