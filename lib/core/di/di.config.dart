@@ -69,8 +69,10 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.lazySingleton<_i17.UsersRepository>(
         () => _i18.UsersRepositoryImpl(gh<_i16.UserService>()));
-    gh.lazySingleton<_i19.AuthRepository>(
-        () => _i20.AuthRepositoryImpl(gh<_i11.AuthService>()));
+    gh.lazySingleton<_i19.AuthRepository>(() => _i20.AuthRepositoryImpl(
+          gh<_i11.AuthService>(),
+          gh<_i16.UserService>(),
+        ));
     gh.factory<_i21.ProfileCubit>(
         () => _i21.ProfileCubit(gh<_i14.ProfileRepository>()));
     return this;
