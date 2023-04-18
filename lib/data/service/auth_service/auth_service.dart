@@ -13,8 +13,8 @@ abstract class AuthService {
   Stream<String?> getUserID();
   void signOut();
 
-  void signInWithGoogle();
-  void signInWithApple();
+  Future<UserCredential> signInWithGoogle();
+  Future<UserCredential> signInWithApple();
 }
 
 @Injectable(as: AuthService)
@@ -80,8 +80,10 @@ class AuthServiceImpl implements AuthService {
     }
   }
 
+
   @override
   Future<UserCredential> signInWithGoogle() async {
+
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 

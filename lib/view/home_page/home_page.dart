@@ -35,9 +35,10 @@ class HomePageState extends State<HomePage> {
         body: GestureDetector(
           onTap: () async {
             // print(AuthRepositoryImpl(getIt.get<AuthService>()).getUserID());
-            await AuthRepositoryImpl(getIt.get<AuthService>(), getIt.get<UserService>())
-                .signUp(email: 'me21@example.com', password: 'mnsjbhrfeuosydfbekrbgguyeBWE', nickname: 'Me21');
-            // await AuthRepositoryImpl(getIt.get<AuthService>()).signInWithGoogle();
+            // await AuthRepositoryImpl(getIt.get<AuthService>(), getIt.get<UserService>())
+            //     .signUp(email: 'me21@example.com', password: 'mnsjbhrfeuosydfbekrbgguyeBWE', nickname: 'Me21');
+            // signInWithGoogle
+            await AuthRepositoryImpl(getIt.get<AuthService>(), getIt.get<UserService>()).signInWithGoogle();
             // await AuthRepositoryImpl(getIt.get<AuthService>()).signUp(nickname: 'A', email: 'me@example.com', password: 'mnsjbhrfeuihinkrgsbggeBWE');
             // print(AuthRepositoryImpl(getIt.get<AuthService>()).getUserID());
           },
