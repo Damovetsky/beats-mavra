@@ -23,5 +23,6 @@ class UpdateBeatEntityToBeatModelConverter
         genres: input.genres,
         temp: input.temp,
         dimension: input.dimension,
+        graph: [],
       );
 }
