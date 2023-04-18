@@ -67,8 +67,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i15.AuthServiceImpl(gh<_i10.FirebaseAuth>()));
     gh.factory<_i16.BeatsService>(
         () => _i16.BeatsServiceImpl(gh<_i11.FirebaseFirestore>()));
-    gh.factory<_i17.FilesService>(
-        () => _i17.FilesServiceImpl(gh<_i12.FirebaseStorage>()));
+    gh.factory<_i17.FilesService>(() => _i17.FilesServiceImpl(
+          gh<_i12.FirebaseStorage>(),
+          gh<_i11.FirebaseFirestore>(),
+        ));
     gh.lazySingleton<_i18.ProfileRepository>(
         () => _i19.ProfileRepositoryImpl(gh<_i15.AuthService>()));
     gh.factory<_i20.UserService>(() => _i20.UserServiceImpl(
