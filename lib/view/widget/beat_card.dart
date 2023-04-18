@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_animator/widgets/attention_seekers/pulse.dart';
@@ -72,7 +74,8 @@ class BeatCard extends StatelessWidget {
               children: [
                 Pulse(
                   preferences: AnimationPreferences(
-                    duration: Duration(milliseconds: (60 * 1000 / 300).round()),
+                    magnitude: 0.5,
+                    duration: Duration(milliseconds: (60 * 1000 / Random().nextInt(200)).round()),
                     autoPlay: AnimationPlayStates.Loop,
                   ),
                   child: AppChip(
