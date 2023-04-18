@@ -4,7 +4,7 @@ part 'public_user_model.freezed.dart';
 part 'public_user_model.g.dart';
 
 @freezed
-class PublicUserModel with _$PrivateUserModel {
+class PublicUserModel with _$PublicUserModel {
   const factory PublicUserModel({
     required String id,
     required String avatarUrl,
