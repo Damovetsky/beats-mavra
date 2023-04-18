@@ -4,6 +4,7 @@ import 'package:flutter_animator/flutter_animator.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/chip.dart';
 import '../../core/ui/kit/image.dart';
+import '../../core/ui/kit/tags.dart';
 import '../../core/ui/text_styles.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 
@@ -61,6 +62,41 @@ class BeatCard extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                const _BeatFormat(title: 'MP3'),
+                if (beat.wav != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'WAV')],
+                if (beat.zip != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'ZIP')],
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ShaderMask(
+                    shaderCallback: (Rect rect) {
+                      return LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          currentColorScheme(context).background,
+                          Colors.transparent,
+                          Colors.transparent,
+                          currentColorScheme(context).background,
+                        ],
+                        stops: const [0.0, 0.07, 0.95, 1.0],
+                      ).createShader(rect);
+                    },
+                    blendMode: BlendMode.dstOut,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: AppTags(tags: beat.genres),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 16),
@@ -71,7 +107,7 @@ class BeatCard extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 16),
             child: Row(
@@ -133,6 +169,26 @@ class BeatCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
         ],
+      ),
+    );
+  }
+}
+
+class _BeatFormat extends StatelessWidget {
+  final String title;
+
+  const _BeatFormat({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppChip(
+      color: currentColorScheme(context).tertiaryContainer.withOpacity(0.4),
+      child: Text(
+        title,
+        style: currentTextTheme(context).bodyMedium?.copyWith(
+              color: currentColorScheme(context).tertiary,
+              fontWeight: FontWeight.w600,
+            ),
       ),
     );
   }

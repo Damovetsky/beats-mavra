@@ -16,9 +16,10 @@ class UserServiceImpl implements UserService {
   final UsersExceptionFactory exceptionFactory;
   late CollectionReference<Map<String, dynamic>> usersCollection;
 
-
   UserServiceImpl(this.firestoreInstance, this.exceptionFactory) {
     usersCollection = firestoreInstance.collection('users');
+
+    // User
   }
 
   @override
@@ -26,21 +27,20 @@ class UserServiceImpl implements UserService {
     return usersCollection
         .doc(id)
         .get()
-        .then((value) =>
-    value.exists
-        ? UserModel.fromJson(value.data()!)
-        : throw UsersExceptionFactory().generateException('does-not-exist'),)
-        .onError((FirebaseException error, stackTrace) =>
-    throw exceptionFactory.generateException(error.code),);
+        .then(
+          (value) => value.exists
+              ? UserModel.fromJson(value.data()!)
+              : throw UsersExceptionFactory().generateException('does-not-exist'),
+        )
+        .onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
   }
 
   @override
   Future<UserModel> createUser(UserModel user) {
-    return usersCollection
-        .doc(user.userId)
-        .set(user.toJson())
-        .then((value) => getUser(user.userId))
-        .onError((FirebaseException error, stackTrace) =>
-    throw exceptionFactory.generateException(error.code),);
+    return usersCollection.doc(user.userId).set(user.toJson()).then((value) => getUser(user.userId)).onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
   }
 }

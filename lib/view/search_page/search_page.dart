@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../core/di/di.dart';
+import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
-import '../../domain/beats/entity/beat_entity.dart';
-import '../widget/beat_card.dart';
+import '../../core/ui/text_styles.dart';
+import '../widget/beat_card_list/beat_card_list.dart';
 import 'cubit/cubit.dart';
-
-const int searchPageSize = 6;
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -18,55 +16,76 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final cubit = getIt.get<SearchCubit>();
-  final _searchController = PagingController<int, BeatEntity>(firstPageKey: 0);
-
-  @override
-  void initState() {
-    super.initState();
-
-    _searchController.addPageRequestListener((pageKey) {
-      final beats = _searchController.itemList;
-      cubit.loadMore(beats?.last);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => cubit,
+      create: (context) => getIt.get<SearchCubit>(),
       child: Scaffold(
-        appBar: AppBar(),
-        body: BlocListener<SearchCubit, SearchState>(
-          listener: (context, state) {
-            state.mapOrNull(
-              feed: (state) {
-                final isLastPage = state.beats.length < searchPageSize;
-
-                if (isLastPage) {
-                  _searchController.appendLastPage(state.beats);
-                } else {
-                  _searchController.appendPage(
-                      state.beats, (_searchController.itemList?.length ?? 0) + state.beats.length);
-                }
-              },
-            );
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverPersistentHeader(
+                floating: true,
+                delegate: _SearchSliverHeaderDelegate(
+                  topPadding: MediaQuery.of(context).viewPadding.top,
+                ),
+              ),
+            ];
           },
-          child: PagedListView<int, BeatEntity>.separated(
-            pagingController: _searchController,
-            padding: const EdgeInsets.only(
-              left: screenHorizontalMargin,
-              right: screenHorizontalMargin,
-              top: screenTopScrollPadding,
-              bottom: screenBottomScrollPadding,
-            ),
-            builderDelegate: PagedChildBuilderDelegate(
-              itemBuilder: (context, beat, index) => BeatCard(beat: beat),
-            ),
-            separatorBuilder: (context, _) => const SizedBox(height: 16),
-          ),
+          body: const BeatCardList(),
         ),
       ),
     );
   }
+}
+
+class _SearchSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double topPadding;
+
+  double _completeHeight = 0;
+
+  _SearchSliverHeaderDelegate({required this.topPadding}) {
+    _completeHeight = topPadding + kToolbarHeight + 4;
+  }
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: _completeHeight,
+      padding: EdgeInsets.only(top: topPadding, left: screenHorizontalMargin, right: screenHorizontalMargin),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        children: [
+          const Icon(Icons.search),
+          const SizedBox(width: screenHorizontalMargin),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                hintText: 'Поиск по инструменталам',
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.filter_alt_outlined,
+              color: currentColorScheme(context).primary,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => _completeHeight;
+
+  @override
+  double get minExtent => _completeHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
 }
