@@ -35,12 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
     try {
-      authService.createUserWithEmailAndPassword(email, password);
-      final id = await getUserID().first;
-      print(id);
-      if (id == null) {
-        return Left(EmailNotFoundFailure());
-      }
+      final id = await authService.createUserWithEmailAndPassword(email, password); 
       await userService.createUser(UserModel(
         userId: id,
         nickname: nickname,
