@@ -13,8 +13,8 @@ _$_BeatModel _$$_BeatModelFromJson(Map<String, dynamic> json) => _$_BeatModel(
       title: json['title'] as String,
       description: json['description'] as String,
       mp3: json['mp3'] as String,
-      wav: json['wav'] as String,
-      zip: json['zip'] as String,
+      wav: json['wav'] as String?,
+      zip: json['zip'] as String?,
       genres:
           (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
       temp: json['temp'] as int,

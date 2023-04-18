@@ -1,11 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'beat_entity.freezed.dart';
+part 'create_beat_entity.freezed.dart';
 
 @freezed
-class BeatEntity with _$BeatEntity {
-  const factory BeatEntity({
-    required String beatId,
+class CreateBeatEntity with _$CreateBeatEntity {
+  const factory CreateBeatEntity({
     required String authorId,
     required String cover,
     required String title,
@@ -16,5 +15,5 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
-}) = _BeatEntity;
+  }) = _CreateBeatEntity;
 }

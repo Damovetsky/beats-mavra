@@ -1,12 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'beat_entity.freezed.dart';
+part 'update_beat_entity.freezed.dart';
 
 @freezed
-class BeatEntity with _$BeatEntity {
-  const factory BeatEntity({
-    required String beatId,
-    required String authorId,
+class UpdateBeatEntity with _$UpdateBeatEntity {
+  const factory UpdateBeatEntity({
     required String cover,
     required String title,
     required String description,
@@ -16,5 +14,5 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
-}) = _BeatEntity;
+  }) = _UpdateBeatEntity;
 }

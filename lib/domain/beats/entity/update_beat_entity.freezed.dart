@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'beat_model.dart';
+part of 'update_beat_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,14 +14,8 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-BeatModel _$BeatModelFromJson(Map<String, dynamic> json) {
-  return _BeatModel.fromJson(json);
-}
-
 /// @nodoc
-mixin _$BeatModel {
-  String get beatId => throw _privateConstructorUsedError;
-  String get authorId => throw _privateConstructorUsedError;
+mixin _$UpdateBeatEntity {
   String get cover => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -32,21 +26,19 @@ mixin _$BeatModel {
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BeatModelCopyWith<BeatModel> get copyWith =>
+  $UpdateBeatEntityCopyWith<UpdateBeatEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BeatModelCopyWith<$Res> {
-  factory $BeatModelCopyWith(BeatModel value, $Res Function(BeatModel) then) =
-      _$BeatModelCopyWithImpl<$Res, BeatModel>;
+abstract class $UpdateBeatEntityCopyWith<$Res> {
+  factory $UpdateBeatEntityCopyWith(
+          UpdateBeatEntity value, $Res Function(UpdateBeatEntity) then) =
+      _$UpdateBeatEntityCopyWithImpl<$Res, UpdateBeatEntity>;
   @useResult
   $Res call(
-      {String beatId,
-      String authorId,
-      String cover,
+      {String cover,
       String title,
       String description,
       String mp3,
@@ -58,9 +50,9 @@ abstract class $BeatModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
-    implements $BeatModelCopyWith<$Res> {
-  _$BeatModelCopyWithImpl(this._value, this._then);
+class _$UpdateBeatEntityCopyWithImpl<$Res, $Val extends UpdateBeatEntity>
+    implements $UpdateBeatEntityCopyWith<$Res> {
+  _$UpdateBeatEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -70,8 +62,6 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? beatId = null,
-    Object? authorId = null,
     Object? cover = null,
     Object? title = null,
     Object? description = null,
@@ -83,14 +73,6 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
     Object? dimension = null,
   }) {
     return _then(_value.copyWith(
-      beatId: null == beatId
-          ? _value.beatId
-          : beatId // ignore: cast_nullable_to_non_nullable
-              as String,
-      authorId: null == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
-              as String,
       cover: null == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
@@ -132,16 +114,15 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
 }
 
 /// @nodoc
-abstract class _$$_BeatModelCopyWith<$Res> implements $BeatModelCopyWith<$Res> {
-  factory _$$_BeatModelCopyWith(
-          _$_BeatModel value, $Res Function(_$_BeatModel) then) =
-      __$$_BeatModelCopyWithImpl<$Res>;
+abstract class _$$_UpdateBeatEntityCopyWith<$Res>
+    implements $UpdateBeatEntityCopyWith<$Res> {
+  factory _$$_UpdateBeatEntityCopyWith(
+          _$_UpdateBeatEntity value, $Res Function(_$_UpdateBeatEntity) then) =
+      __$$_UpdateBeatEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String beatId,
-      String authorId,
-      String cover,
+      {String cover,
       String title,
       String description,
       String mp3,
@@ -153,18 +134,16 @@ abstract class _$$_BeatModelCopyWith<$Res> implements $BeatModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_BeatModelCopyWithImpl<$Res>
-    extends _$BeatModelCopyWithImpl<$Res, _$_BeatModel>
-    implements _$$_BeatModelCopyWith<$Res> {
-  __$$_BeatModelCopyWithImpl(
-      _$_BeatModel _value, $Res Function(_$_BeatModel) _then)
+class __$$_UpdateBeatEntityCopyWithImpl<$Res>
+    extends _$UpdateBeatEntityCopyWithImpl<$Res, _$_UpdateBeatEntity>
+    implements _$$_UpdateBeatEntityCopyWith<$Res> {
+  __$$_UpdateBeatEntityCopyWithImpl(
+      _$_UpdateBeatEntity _value, $Res Function(_$_UpdateBeatEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? beatId = null,
-    Object? authorId = null,
     Object? cover = null,
     Object? title = null,
     Object? description = null,
@@ -175,15 +154,7 @@ class __$$_BeatModelCopyWithImpl<$Res>
     Object? temp = null,
     Object? dimension = null,
   }) {
-    return _then(_$_BeatModel(
-      beatId: null == beatId
-          ? _value.beatId
-          : beatId // ignore: cast_nullable_to_non_nullable
-              as String,
-      authorId: null == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$_UpdateBeatEntity(
       cover: null == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
@@ -225,12 +196,10 @@ class __$$_BeatModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_BeatModel implements _BeatModel {
-  const _$_BeatModel(
-      {required this.beatId,
-      required this.authorId,
-      required this.cover,
+
+class _$_UpdateBeatEntity implements _UpdateBeatEntity {
+  const _$_UpdateBeatEntity(
+      {required this.cover,
       required this.title,
       required this.description,
       required this.mp3,
@@ -241,13 +210,6 @@ class _$_BeatModel implements _BeatModel {
       required this.dimension})
       : _genres = genres;
 
-  factory _$_BeatModel.fromJson(Map<String, dynamic> json) =>
-      _$$_BeatModelFromJson(json);
-
-  @override
-  final String beatId;
-  @override
-  final String authorId;
   @override
   final String cover;
   @override
@@ -275,17 +237,14 @@ class _$_BeatModel implements _BeatModel {
 
   @override
   String toString() {
-    return 'BeatModel(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'UpdateBeatEntity(cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BeatModel &&
-            (identical(other.beatId, beatId) || other.beatId == beatId) &&
-            (identical(other.authorId, authorId) ||
-                other.authorId == authorId) &&
+            other is _$_UpdateBeatEntity &&
             (identical(other.cover, cover) || other.cover == cover) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -299,41 +258,20 @@ class _$_BeatModel implements _BeatModel {
                 other.dimension == dimension));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      beatId,
-      authorId,
-      cover,
-      title,
-      description,
-      mp3,
-      wav,
-      zip,
-      const DeepCollectionEquality().hash(_genres),
-      temp,
-      dimension);
+  int get hashCode => Object.hash(runtimeType, cover, title, description, mp3,
+      wav, zip, const DeepCollectionEquality().hash(_genres), temp, dimension);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BeatModelCopyWith<_$_BeatModel> get copyWith =>
-      __$$_BeatModelCopyWithImpl<_$_BeatModel>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_BeatModelToJson(
-      this,
-    );
-  }
+  _$$_UpdateBeatEntityCopyWith<_$_UpdateBeatEntity> get copyWith =>
+      __$$_UpdateBeatEntityCopyWithImpl<_$_UpdateBeatEntity>(this, _$identity);
 }
 
-abstract class _BeatModel implements BeatModel {
-  const factory _BeatModel(
-      {required final String beatId,
-      required final String authorId,
-      required final String cover,
+abstract class _UpdateBeatEntity implements UpdateBeatEntity {
+  const factory _UpdateBeatEntity(
+      {required final String cover,
       required final String title,
       required final String description,
       required final String mp3,
@@ -341,15 +279,8 @@ abstract class _BeatModel implements BeatModel {
       required final String? zip,
       required final List<String> genres,
       required final int temp,
-      required final String dimension}) = _$_BeatModel;
+      required final String dimension}) = _$_UpdateBeatEntity;
 
-  factory _BeatModel.fromJson(Map<String, dynamic> json) =
-      _$_BeatModel.fromJson;
-
-  @override
-  String get beatId;
-  @override
-  String get authorId;
   @override
   String get cover;
   @override
@@ -370,6 +301,6 @@ abstract class _BeatModel implements BeatModel {
   String get dimension;
   @override
   @JsonKey(ignore: true)
-  _$$_BeatModelCopyWith<_$_BeatModel> get copyWith =>
+  _$$_UpdateBeatEntityCopyWith<_$_UpdateBeatEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
