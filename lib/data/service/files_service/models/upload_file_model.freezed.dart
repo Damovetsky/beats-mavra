@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UploadFileModel {
   String get fileId => throw _privateConstructorUsedError;
+  String get ref => throw _privateConstructorUsedError;
   UploadTask get uploadTask => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $UploadFileModelCopyWith<$Res> {
           UploadFileModel value, $Res Function(UploadFileModel) then) =
       _$UploadFileModelCopyWithImpl<$Res, UploadFileModel>;
   @useResult
-  $Res call({String fileId, UploadTask uploadTask});
+  $Res call({String fileId, String ref, UploadTask uploadTask});
 }
 
 /// @nodoc
@@ -47,12 +48,17 @@ class _$UploadFileModelCopyWithImpl<$Res, $Val extends UploadFileModel>
   @override
   $Res call({
     Object? fileId = null,
+    Object? ref = null,
     Object? uploadTask = null,
   }) {
     return _then(_value.copyWith(
       fileId: null == fileId
           ? _value.fileId
           : fileId // ignore: cast_nullable_to_non_nullable
+              as String,
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String,
       uploadTask: null == uploadTask
           ? _value.uploadTask
@@ -70,7 +76,7 @@ abstract class _$$_UploadFileModelCopyWith<$Res>
       __$$_UploadFileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String fileId, UploadTask uploadTask});
+  $Res call({String fileId, String ref, UploadTask uploadTask});
 }
 
 /// @nodoc
@@ -85,12 +91,17 @@ class __$$_UploadFileModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fileId = null,
+    Object? ref = null,
     Object? uploadTask = null,
   }) {
     return _then(_$_UploadFileModel(
       fileId: null == fileId
           ? _value.fileId
           : fileId // ignore: cast_nullable_to_non_nullable
+              as String,
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String,
       uploadTask: null == uploadTask
           ? _value.uploadTask
@@ -103,16 +114,19 @@ class __$$_UploadFileModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UploadFileModel implements _UploadFileModel {
-  const _$_UploadFileModel({required this.fileId, required this.uploadTask});
+  const _$_UploadFileModel(
+      {required this.fileId, required this.ref, required this.uploadTask});
 
   @override
   final String fileId;
+  @override
+  final String ref;
   @override
   final UploadTask uploadTask;
 
   @override
   String toString() {
-    return 'UploadFileModel(fileId: $fileId, uploadTask: $uploadTask)';
+    return 'UploadFileModel(fileId: $fileId, ref: $ref, uploadTask: $uploadTask)';
   }
 
   @override
@@ -121,12 +135,13 @@ class _$_UploadFileModel implements _UploadFileModel {
         (other.runtimeType == runtimeType &&
             other is _$_UploadFileModel &&
             (identical(other.fileId, fileId) || other.fileId == fileId) &&
+            (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.uploadTask, uploadTask) ||
                 other.uploadTask == uploadTask));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fileId, uploadTask);
+  int get hashCode => Object.hash(runtimeType, fileId, ref, uploadTask);
 
   @JsonKey(ignore: true)
   @override
@@ -138,10 +153,13 @@ class _$_UploadFileModel implements _UploadFileModel {
 abstract class _UploadFileModel implements UploadFileModel {
   const factory _UploadFileModel(
       {required final String fileId,
+      required final String ref,
       required final UploadTask uploadTask}) = _$_UploadFileModel;
 
   @override
   String get fileId;
+  @override
+  String get ref;
   @override
   UploadTask get uploadTask;
   @override
