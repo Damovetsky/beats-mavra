@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
-import 'package:flutter_animator/widgets/attention_seekers/pulse.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/chip.dart';
 import '../../core/ui/kit/image.dart';
 import '../../core/ui/text_styles.dart';
+import '../../domain/beats/entity/beat_entity.dart';
 
 class BeatCard extends StatelessWidget {
-  const BeatCard({super.key});
+  final BeatEntity beat;
+
+  const BeatCard({
+    super.key,
+    required this.beat,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class BeatCard extends StatelessWidget {
         color: currentColorScheme(context).surfaceVariant,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -26,8 +32,8 @@ class BeatCard extends StatelessWidget {
                 AppImage(
                   height: 72,
                   width: 108,
-                  image: NetworkImage('http://placekitten.com/200/300'),
-                  borderRadius: BorderRadius.only(
+                  image: NetworkImage(beat.cover),
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(46),
                     bottomRight: Radius.circular(46),
@@ -36,7 +42,7 @@ class BeatCard extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
-                    'Travis Scott Sample Beat with TRACKOUT',
+                    beat.title,
                     style: currentTextTheme(context).bodyMedium?.copyWith(
                           color: currentColorScheme(context).primary,
                           fontWeight: FontWeight.w600,
@@ -59,7 +65,7 @@ class BeatCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 16),
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              beat.description,
               style: currentTextTheme(context).bodySmall?.copyWith(
                     color: currentColorScheme(context).onSurfaceVariant,
                   ),
@@ -72,13 +78,13 @@ class BeatCard extends StatelessWidget {
               children: [
                 Pulse(
                   preferences: AnimationPreferences(
-                    duration: Duration(milliseconds: (60 * 1000 / 300).round()),
+                    duration: Duration(milliseconds: (60 * 1000 / beat.temp).round()),
                     autoPlay: AnimationPlayStates.Loop,
                   ),
                   child: AppChip(
                     color: currentColorScheme(context).secondaryContainer,
                     child: Text(
-                      '150 BMP',
+                      '${beat.temp} BMP',
                       style: currentTextTheme(context).bodyMedium?.copyWith(
                             color: currentColorScheme(context).primary,
                             fontWeight: FontWeight.w600,
@@ -88,7 +94,7 @@ class BeatCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  '4/4',
+                  beat.dimension,
                   style: currentTextTheme(context).bodyMedium?.copyWith(
                         color: currentColorScheme(context).primary,
                       ),

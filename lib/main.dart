@@ -45,7 +45,7 @@ class App extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: locale,
               theme: theme,
-              home: BeatListPage(title: 'hi', beatIds: []),
+              home: HomePage(),
             );
           },
         );

@@ -2,14 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../core/di/di.dart';
 import '../../../core/ui/color_schemes.dart';
 import '../../../core/ui/dimens.dart';
 import '../../../core/ui/kit/back_button.dart';
 import '../../../core/ui/kit/shimmer_builder.dart';
+import '../../../domain/beats/entity/beat_entity.dart';
 import '../../widget/beat_card.dart';
 import 'cubit/cubit.dart';
+
+const _pageSize = 5;
 
 class BeatListPage extends StatefulWidget {
   final String title;
@@ -48,14 +52,15 @@ class _BeatListPageState extends State<BeatListPage> {
               ),
               itemCount: 5,
               itemBuilder: (context, index) {
-                return ShimmerBuilder(
-                  data: state.mapOrNull(beats: (value) => value) ?? 5,
-                  loadingChild: BorderRadiusShimmer(
-                    height: 196,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  builder: (context, data) => BeatCard(),
-                );
+                return SizedBox();
+                // return ShimmerBuilder(
+                //   data: state.mapOrNull(beats: (state) => state) ?? 5,
+                //   loadingChild: BorderRadiusShimmer(
+                //     height: 196,
+                //     borderRadius: BorderRadius.circular(16),
+                //   ),
+                //   builder: (context, data) => BeatCard(data[index]),
+                // );
               },
               separatorBuilder: (context, index) => const SizedBox(height: 16),
             );
@@ -66,13 +71,10 @@ class _BeatListPageState extends State<BeatListPage> {
   }
 }
 
-
-class AppHttpOverrides extends HttpOverrides{
+class AppHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
-
-

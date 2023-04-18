@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/error/failure.dart';
@@ -24,12 +25,12 @@ class BeatsRepositoryImpl extends BeatsRepository {
 
   @override
   Stream<Either<Failure, List<BeatEntity>>> get(
-    StreamController<BeatEntity> lastEntityStream, [
+    StreamController<BeatEntity?> lastEntityStream, [
     int limit = 25,
   ]) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
-        final beats = (await beatsService.getBeats(lastVisible: last.beatId));
+        final beats = (await beatsService.getBeats(lastVisible: last?.beatId, limit: limit));
         return Right(
           beats.map(BeatModelToBeatEntityConverter().convert).toList(),
         );
@@ -75,8 +76,7 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Future<Either<Failure, BeatEntity>> getBeat(String beatId) async {
     try {
       return Right(
-        BeatModelToBeatEntityConverter()
-            .convert(await beatsService.getBeat(beatId)),
+        BeatModelToBeatEntityConverter().convert(await beatsService.getBeat(beatId)),
       );
     } on BeatNotFoundException catch (e) {
       return Left(UnknownFailure());
