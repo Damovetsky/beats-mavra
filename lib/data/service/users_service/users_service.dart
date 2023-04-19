@@ -54,6 +54,8 @@ class UserServiceImpl implements UserService {
   @override
   Future<PrivateUserModel> getPrivateUser(String id) {
     return privateUsersCollection.doc(id).get().then((value) {
+      final t = value.data();
+
       return value.exists
           ? PrivateUserModel.fromJson(value.data()!)
           : throw UsersExceptionFactory().generateException('not-found');

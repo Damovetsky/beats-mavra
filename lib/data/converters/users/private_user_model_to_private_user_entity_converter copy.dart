@@ -13,7 +13,7 @@ class PrivateUserModelToPrivateUserEntityConverter extends Converter<PrivateUser
       id: input.id,
       email: input.email,
       balance: input.balance,
-      favorites: input.favorites.entries.where((element) => element.value).map((element) => element.key).toList(),
+      favorite: input.favorite.entries.where((element) => element.value).map((element) => element.key).toList(),
       bought: input.bought.entries.where((element) => element.value).map((element) => element.key).toList(),
       created: input.created.entries.where((element) => element.value).map((element) => element.key).toList(),
     );

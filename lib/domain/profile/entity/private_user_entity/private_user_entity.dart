@@ -8,7 +8,7 @@ class PrivateUserEntity with _$PrivateUserEntity {
     required String id,
     required String email,
     required double balance,
-    required List<String> favorites,
+    required List<String> favorite,
     required List<String> bought,
     required List<String> created,
   }) = _PrivateUserEntity;

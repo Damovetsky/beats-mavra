@@ -45,10 +45,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Future<Either<Failure, void>> signOut() async {
     try {
       await authService.signOut();
+      return const Right(null);
     } catch (_) {
       return Left(UnknownFailure());
     }
-
-    return Left(UnknownFailure());
   }
 }

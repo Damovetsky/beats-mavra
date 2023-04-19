@@ -11,7 +11,7 @@ _$_PrivateUserModel _$$_PrivateUserModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       email: json['email'] as String,
       balance: (json['balance'] as num).toDouble(),
-      favorites: Map<String, bool>.from(json['favorites'] as Map),
+      favorite: Map<String, bool>.from(json['favorite'] as Map),
       bought: Map<String, bool>.from(json['bought'] as Map),
       created: Map<String, bool>.from(json['created'] as Map),
     );
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_PrivateUserModelToJson(_$_PrivateUserModel instance) =>
       'id': instance.id,
       'email': instance.email,
       'balance': instance.balance,
-      'favorites': instance.favorites,
+      'favorite': instance.favorite,
       'bought': instance.bought,
       'created': instance.created,
     };

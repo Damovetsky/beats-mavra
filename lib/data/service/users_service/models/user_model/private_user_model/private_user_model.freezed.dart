@@ -23,7 +23,7 @@ mixin _$PrivateUserModel {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   double get balance => throw _privateConstructorUsedError;
-  Map<String, bool> get favorites => throw _privateConstructorUsedError;
+  Map<String, bool> get favorite => throw _privateConstructorUsedError;
   Map<String, bool> get bought => throw _privateConstructorUsedError;
   Map<String, bool> get created => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $PrivateUserModelCopyWith<$Res> {
       {String id,
       String email,
       double balance,
-      Map<String, bool> favorites,
+      Map<String, bool> favorite,
       Map<String, bool> bought,
       Map<String, bool> created});
 }
@@ -64,7 +64,7 @@ class _$PrivateUserModelCopyWithImpl<$Res, $Val extends PrivateUserModel>
     Object? id = null,
     Object? email = null,
     Object? balance = null,
-    Object? favorites = null,
+    Object? favorite = null,
     Object? bought = null,
     Object? created = null,
   }) {
@@ -81,9 +81,9 @@ class _$PrivateUserModelCopyWithImpl<$Res, $Val extends PrivateUserModel>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      favorites: null == favorites
-          ? _value.favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
+      favorite: null == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
               as Map<String, bool>,
       bought: null == bought
           ? _value.bought
@@ -109,7 +109,7 @@ abstract class _$$_PrivateUserModelCopyWith<$Res>
       {String id,
       String email,
       double balance,
-      Map<String, bool> favorites,
+      Map<String, bool> favorite,
       Map<String, bool> bought,
       Map<String, bool> created});
 }
@@ -128,7 +128,7 @@ class __$$_PrivateUserModelCopyWithImpl<$Res>
     Object? id = null,
     Object? email = null,
     Object? balance = null,
-    Object? favorites = null,
+    Object? favorite = null,
     Object? bought = null,
     Object? created = null,
   }) {
@@ -145,9 +145,9 @@ class __$$_PrivateUserModelCopyWithImpl<$Res>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      favorites: null == favorites
-          ? _value._favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
+      favorite: null == favorite
+          ? _value._favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
               as Map<String, bool>,
       bought: null == bought
           ? _value._bought
@@ -168,10 +168,10 @@ class _$_PrivateUserModel implements _PrivateUserModel {
       {required this.id,
       required this.email,
       required this.balance,
-      required final Map<String, bool> favorites,
+      required final Map<String, bool> favorite,
       required final Map<String, bool> bought,
       required final Map<String, bool> created})
-      : _favorites = favorites,
+      : _favorite = favorite,
         _bought = bought,
         _created = created;
 
@@ -184,12 +184,12 @@ class _$_PrivateUserModel implements _PrivateUserModel {
   final String email;
   @override
   final double balance;
-  final Map<String, bool> _favorites;
+  final Map<String, bool> _favorite;
   @override
-  Map<String, bool> get favorites {
-    if (_favorites is EqualUnmodifiableMapView) return _favorites;
+  Map<String, bool> get favorite {
+    if (_favorite is EqualUnmodifiableMapView) return _favorite;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_favorites);
+    return EqualUnmodifiableMapView(_favorite);
   }
 
   final Map<String, bool> _bought;
@@ -210,7 +210,7 @@ class _$_PrivateUserModel implements _PrivateUserModel {
 
   @override
   String toString() {
-    return 'PrivateUserModel(id: $id, email: $email, balance: $balance, favorites: $favorites, bought: $bought, created: $created)';
+    return 'PrivateUserModel(id: $id, email: $email, balance: $balance, favorite: $favorite, bought: $bought, created: $created)';
   }
 
   @override
@@ -221,8 +221,7 @@ class _$_PrivateUserModel implements _PrivateUserModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.balance, balance) || other.balance == balance) &&
-            const DeepCollectionEquality()
-                .equals(other._favorites, _favorites) &&
+            const DeepCollectionEquality().equals(other._favorite, _favorite) &&
             const DeepCollectionEquality().equals(other._bought, _bought) &&
             const DeepCollectionEquality().equals(other._created, _created));
   }
@@ -234,7 +233,7 @@ class _$_PrivateUserModel implements _PrivateUserModel {
       id,
       email,
       balance,
-      const DeepCollectionEquality().hash(_favorites),
+      const DeepCollectionEquality().hash(_favorite),
       const DeepCollectionEquality().hash(_bought),
       const DeepCollectionEquality().hash(_created));
 
@@ -257,7 +256,7 @@ abstract class _PrivateUserModel implements PrivateUserModel {
       {required final String id,
       required final String email,
       required final double balance,
-      required final Map<String, bool> favorites,
+      required final Map<String, bool> favorite,
       required final Map<String, bool> bought,
       required final Map<String, bool> created}) = _$_PrivateUserModel;
 
@@ -271,7 +270,7 @@ abstract class _PrivateUserModel implements PrivateUserModel {
   @override
   double get balance;
   @override
-  Map<String, bool> get favorites;
+  Map<String, bool> get favorite;
   @override
   Map<String, bool> get bought;
   @override

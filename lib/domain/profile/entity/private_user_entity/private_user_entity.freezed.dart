@@ -19,7 +19,7 @@ mixin _$PrivateUserEntity {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   double get balance => throw _privateConstructorUsedError;
-  List<String> get favorites => throw _privateConstructorUsedError;
+  List<String> get favorite => throw _privateConstructorUsedError;
   List<String> get bought => throw _privateConstructorUsedError;
   List<String> get created => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $PrivateUserEntityCopyWith<$Res> {
       {String id,
       String email,
       double balance,
-      List<String> favorites,
+      List<String> favorite,
       List<String> bought,
       List<String> created});
 }
@@ -59,7 +59,7 @@ class _$PrivateUserEntityCopyWithImpl<$Res, $Val extends PrivateUserEntity>
     Object? id = null,
     Object? email = null,
     Object? balance = null,
-    Object? favorites = null,
+    Object? favorite = null,
     Object? bought = null,
     Object? created = null,
   }) {
@@ -76,9 +76,9 @@ class _$PrivateUserEntityCopyWithImpl<$Res, $Val extends PrivateUserEntity>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      favorites: null == favorites
-          ? _value.favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
+      favorite: null == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
               as List<String>,
       bought: null == bought
           ? _value.bought
@@ -104,7 +104,7 @@ abstract class _$$_PrivateUserEntityCopyWith<$Res>
       {String id,
       String email,
       double balance,
-      List<String> favorites,
+      List<String> favorite,
       List<String> bought,
       List<String> created});
 }
@@ -123,7 +123,7 @@ class __$$_PrivateUserEntityCopyWithImpl<$Res>
     Object? id = null,
     Object? email = null,
     Object? balance = null,
-    Object? favorites = null,
+    Object? favorite = null,
     Object? bought = null,
     Object? created = null,
   }) {
@@ -140,9 +140,9 @@ class __$$_PrivateUserEntityCopyWithImpl<$Res>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      favorites: null == favorites
-          ? _value._favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
+      favorite: null == favorite
+          ? _value._favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
               as List<String>,
       bought: null == bought
           ? _value._bought
@@ -163,10 +163,10 @@ class _$_PrivateUserEntity implements _PrivateUserEntity {
       {required this.id,
       required this.email,
       required this.balance,
-      required final List<String> favorites,
+      required final List<String> favorite,
       required final List<String> bought,
       required final List<String> created})
-      : _favorites = favorites,
+      : _favorite = favorite,
         _bought = bought,
         _created = created;
 
@@ -176,12 +176,12 @@ class _$_PrivateUserEntity implements _PrivateUserEntity {
   final String email;
   @override
   final double balance;
-  final List<String> _favorites;
+  final List<String> _favorite;
   @override
-  List<String> get favorites {
-    if (_favorites is EqualUnmodifiableListView) return _favorites;
+  List<String> get favorite {
+    if (_favorite is EqualUnmodifiableListView) return _favorite;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_favorites);
+    return EqualUnmodifiableListView(_favorite);
   }
 
   final List<String> _bought;
@@ -202,7 +202,7 @@ class _$_PrivateUserEntity implements _PrivateUserEntity {
 
   @override
   String toString() {
-    return 'PrivateUserEntity(id: $id, email: $email, balance: $balance, favorites: $favorites, bought: $bought, created: $created)';
+    return 'PrivateUserEntity(id: $id, email: $email, balance: $balance, favorite: $favorite, bought: $bought, created: $created)';
   }
 
   @override
@@ -213,8 +213,7 @@ class _$_PrivateUserEntity implements _PrivateUserEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.balance, balance) || other.balance == balance) &&
-            const DeepCollectionEquality()
-                .equals(other._favorites, _favorites) &&
+            const DeepCollectionEquality().equals(other._favorite, _favorite) &&
             const DeepCollectionEquality().equals(other._bought, _bought) &&
             const DeepCollectionEquality().equals(other._created, _created));
   }
@@ -225,7 +224,7 @@ class _$_PrivateUserEntity implements _PrivateUserEntity {
       id,
       email,
       balance,
-      const DeepCollectionEquality().hash(_favorites),
+      const DeepCollectionEquality().hash(_favorite),
       const DeepCollectionEquality().hash(_bought),
       const DeepCollectionEquality().hash(_created));
 
@@ -242,7 +241,7 @@ abstract class _PrivateUserEntity implements PrivateUserEntity {
       {required final String id,
       required final String email,
       required final double balance,
-      required final List<String> favorites,
+      required final List<String> favorite,
       required final List<String> bought,
       required final List<String> created}) = _$_PrivateUserEntity;
 
@@ -253,7 +252,7 @@ abstract class _PrivateUserEntity implements PrivateUserEntity {
   @override
   double get balance;
   @override
-  List<String> get favorites;
+  List<String> get favorite;
   @override
   List<String> get bought;
   @override

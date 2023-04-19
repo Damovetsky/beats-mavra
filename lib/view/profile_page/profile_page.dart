@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,10 +12,13 @@ import '../../core/const.dart';
 import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
+import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/shimmer_builder.dart';
 import '../../core/ui/kit/snackbar.dart';
+import '../../core/ui/router/router.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
+import '../../data/service/auth_service/auth_service.dart';
 import '../../main.dart';
 import 'cubit/cubit.dart';
 import 'widget/editable_avatar.dart';
@@ -64,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.only(right: screenHorizontalMargin),
                     child: state.maybeMap(
                       profile: (value) {
-                        IconButton(
+                        return IconButton(
                           onPressed: () {
                             unawaited(context.read<ProfileCubit>().signOut());
                           },
@@ -206,16 +211,46 @@ class _ProfilePageState extends State<ProfilePage> {
                     _ProfilePageTile(
                       title: 'profile_your_purchases'.tr(),
                       icon: Icons.shopping_cart,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_your_purchases'.tr(),
+                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.bought) ?? [],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 8),
                     _ProfilePageTile(
                       title: 'profile_your_beats'.tr(),
                       icon: Icons.folder_special,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_your_beats'.tr(),
+                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.created) ?? [],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 8),
                     _ProfilePageTile(
                       title: 'profile_favorite'.tr(),
                       icon: Icons.favorite,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_favorite'.tr(),
+                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.favorite) ?? [],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -238,7 +273,10 @@ class _NeedAuth extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                AuthServiceImpl(getIt.get<FirebaseAuth>())
+                    .signInWithEmailAndPassword('kerjen01@gmail.com', "123123123");
+              },
               child: Text('Войти в аккаунт'),
             ),
             const SizedBox(height: 16),
@@ -366,41 +404,46 @@ class _ProfileBalance extends StatelessWidget {
 class _ProfilePageTile extends StatelessWidget {
   final String title;
   final IconData icon;
+  final VoidCallback onTap;
 
   const _ProfilePageTile({
     required this.title,
     required this.icon,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: currentColorScheme(context).surface,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        children: [
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              color: currentColorScheme(context).secondaryContainer,
-              shape: BoxShape.circle,
+    return BouncingGestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: currentColorScheme(context).surface,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Row(
+          children: [
+            Container(
+              height: 48,
+              width: 48,
+              decoration: BoxDecoration(
+                color: currentColorScheme(context).secondaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                color: currentColorScheme(context).primary,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: currentColorScheme(context).primary,
+            const SizedBox(width: 16),
+            Expanded(child: Text(title, style: currentTextTheme(context).bodyLarge)),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: currentColorScheme(context).onSecondaryContainer.withOpacity(0.5),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(child: Text(title, style: currentTextTheme(context).bodyLarge)),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: currentColorScheme(context).onSecondaryContainer.withOpacity(0.5),
-          ),
-          const SizedBox(width: 16)
-        ],
+            const SizedBox(width: 16)
+          ],
+        ),
       ),
     );
   }

@@ -9,7 +9,7 @@ class PrivateUserModel with _$PrivateUserModel {
     required String id,
     required String email,
     required double balance,
-    required Map<String, bool> favorites,
+    required Map<String, bool> favorite,
     required Map<String, bool> bought,
     required Map<String, bool> created,
   }) = _PrivateUserModel;

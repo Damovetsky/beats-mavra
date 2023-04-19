@@ -4,7 +4,6 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
