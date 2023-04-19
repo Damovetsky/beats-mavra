@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
+import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../beat_sheet/beat_sheet.dart';

@@ -6,11 +6,13 @@ part 'create_public_user_model.g.dart';
 class CreatePublicUserModel {
   final String id;
   final String? avatarUrl;
+  final String nickname;
   final String description;
 
   CreatePublicUserModel(
     this.id,
     this.avatarUrl,
+    this.nickname,
     this.description,
   );
 
