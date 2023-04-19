@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/shimmer_builder.dart';
+import '../../core/ui/kit/snackbar.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
 import '../../main.dart';
@@ -71,7 +73,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          body: BlocBuilder<ProfileCubit, ProfileState>(
+          body: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              unawaited(
+                state.mapOrNull(
+                  failure: (value) async {
+                    showSnackbar(
+                      context,
+                      title: 'profile_unknown_error_title'.tr(),
+                      message: 'profile_unknown_error_message'.tr(),
+                      position: FlushbarPosition.TOP,
+                    );
+                  },
+                ),
+              );
+            },
             builder: (context, state) {
               return ListView(
                 padding: const EdgeInsets.only(
@@ -87,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           ShimmerBuilder(
-                            data: state.mapOrNull(profile: (value) => value.user.avatarUrl),
+                            data: state.mapOrNull(profile: (value) => value.profile.avatarUrl),
                             loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
                             builder: (context, data) {
                               return EditableAvatar(
@@ -116,13 +132,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               Expanded(
                                 child: ShimmerBuilder(
                                   data: state.mapOrNull(
-                                    profile: (value) => value.user.nickname,
+                                    profile: (value) => value.profile.nickname,
                                   ),
                                   loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
                                   builder: (context, data) {
                                     return Row(
                                       children: [
-                                        Text(data, style: currentTextStyle(context).titleLarge),
+                                        Text(data, style: currentTextTheme(context).titleLarge),
                                         const SizedBox(width: 8),
                                         Icon(
                                           Icons.edit,
@@ -136,14 +152,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               const SizedBox(height: 4),
                               Expanded(
                                 child: ShimmerBuilder(
-                                  data: state.mapOrNull(
-                                    profile: (value) => 'example@example.com',
-                                  ),
+                                  data: state.mapOrNull(profile: (value) => 'email'),
                                   loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
                                   builder: (context, data) {
                                     return Text(
                                       data,
-                                      style: currentTextStyle(context).bodyLarge?.copyWith(
+                                      style: currentTextTheme(context).bodyLarge?.copyWith(
                                             color: currentColorScheme(context).onBackground.withOpacity(0.5),
                                           ),
                                     );
@@ -159,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 24),
                   ShimmerBuilder(
                     data: state.mapOrNull(
-                      profile: (value) => value.user.description,
+                      profile: (value) => value.profile.description,
                     ),
                     loadingChild: BorderRadiusShimmer(
                       height: 96,
@@ -193,19 +207,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               );
             },
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
-            child: FilledButton(
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('profile_logout'.tr()),
-                ],
-              ),
-            ),
           ),
         ),
       ),
@@ -262,12 +263,12 @@ class _ProfileLanguagePopupButton extends StatelessWidget {
                 children: [
                   Text(
                     '$flag',
-                    style: currentTextStyle(context).headlineSmall,
+                    style: currentTextTheme(context).headlineSmall,
                   ),
                   const SizedBox(width: 16),
                   Text(
                     '${languageLocalizedNames[locale.countryCode]}',
-                    style: currentTextStyle(context).bodyMedium?.copyWith(),
+                    style: currentTextTheme(context).bodyMedium?.copyWith(),
                   ),
                 ],
               ),
@@ -304,7 +305,7 @@ class _ProfileBalance extends StatelessWidget {
             children: [
               Text(
                 data.toStringAsFixed(0),
-                style: currentTextStyle(context).bodyMedium?.copyWith(
+                style: currentTextTheme(context).bodyMedium?.copyWith(
                       color: currentColorScheme(context).onSecondaryContainer,
                     ),
               ),
@@ -353,7 +354,7 @@ class _ProfilePageTile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          Expanded(child: Text(title, style: currentTextStyle(context).bodyLarge)),
+          Expanded(child: Text(title, style: currentTextTheme(context).bodyLarge)),
           Icon(
             Icons.keyboard_arrow_right,
             color: currentColorScheme(context).onSecondaryContainer.withOpacity(0.5),

@@ -19,21 +19,21 @@ mixin _$ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity user) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity user)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity user)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) =>
@@ -119,7 +119,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity user) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
     return loading();
@@ -129,7 +129,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity user)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
     return loading?.call();
@@ -139,7 +139,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity user)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -194,9 +194,9 @@ abstract class _$$_ProfileStateCopyWith<$Res> {
           _$_ProfileState value, $Res Function(_$_ProfileState) then) =
       __$$_ProfileStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserEntity user});
+  $Res call({UserEntity profile});
 
-  $UserEntityCopyWith<$Res> get user;
+  $UserEntityCopyWith<$Res> get profile;
 }
 
 /// @nodoc
@@ -210,21 +210,21 @@ class __$$_ProfileStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
+    Object? profile = null,
   }) {
     return _then(_$_ProfileState(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
+      profile: null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
               as UserEntity,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $UserEntityCopyWith<$Res> get user {
-    return $UserEntityCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+  $UserEntityCopyWith<$Res> get profile {
+    return $UserEntityCopyWith<$Res>(_value.profile, (value) {
+      return _then(_value.copyWith(profile: value));
     });
   }
 }
@@ -232,14 +232,14 @@ class __$$_ProfileStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ProfileState implements _ProfileState {
-  const _$_ProfileState({required this.user});
+  const _$_ProfileState({required this.profile});
 
   @override
-  final UserEntity user;
+  final UserEntity profile;
 
   @override
   String toString() {
-    return 'ProfileState.profile(user: $user)';
+    return 'ProfileState.profile(profile: $profile)';
   }
 
   @override
@@ -247,11 +247,11 @@ class _$_ProfileState implements _ProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProfileState &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user);
+  int get hashCode => Object.hash(runtimeType, profile);
 
   @JsonKey(ignore: true)
   @override
@@ -263,32 +263,32 @@ class _$_ProfileState implements _ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity user) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
-    return profile(user);
+    return profile(this.profile);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity user)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
-    return profile?.call(user);
+    return profile?.call(this.profile);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity user)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
     if (profile != null) {
-      return profile(user);
+      return profile(this.profile);
     }
     return orElse();
   }
@@ -329,10 +329,10 @@ class _$_ProfileState implements _ProfileState {
 }
 
 abstract class _ProfileState implements ProfileState {
-  const factory _ProfileState({required final UserEntity user}) =
+  const factory _ProfileState({required final UserEntity profile}) =
       _$_ProfileState;
 
-  UserEntity get user;
+  UserEntity get profile;
   @JsonKey(ignore: true)
   _$$_ProfileStateCopyWith<_$_ProfileState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -404,7 +404,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity user) profile,
+    required TResult Function(UserEntity profile) profile,
     required TResult Function(String message) failure,
   }) {
     return failure(message);
@@ -414,7 +414,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity user)? profile,
+    TResult? Function(UserEntity profile)? profile,
     TResult? Function(String message)? failure,
   }) {
     return failure?.call(message);
@@ -424,7 +424,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity user)? profile,
+    TResult Function(UserEntity profile)? profile,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {

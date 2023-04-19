@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../core/error/exception.dart';
 import '../../core/error/failure.dart';
@@ -9,8 +7,7 @@ import '../../domain/auth/repository/auth_repository.dart';
 import '../../domain/auth/repository/failure.dart';
 import '../service/auth_service/auth_service.dart';
 import '../service/auth_service/exceptions.dart';
-import '../service/users_service/exceptions.dart';
-import '../service/users_service/models/user_model/user_model.dart';
+import '../service/users_service/models/create_user_model/create_user_model.dart';
 import '../service/users_service/users_service.dart';
 
 @LazySingleton(as: AuthRepository)
@@ -39,14 +36,13 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
     try {
       final id = await authService.createUserWithEmailAndPassword(email, password); 
-      await userService.createUser(UserModel(
-        userId: id,
-        nickname: nickname,
-        avatar: '',
-        description: '',
-        favorites: List.empty(),
-        balance: 0,
-      ),);
+      await userService.createUser(CreateUserModel(id, email, null, null));
+      //   nickname: nickname,
+      //   avatar: '',
+      //   description: '',
+      //   favorites: List.empty(),
+      //   balance: 0,
+      // ),);
       return const Right(null);
     } on NotFoundUserException {
       return Left(EmailNotFoundFailure());
@@ -69,19 +65,25 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       try {
-        userService.getUser(userID);
+        userService.getPrivateUser(userID);
       }  on NotFoundException {
         var nickname = user.user?.displayName;
         nickname ??= 'User';
 
-        await userService.createUser(UserModel(
-          userId: userID,
-          nickname: nickname,
-          avatar: '',
-          description: '',
-          favorites: List.empty(),
-          balance: 0,
-        ),);
+        final email = user.user?.email;
+        if (email == null) {
+          return Left(UnknownFailure());
+        }
+
+        await userService.createUser(CreateUserModel(userID, email, null, null));
+        // await userService.createUser(UserModel(
+        //   userId: userID,
+        //   nickname: nickname,
+        //   avatar: '',
+        //   description: '',
+        //   favorites: List.empty(),
+        //   balance: 0,
+        // ),);
       } catch (_) {
         return Left(UnknownFailure());
       }
@@ -103,19 +105,25 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       try {
-        userService.getUser(userID);
+        userService.getPrivateUser(userID);
       }  on NotFoundException {
         var nickname = user.user?.displayName;
         nickname ??= 'User';
 
-        await userService.createUser(UserModel(
-          userId: userID,
-          nickname: nickname,
-          avatar: '',
-          description: '',
-          favorites: List.empty(),
-          balance: 0,
-        ),);
+        final email = user.user?.email;
+        if (email == null) {
+          return Left(UnknownFailure());
+        }
+
+        await userService.createUser(CreateUserModel(userID, email, null, null));
+        // await userService.createUser(CreateUserModel(
+        //   id: userID,
+        //   nickname: nickname,
+        //   avatar: '',
+        //   description: '',
+        //   favorites: List.empty(),
+        //   balance: 0,
+        // ),);
       } catch (_) {
         return Left(UnknownFailure());
       }

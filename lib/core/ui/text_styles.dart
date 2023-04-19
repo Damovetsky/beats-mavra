@@ -30,7 +30,8 @@ const double titleSmallSize = 14;
 const double titleLargeHeight = 28;
 const double titleMediumHeight = 24;
 const double titleSmallHeight = 20;
-final titleLarge = _baseFont.copyWith(fontSize: titleLargeSize, height: titleLargeHeight / titleLargeSize);
+final titleLarge = _baseFont.copyWith(
+    fontSize: titleLargeSize, height: titleLargeHeight / titleLargeSize, fontWeight: FontWeight.w600);
 final titleMedium = _baseFont.copyWith(fontSize: titleMediumSize, height: titleMediumHeight / titleMediumSize);
 final titleSmall = _baseFont.copyWith(fontSize: titleSmallSize, height: titleSmallHeight / titleSmallSize);
 
@@ -72,4 +73,4 @@ final textTheme = TextTheme(
   labelSmall: labelSmall,
 );
 
-TextTheme currentTextStyle(context) => Theme.of(context).textTheme;
+TextTheme currentTextTheme(context) => Theme.of(context).textTheme;

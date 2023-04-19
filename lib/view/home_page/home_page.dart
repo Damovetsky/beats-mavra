@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -5,16 +7,15 @@ import 'package:flutter/material.dart';
 import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
-import '../../data/repository/auth_repository_impl.dart';
-import '../../data/service/auth_service/auth_service.dart';
-import '../../data/service/users_service/users_service.dart';
+import '../beat_sheet/beat_sheet.dart';
 import '../profile_page/profile_page.dart';
+import '../search_page/search_page.dart';
 
 final _pagesGlobalKey = GlobalKey();
 
 const pages = [
-  SizedBox(),
-  SizedBox(),
+  SearchPage(),
+  SizedBox.shrink(),
   ProfilePage(),
 ];
 
@@ -32,16 +33,10 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
       child: Scaffold(
-        body: GestureDetector(
-          onTap: () async {
-            // print(AuthRepositoryImpl(getIt.get<AuthService>()).getUserID());
-            // await AuthRepositoryImpl(getIt.get<AuthService>(), getIt.get<UserService>())
-            //     .signUp(email: 'me21@example.com', password: 'mnsjbhrfeuosydfbekrbgguyeBWE', nickname: 'Me21');
-            // signInWithGoogle
-            await AuthRepositoryImpl(getIt.get<AuthService>(), getIt.get<UserService>()).signInWithGoogle();
-            // await AuthRepositoryImpl(getIt.get<AuthService>()).signUp(nickname: 'A', email: 'me@example.com', password: 'mnsjbhrfeuihinkrgsbggeBWE');
-            // print(AuthRepositoryImpl(getIt.get<AuthService>()).getUserID());
-          },
+        body: IndexedStack(
+          key: _pagesGlobalKey,
+          index: currentPageIndex,
+          children: pages,
         ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
@@ -58,7 +53,9 @@ class HomePageState extends State<HomePage> {
               label: 'search_title'.tr(),
             ),
             BouncingGestureDetector(
-              onTap: () {},
+              onTap: () {
+                unawaited(BeatSheet.show(context));
+              },
               child: Container(
                 height: 52,
                 width: 52,

@@ -13,12 +13,15 @@ _$_BeatModel _$$_BeatModelFromJson(Map<String, dynamic> json) => _$_BeatModel(
       title: json['title'] as String,
       description: json['description'] as String,
       mp3: json['mp3'] as String,
-      wav: json['wav'] as String,
-      zip: json['zip'] as String,
+      wav: json['wav'] as String?,
+      zip: json['zip'] as String?,
       genres:
           (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
       temp: json['temp'] as int,
       dimension: json['dimension'] as String,
+      graph: (json['graph'] as List<dynamic>)
+          .map((e) => (e as num).toDouble())
+          .toList(),
     );
 
 Map<String, dynamic> _$$_BeatModelToJson(_$_BeatModel instance) =>
@@ -34,4 +37,5 @@ Map<String, dynamic> _$$_BeatModelToJson(_$_BeatModel instance) =>
       'genres': instance.genres,
       'temp': instance.temp,
       'dimension': instance.dimension,
+      'graph': instance.graph,
     };
