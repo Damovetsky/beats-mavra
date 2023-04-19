@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/users/entity/public_user_entity/public_user_entity.dart';
-import '../../service/users_service/models/public_user_model/public_user_model.dart';
+import '../../service/users_service/models/user_model/public_user_model/public_user_model.dart';
 
 @injectable
 class PublicUserModelToPublicUserEntityConverter extends Converter<PublicUserModel, PublicUserEntity> {

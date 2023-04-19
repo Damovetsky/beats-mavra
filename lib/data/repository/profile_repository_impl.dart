@@ -25,6 +25,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Stream<Either<Failure, PrivateUserEntity>> getProfile() {
     return authService.getUserID().asyncMap((userId) async {
       try {
+        if (userId == null) {
+          return Left(UnauthorizedFailure());
+        }
+
         final userModel = await userService.getPrivateUser(userId);
         final user = privateUserEntityConverter.convert(userModel);
 
@@ -35,5 +39,16 @@ class ProfileRepositoryImpl extends ProfileRepository {
         return Left(UnknownFailure());
       }
     });
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      await authService.signOut();
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
+
+    return Left(UnknownFailure());
   }
 }

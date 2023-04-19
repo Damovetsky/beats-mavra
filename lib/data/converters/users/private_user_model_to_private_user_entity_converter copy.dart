@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/profile/entity/private_user_entity/private_user_entity.dart';
-import '../../service/users_service/models/private_user_model/private_user_model.dart';
+import '../../service/users_service/models/user_model/private_user_model/private_user_model.dart';
 
 @injectable
 class PrivateUserModelToPrivateUserEntityConverter extends Converter<PrivateUserModel, PrivateUserEntity> {

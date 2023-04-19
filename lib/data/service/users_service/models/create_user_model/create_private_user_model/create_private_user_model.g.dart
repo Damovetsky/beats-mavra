@@ -1,17 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_user_model.dart';
+part of 'create_private_user_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateUserModel _$CreateUserModelFromJson(Map<String, dynamic> json) =>
-    CreateUserModel(
+CreatePrivateUserModel _$CreatePrivateUserModelFromJson(
+        Map<String, dynamic> json) =>
+    CreatePrivateUserModel(
       json['id'] as String,
       json['email'] as String,
-      json['avatarUrl'] as String?,
-      json['description'] as String,
     )
       ..balance = (json['balance'] as num?)?.toDouble() ?? 0
       ..favorites = (json['favorites'] as Map<String, dynamic>?)?.map(
@@ -27,12 +26,11 @@ CreateUserModel _$CreateUserModelFromJson(Map<String, dynamic> json) =>
           ) ??
           {};
 
-Map<String, dynamic> _$CreateUserModelToJson(CreateUserModel instance) =>
+Map<String, dynamic> _$CreatePrivateUserModelToJson(
+        CreatePrivateUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'avatarUrl': instance.avatarUrl,
-      'description': instance.description,
       'balance': instance.balance,
       'favorites': instance.favorites,
       'bought': instance.bought,

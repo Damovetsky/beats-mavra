@@ -11,7 +11,7 @@ _$_PublicUserModel _$$_PublicUserModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       avatarUrl: json['avatarUrl'] as String?,
       nickname: json['nickname'] as String,
-      description: json['description'] as String?,
+      description: json['description'] as String,
     );
 
 Map<String, dynamic> _$$_PublicUserModelToJson(_$_PublicUserModel instance) =>

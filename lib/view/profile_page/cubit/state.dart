@@ -9,5 +9,7 @@ class ProfileState with _$ProfileState {
     required PublicUserEntity publicUser,
   }) = _ProfileState;
 
+  const factory ProfileState.needAuth() = _ProfileNeedAuthState;
+
   const factory ProfileState.failure({required String message}) = _ProfileFailureState;
 }

@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../core/error/failure.dart';
 import '../../../domain/profile/entity/private_user_entity/private_user_entity.dart';
 import '../../../domain/profile/repository/profile_repository.dart';
 import '../../../domain/users/entity/public_user_entity/public_user_entity.dart';
@@ -31,7 +32,15 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     _profileSubscription = profileRepository.getProfile().asyncMap((privateUserEither) async {
       return privateUserEither.fold<Future<ProfileState>>(
-        (failure) => Future.value(ProfileState.failure(message: 'profile_load_error'.tr())),
+        (failure) {
+          ProfileState state;
+          if (failure is UnauthorizedFailure) {
+            state = const ProfileState.needAuth();
+          } else {
+            state = ProfileState.failure(message: 'profile_load_error'.tr());
+          }
+          return Future.value(state);
+        },
         (privateUser) async {
           final publicUser = await usersRepository.getUser(userId: privateUser.id);
 
@@ -42,6 +51,14 @@ class ProfileCubit extends Cubit<ProfileState> {
         },
       );
     }).listen(emit);
+  }
+
+  Future<void> signOut() async {
+    final signOutEither = await profileRepository.signOut();
+
+    if (signOutEither.isLeft()) {
+      emit(ProfileState.failure(message: 'profile_load_error'.tr()));
+    }
   }
 
   @override

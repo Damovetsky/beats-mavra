@@ -58,12 +58,23 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             actions: [
               _ProfileLanguagePopupButton(),
-              Padding(
-                padding: const EdgeInsets.only(right: screenHorizontalMargin),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.logout),
-                ),
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: screenHorizontalMargin),
+                    child: state.maybeMap(
+                      profile: (value) {
+                        IconButton(
+                          onPressed: () {
+                            unawaited(context.read<ProfileCubit>().signOut());
+                          },
+                          icon: const Icon(Icons.logout),
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -83,6 +94,10 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
             builder: (context, state) {
+              if (state.mapOrNull(needAuth: (value) => true) ?? false) {
+                return _NeedAuth();
+              }
+
               return RefreshIndicator(
                 onRefresh: () async {
                   return context.read<ProfileCubit>().loadUser();
@@ -207,6 +222,32 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NeedAuth extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 64),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FilledButton(
+              onPressed: () {},
+              child: Text('Войти в аккаунт'),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Профиль будет доступен после авторизации',
+              style: currentTextTheme(context).titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

@@ -9,7 +9,7 @@ class PublicUserModel with _$PublicUserModel {
     required String id,
     required String? avatarUrl,
     required String nickname,
-    required String? description,
+    required String description,
   }) = _PublicUserModel;
 
   factory PublicUserModel.fromJson(Map<String, dynamic> json) => _$PublicUserModelFromJson(json);
