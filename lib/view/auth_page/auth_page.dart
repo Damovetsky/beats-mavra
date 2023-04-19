@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/text_styles.dart';
 import 'cubit/cubit.dart';
 
+@RoutePage()
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 
