@@ -8,4 +8,8 @@ class AuthState with _$AuthState {
 
   const factory AuthState.failure({required String message}) =
       _AuthFailureState;
+
+  const factory AuthState.enabledButton() = _AuthEnabledButtonState;
+
+  const factory AuthState.disabledButton() = _AuthDisabledButtonState;
 }

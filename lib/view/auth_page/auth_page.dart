@@ -20,7 +20,6 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  bool _isSigningIn = true;
   final _emailController = TextEditingController();
 
   void _trySubmit(BuildContext context) {
@@ -78,83 +77,13 @@ class _AuthPageState extends State<AuthPage> {
                     Form(
                       child: Column(
                         children: [
-                          //Email textfield
                           _EmailTextField(_emailController),
-
-                          //Username
-                          _UsernameTextField(isSigningIn: _isSigningIn),
-
-                          //Password textfield
+                          _UsernameTextField(),
                           const _PasswordTextField(),
-
                           const SizedBox(height: 8),
-
-                          //Sibmit button
-                          Builder(
-                            builder: (ctx) {
-                              return FilledButton(
-                                onPressed: _emailController.text.isEmpty
-                                    ? null
-                                    : () {
-                                        _trySubmit(ctx);
-                                      },
-                                style: FilledButton.styleFrom(
-                                  minimumSize: const Size(double.maxFinite, 52),
-                                ),
-                                child: Text(
-                                  _isSigningIn
-                                      ? 'auth_sign_in'.tr()
-                                      : 'auth_sign_up'.tr(),
-                                  style: currentTextStyle(context)
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        color: currentColorScheme(context)
-                                            .onPrimary,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              );
-                            },
-                          ),
-
-                          //Or continue with
+                          _SubmitButton(trySubmit: _trySubmit),
                           _AlternativeSigning(),
-
-                          //Not a member?
-                          BouncingGestureDetector(
-                            onTap: () {
-                              context.read<AuthCubit>().changeAuthState();
-                              // setState(() {
-                              //   _isSigningIn = !_isSigningIn;
-                              // });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 30),
-                              child: RichText(
-                                text: TextSpan(
-                                  style: currentTextStyle(context).bodyLarge,
-                                  children: [
-                                    TextSpan(
-                                      text: _isSigningIn
-                                          ? 'auth_not_registered'.tr()
-                                          : 'auth_already_registered'.tr(),
-                                      style: TextStyle(
-                                        color: currentColorScheme(context)
-                                            .onBackground,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'auth_change_screen'.tr(),
-                                      style: TextStyle(
-                                        color:
-                                            currentColorScheme(context).primary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          _SwitchScreenText(),
                         ],
                       ),
                     ),
@@ -169,10 +98,102 @@ class _AuthPageState extends State<AuthPage> {
   }
 }
 
-class _EmailTextField extends StatelessWidget {
-  const _EmailTextField(this._emailController);
+class _SwitchScreenText extends StatefulWidget {
+  @override
+  State<_SwitchScreenText> createState() => _SwitchScreenTextState();
+}
 
-  final TextEditingController _emailController;
+class _SwitchScreenTextState extends State<_SwitchScreenText> {
+  bool _isSigningIn = true;
+  @override
+  Widget build(BuildContext context) {
+    return BouncingGestureDetector(
+      onTap: () {
+        context.read<AuthCubit>().changeAuthState();
+        setState(() {
+          _isSigningIn = !_isSigningIn;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: RichText(
+          text: TextSpan(
+            style: currentTextStyle(context).bodyLarge,
+            children: [
+              TextSpan(
+                text: _isSigningIn
+                    ? 'auth_not_registered'.tr()
+                    : 'auth_already_registered'.tr(),
+                style: TextStyle(
+                  color: currentColorScheme(context).onBackground,
+                ),
+              ),
+              TextSpan(
+                text: 'auth_change_screen'.tr(),
+                style: TextStyle(
+                  color: currentColorScheme(context).primary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SubmitButton extends StatelessWidget {
+  const _SubmitButton({
+    required Function trySubmit,
+  }) : _trySubmit = trySubmit;
+
+  final Function _trySubmit;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+      onPressed: () {
+        _trySubmit(context);
+      },
+      style: FilledButton.styleFrom(
+        minimumSize: const Size(double.maxFinite, 52),
+      ),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        buildWhen: (_, current) {
+          return current.mapOrNull(
+                signIn: (_) => true,
+                signUp: (_) => true,
+              ) ??
+              false;
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () => Container(),
+            signIn: () => Text(
+              'auth_sign_in'.tr(),
+              style: currentTextStyle(context).bodyLarge?.copyWith(
+                    color: currentColorScheme(context).onPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            signUp: () => Text(
+              'auth_sign_up'.tr(),
+              style: currentTextStyle(context).bodyLarge?.copyWith(
+                    color: currentColorScheme(context).onPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _EmailTextField extends StatelessWidget {
+  const _EmailTextField(this.emailController);
+
+  final TextEditingController emailController;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +201,7 @@ class _EmailTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         key: const ValueKey('email'),
-        controller: _emailController,
+        controller: emailController,
         validator: (text) {
           if (text == null || !emailRegExp.hasMatch(text)) {
             return 'auth_email_validator'.tr();
@@ -315,12 +336,6 @@ class _AlternativeSigning extends StatelessWidget {
 }
 
 class _UsernameTextField extends StatelessWidget {
-  const _UsernameTextField({
-    required bool isSigningIn,
-  }) : _isSigningIn = isSigningIn;
-
-  final bool _isSigningIn;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
