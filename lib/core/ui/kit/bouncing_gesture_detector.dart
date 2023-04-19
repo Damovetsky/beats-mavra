@@ -8,7 +8,7 @@ class BouncingGestureDetector extends StatefulWidget {
   final HitTestBehavior hitTestBehavior;
   final Function()? onTap;
   final Function(TapDownDetails)? onTapDown;
-  final Function()? onLongPress;
+  final Function(Offset? position)? onLongPress;
   final Widget child;
   final int animationDelay;
   final Duration longPressDuration;
@@ -62,7 +62,7 @@ class _BouncingGestureDetectorState extends State<BouncingGestureDetector> with 
 
                     Future.delayed(Duration(milliseconds: 100 + widget.animationDelay), () {
                       _bounceController.reverse();
-                      widget.onLongPress!.call();
+                      widget.onLongPress!.call(instance.initialPosition?.global);
                     });
                   };
                 }
@@ -87,7 +87,7 @@ class _BouncingGestureDetectorState extends State<BouncingGestureDetector> with 
                       _bounceController.reverse();
                     });
                     unawaited(HapticFeedback.mediumImpact());
-                    widget.onLongPress!.call();
+                    widget.onLongPress!.call(instance.initialPosition?.global);
                   };
                 }
               },

@@ -62,7 +62,7 @@ class BeatFilesWidget extends StatelessWidget {
                       );
                     }
                   },
-                  onLongPress: () {
+                  onLongPress: (_) {
                     onFileChanged(fileType, null);
                   },
                   child: _BeatFileType(

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "886145540803",
+    "firebase_url": "https://mvara-beats-default-rtdb.firebaseio.com",
     "project_id": "mvara-beats",
     "storage_bucket": "mvara-beats.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "886145540803-0c8tef6g7dprfs3rp90d4lck1c6h2o2f.apps.googleusercontent.com",
+          "client_id": "886145540803-9s1bulgsarrg717o4236irrg88c7rjtv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beats",
+            "certificate_hash": "bb7f362572fe692731be4eae96a543ef06e1d57c"
+          }
+        },
+        {
+          "client_id": "886145540803-e4qdh4u24j5lsmgj6u2ca9a54rp3ik7q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +38,13 @@
             {
               "client_id": "886145540803-0c8tef6g7dprfs3rp90d4lck1c6h2o2f.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "886145540803-fva14nhoq21snlstaurigmnsho9jl2f7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beats"
+              }
             }
           ]
         }

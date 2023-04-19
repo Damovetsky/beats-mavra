@@ -9,6 +9,7 @@ import 'core/ui/router/router.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
 import 'view/home_page/home_page.dart';
+import 'view/profile_page/beat_list_page/beat_list_page.dart';
 
 const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
