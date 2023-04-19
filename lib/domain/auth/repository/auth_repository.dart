@@ -22,5 +22,5 @@ abstract class AuthRepository {
 
   Stream<String?> getUserID();
 
-  Future<Either<Failure, void>> logout();
+  Future<Either<Failure, void>> signOut();
 }
