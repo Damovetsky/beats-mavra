@@ -26,6 +26,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> loadUser() async {
+    emit(const ProfileState.loading());
     await _profileSubscription?.cancel();
 
     _profileSubscription = profileRepository.getProfile().asyncMap((privateUserEither) async {

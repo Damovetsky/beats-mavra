@@ -81,19 +81,20 @@ class _BeatCardListState extends State<BeatCardList> {
               }
             },
             failure: (value) {
-              unawaited(showSnackbar(
-                context,
-                title: 'О БОЖЕ!',
-                message: 'Беда беда ошибка()',
-                position: FlushbarPosition.TOP,
-              ));
+              unawaited(
+                showSnackbar(
+                  context,
+                  title: 'О БОЖЕ!',
+                  message: 'Беда беда ошибка()',
+                  position: FlushbarPosition.TOP,
+                ),
+              );
             },
           );
         },
         child: RefreshIndicator(
           onRefresh: () async {
             _beatsController.refresh();
-            return cubit.initialBeats();
           },
           child: PagedListView<int, BeatEntity>.separated(
             pagingController: _beatsController,

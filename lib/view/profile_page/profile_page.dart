@@ -83,122 +83,127 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
             builder: (context, state) {
-              return ListView(
-                padding: const EdgeInsets.only(
-                  left: screenHorizontalMargin,
-                  right: screenHorizontalMargin,
-                  top: screenTopScrollPadding,
-                  bottom: screenBottomScrollPadding,
-                ),
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          ShimmerBuilder(
-                            data: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
-                            loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
-                            builder: (context, data) {
-                              return EditableAvatar(
-                                size: _profileAvatarSize,
-                                url: data,
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 12),
-                          _ProfileBalance(
-                            balance: state.mapOrNull(
-                              profile: (state) => state.privateUser.balance,
+              return RefreshIndicator(
+                onRefresh: () async {
+                  return context.read<ProfileCubit>().loadUser();
+                },
+                child: ListView(
+                  padding: const EdgeInsets.only(
+                    left: screenHorizontalMargin,
+                    right: screenHorizontalMargin,
+                    top: screenTopScrollPadding,
+                    bottom: screenBottomScrollPadding,
+                  ),
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            ShimmerBuilder(
+                              data: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
+                              loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
+                              builder: (context, data) {
+                                return EditableAvatar(
+                                  size: _profileAvatarSize,
+                                  url: data,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 12),
+                            _ProfileBalance(
+                              balance: state.mapOrNull(
+                                profile: (state) => state.privateUser.balance,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Container(
+                            height: _profileAvatarSize,
+                            alignment: Alignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: ShimmerBuilder(
+                                    data: state.mapOrNull(
+                                      profile: (value) => value.publicUser.nickname,
+                                    ),
+                                    loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
+                                    builder: (context, data) {
+                                      return Row(
+                                        children: [
+                                          Text(data, style: currentTextTheme(context).titleLarge),
+                                          const SizedBox(width: 8),
+                                          Icon(
+                                            Icons.edit,
+                                            color: currentColorScheme(context).onBackground.withOpacity(0.2),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Expanded(
+                                  child: ShimmerBuilder(
+                                    data: state.mapOrNull(profile: (state) => state.privateUser.email),
+                                    loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
+                                    builder: (context, data) {
+                                      return Text(
+                                        data,
+                                        style: currentTextTheme(context).bodyLarge?.copyWith(
+                                              color: currentColorScheme(context).onBackground.withOpacity(0.5),
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    ShimmerBuilder(
+                      data: state.mapOrNull(
+                        profile: (value) => value.publicUser.description,
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Container(
-                          height: _profileAvatarSize,
-                          alignment: Alignment.center,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: ShimmerBuilder(
-                                  data: state.mapOrNull(
-                                    profile: (value) => value.publicUser.nickname,
-                                  ),
-                                  loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
-                                  builder: (context, data) {
-                                    return Row(
-                                      children: [
-                                        Text(data, style: currentTextTheme(context).titleLarge),
-                                        const SizedBox(width: 8),
-                                        Icon(
-                                          Icons.edit,
-                                          color: currentColorScheme(context).onBackground.withOpacity(0.2),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Expanded(
-                                child: ShimmerBuilder(
-                                  data: state.mapOrNull(profile: (state) => state.privateUser.email),
-                                  loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
-                                  builder: (context, data) {
-                                    return Text(
-                                      data,
-                                      style: currentTextTheme(context).bodyLarge?.copyWith(
-                                            color: currentColorScheme(context).onBackground.withOpacity(0.5),
-                                          ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
+                      loadingChild: BorderRadiusShimmer(
+                        height: 96,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      builder: (context, data) {
+                        return TextField(
+                          controller: _descriptionController..text = data,
+                          maxLines: 2,
+                          decoration: InputDecoration(
+                            hintText: 'profile_description_hint'.tr(),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  ShimmerBuilder(
-                    data: state.mapOrNull(
-                      profile: (value) => value.publicUser.description,
+                        );
+                      },
                     ),
-                    loadingChild: BorderRadiusShimmer(
-                      height: 96,
-                      borderRadius: BorderRadius.circular(16),
+                    const SizedBox(height: 24),
+                    _ProfilePageTile(
+                      title: 'profile_your_purchases'.tr(),
+                      icon: Icons.shopping_cart,
                     ),
-                    builder: (context, data) {
-                      return TextField(
-                        controller: _descriptionController..text = data,
-                        maxLines: 2,
-                        decoration: InputDecoration(
-                          hintText: 'profile_description_hint'.tr(),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  _ProfilePageTile(
-                    title: 'profile_your_purchases'.tr(),
-                    icon: Icons.shopping_cart,
-                  ),
-                  const SizedBox(height: 8),
-                  _ProfilePageTile(
-                    title: 'profile_your_beats'.tr(),
-                    icon: Icons.folder_special,
-                  ),
-                  const SizedBox(height: 8),
-                  _ProfilePageTile(
-                    title: 'profile_favorite'.tr(),
-                    icon: Icons.favorite,
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    _ProfilePageTile(
+                      title: 'profile_your_beats'.tr(),
+                      icon: Icons.folder_special,
+                    ),
+                    const SizedBox(height: 8),
+                    _ProfilePageTile(
+                      title: 'profile_favorite'.tr(),
+                      icon: Icons.favorite,
+                    ),
+                  ],
+                ),
               );
             },
           ),

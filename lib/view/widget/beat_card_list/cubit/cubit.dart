@@ -17,39 +17,37 @@ const int beatsPageSize = 12;
 class BeatCardListCubit extends Cubit<BeatCardListState> {
   final BeatsRepository beatsRepository;
 
-  final _feedController = BehaviorSubject<BeatEntity?>();
+  BehaviorSubject<BeatEntity?>? _feedController;
   StreamSubscription? _feedSubscription;
 
   BeatCardListCubit(this.beatsRepository) : super(const BeatCardListState.loading());
 
   Future<void> initialBeats({List<String>? beatsIds}) async {
-    final initialCompleter = Completer();
-
     emit(const BeatCardListState.loading());
-    await _feedSubscription?.cancel();
+    await _refreshFeed();
+
     _feedSubscription =
-        beatsRepository.get(_feedController..add(null), limit: beatsPageSize, beatsIds: beatsIds).doOnData((event) {
-      if (!initialCompleter.isCompleted) {
-        initialCompleter.complete();
-      }
-    }).map((event) {
+        beatsRepository.get(_feedController!..add(null), limit: beatsPageSize, beatsIds: beatsIds).map((event) {
       return event.fold(
         (failure) => const BeatCardListState.failure(),
         (beats) => BeatCardListState.beats(beats: beats),
       );
     }).listen(emit);
-
-    return initialCompleter.future;
   }
 
   void loadMore([BeatEntity? beatEntity]) {
-    _feedController.add(beatEntity);
+    _feedController?.add(beatEntity);
+  }
+
+  Future<void> _refreshFeed() async {
+    await _feedSubscription?.cancel();
+    await _feedController?.close();
+    _feedController = BehaviorSubject<BeatEntity?>();
   }
 
   @override
   Future<void> close() async {
-    await _feedSubscription?.cancel();
-    await _feedController.close();
+    await _refreshFeed();
     return super.close();
   }
 }
