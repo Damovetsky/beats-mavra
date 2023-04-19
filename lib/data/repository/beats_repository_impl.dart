@@ -15,7 +15,6 @@ import '../converters/beat_model_to_beat_entity_converter.dart';
 import '../converters/create_beat_entity_to_beat_model_converter.dart';
 import '../converters/update_beat_entity_to_beat_model_converter.dart';
 import '../service/beats_service/beats_service.dart';
-import '../service/beats_service/exceptions.dart';
 
 @LazySingleton(as: BeatsRepository)
 class BeatsRepositoryImpl extends BeatsRepository {
@@ -31,7 +30,12 @@ class BeatsRepositoryImpl extends BeatsRepository {
   }) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
-        final beats = (await beatsService.getBeats(lastVisible: last?.beatId, limit: limit, beatsIds: beatsIds));
+        final beats = (await beatsService.getBeats(
+          orderby: 'title',
+          lastVisible: last?.beatId,
+          limit: limit,
+          beatsIds: beatsIds,
+        ));
         return Right(
           beats.map(BeatModelToBeatEntityConverter().convert).toList(),
         );

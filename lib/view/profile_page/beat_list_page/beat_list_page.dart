@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/di/di.dart';
-import '../../../core/ui/dimens.dart';
 import '../../../core/ui/kit/back_button.dart';
 import '../../widget/beat_card_list/beat_card_list.dart';
 import 'cubit/cubit.dart';
@@ -34,7 +31,12 @@ class _BeatListPageState extends State<BeatListPage> {
           leading: const AppBackButton(),
           title: Text(widget.title),
         ),
-        body: BeatCardList(beatsIds: widget.beatIds),
+        body: BeatCardList(
+          beatsIds: widget.beatIds,
+          popupItems: [
+            BeatCardPopupItem(icon: Icons.edit_outlined, title: 'Edit', onTap: () {}),
+          ],
+        ),
       ),
     );
   }

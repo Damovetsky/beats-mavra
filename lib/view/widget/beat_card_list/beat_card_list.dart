@@ -6,18 +6,36 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../core/di/di.dart';
+import '../../../core/helper/menu_helper.dart';
+import '../../../core/ui/color_schemes.dart';
 import '../../../core/ui/dimens.dart';
+import '../../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../../core/ui/kit/snackbar.dart';
+import '../../../core/ui/text_styles.dart';
 import '../../../domain/beats/entity/beat_entity.dart';
 import '../beat_card.dart';
 import 'cubit/cubit.dart';
 
+class BeatCardPopupItem {
+  final IconData icon;
+  final String title;
+  final VoidCallback onTap;
+
+  BeatCardPopupItem({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  });
+}
+
 class BeatCardList extends StatefulWidget {
   final List<String>? beatsIds;
+  final List<BeatCardPopupItem>? popupItems;
 
   const BeatCardList({
     super.key,
     this.beatsIds,
+    this.popupItems,
   });
 
   @override
@@ -86,7 +104,34 @@ class _BeatCardListState extends State<BeatCardList> {
               top: screenTopScrollPadding,
             ),
             builderDelegate: PagedChildBuilderDelegate(
-              itemBuilder: (context, beat, index) => BeatCard(beat: beat),
+              itemBuilder: (context, beat, index) => BouncingGestureDetector(
+                onLongPress: widget.popupItems != null
+                    ? (position) async {
+                        if (position != null) {
+                          showPositionedPopupMenu(
+                            context,
+                            position,
+                            widget.popupItems!.map((e) {
+                              return PopupMenuItem(
+                                onTap: e.onTap,
+                                child: Row(
+                                  children: [
+                                    Icon(e.icon, color: currentColorScheme(context).primary),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      e.title,
+                                      style: currentTextTheme(context).bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(growable: false),
+                          );
+                        }
+                      }
+                    : null,
+                child: BeatCard(beat: beat),
+              ),
               firstPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
               animateTransitions: true,
             ),
