@@ -7,8 +7,10 @@ import '../entity/update_beat_entity.dart';
 
 abstract class BeatsRepository {
   Stream<Either<Failure, List<BeatEntity>>> get(
-      StreamController<BeatEntity?> lastEntityStream,
-      [int limit = 25,]);
+    StreamController<BeatEntity?> lastEntityStream, {
+    int limit = 25,
+    List<String>? beatsIds,
+  });
 
   Future<Either<Failure, BeatEntity>> getBeat(String beatId);
 

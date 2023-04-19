@@ -45,7 +45,10 @@ class App extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: locale,
               theme: theme,
-              home: HomePage(),
+              home: BeatListPage(
+                title: 'Hello',
+                beatIds: ['0a5c8e42-a7f6-419e-bfa9-58727520e50f'],
+              ),
             );
           },
         );

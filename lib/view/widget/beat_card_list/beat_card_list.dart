@@ -1,24 +1,23 @@
 import 'dart:async';
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../core/di/di.dart';
-import '../../../core/ui/color_schemes.dart';
 import '../../../core/ui/dimens.dart';
-import '../../../core/ui/kit/shimmer_builder.dart';
+import '../../../core/ui/kit/snackbar.dart';
 import '../../../domain/beats/entity/beat_entity.dart';
 import '../beat_card.dart';
 import 'cubit/cubit.dart';
 
 class BeatCardList extends StatefulWidget {
-  final List<String>? ids;
+  final List<String>? beatsIds;
 
   const BeatCardList({
     super.key,
-    this.ids,
+    this.beatsIds,
   });
 
   @override
@@ -37,7 +36,7 @@ class _BeatCardListState extends State<BeatCardList> {
       final beats = _beatsController.itemList;
 
       if (pageKey == 0) {
-        unawaited(cubit.initialBeats());
+        unawaited(cubit.initialBeats(beatsIds: widget.beatsIds));
       } else {
         cubit.loadMore(beats?.last);
       }
@@ -62,6 +61,14 @@ class _BeatCardListState extends State<BeatCardList> {
                   (_beatsController.itemList?.length ?? 0) + state.beats.length,
                 );
               }
+            },
+            failure: (value) {
+              unawaited(showSnackbar(
+                context,
+                title: 'О БОЖЕ!',
+                message: 'Беда беда ошибка()',
+                position: FlushbarPosition.TOP,
+              ));
             },
           );
         },

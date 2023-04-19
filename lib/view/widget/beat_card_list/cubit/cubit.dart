@@ -22,12 +22,13 @@ class BeatCardListCubit extends Cubit<BeatCardListState> {
 
   BeatCardListCubit(this.beatsRepository) : super(const BeatCardListState.loading());
 
-  Future<void> initialBeats({List<String>? ids}) async {
+  Future<void> initialBeats({List<String>? beatsIds}) async {
     final initialCompleter = Completer();
 
     emit(const BeatCardListState.loading());
     await _feedSubscription?.cancel();
-    _feedSubscription = beatsRepository.get(_feedController..add(null), beatsPageSize).doOnData((event) {
+    _feedSubscription =
+        beatsRepository.get(_feedController..add(null), limit: beatsPageSize, beatsIds: beatsIds).doOnData((event) {
       if (!initialCompleter.isCompleted) {
         initialCompleter.complete();
       }
