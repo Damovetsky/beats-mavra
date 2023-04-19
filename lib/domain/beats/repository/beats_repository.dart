@@ -8,10 +8,10 @@ import '../entity/update_beat_entity.dart';
 
 abstract class BeatsRepository {
   Stream<Either<Failure, List<BeatEntity>>> get(
-    StreamController<BeatEntity> lastEntityStream, [
+    StreamController<BeatEntity?> lastEntityStream, {
     int limit = 25,
     FilterBeatsEntity filterBeatsEntity = const FilterBeatsEntity(),
-  ]);
+  });
 
   Future<Either<Failure, BeatEntity>> getBeat(String beatId);
 
@@ -21,5 +21,6 @@ abstract class BeatsRepository {
   Future<Either<Failure, void>> deleteBeat(String beatId);
 
   Future<Either<Failure, BeatEntity>> createBeat(
-      CreateBeatEntity createBeatEntity,);
+    CreateBeatEntity createBeatEntity,
+  );
 }

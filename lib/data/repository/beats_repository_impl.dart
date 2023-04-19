@@ -30,14 +30,14 @@ class BeatsRepositoryImpl extends BeatsRepository {
 
   @override
   Stream<Either<Failure, List<BeatEntity>>> get(
-    StreamController<BeatEntity> lastEntityStream, [
+    StreamController<BeatEntity?> lastEntityStream, {
     int limit = 25,
     FilterBeatsEntity filterBeatsEntity = const FilterBeatsEntity(),
-  ]) {
+  }) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
         final beats = (await beatsService.getBeats(
-          lastVisibleTitle: last.title,
+          lastVisibleTitle: last?.title,
           limit: limit,
         ));
         return Right(

@@ -81,11 +81,11 @@ class BeatsServiceImpl implements BeatsService {
     String? lastVisibleTitle,
     FilterBeatsModel filter = const FilterBeatsModel(),
   }) async {
-    var cursor = _createQueryFromFilter(filter);
-    cursor = cursor.orderBy('title').limit(limit);
+    var cursor = beatsCollection.orderBy('title').limit(limit);
     if (lastVisibleTitle != null) {
       cursor = cursor.startAfter([lastVisibleTitle]);
     }
+    cursor = _createQueryFromFilter(cursor, filter);
     return cursor
         .get()
         .then(
@@ -145,8 +145,7 @@ class BeatsServiceImpl implements BeatsService {
     }
   }
 
-  Query<Map<String, dynamic>> _createQueryFromFilter(FilterBeatsModel filter) {
-    var cursor = beatsCollection.where('beatId', isNull: false);
+  Query<Map<String, dynamic>> _createQueryFromFilter(Query<Map<String, dynamic>> cursor, FilterBeatsModel filter) {
     if (filter.beatsIds != null) {
       cursor = cursor.where('beatId', whereIn: filter.beatsIds);
     }
