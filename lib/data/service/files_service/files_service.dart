@@ -1,34 +1,51 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../core/error/exception.dart';
+import 'models/file_model.dart';
+import 'models/upload_file_model.dart';
 
 abstract class FilesService {
-  UploadTask uploadFile(String uploadUrl, File srcFile);
+  Future<UploadFileModel> uploadFile(File srcFile);
 
-  DownloadTask downloadFile(String downloadUrl, File destinationFile);
+  Future<String> getFileUrl(String fileId);
 }
 
 @Injectable(as: FilesService)
 class FilesServiceImpl extends FilesService {
   final FirebaseStorage firebaseStorage;
+  final FirebaseFirestore firestoreInstance;
 
-  FilesServiceImpl(this.firebaseStorage);
+  late CollectionReference<Map<String, dynamic>> filesCollection;
 
-  @override
-  UploadTask uploadFile(
-    String uploadUrl,
-    File srcFile,
-  ) {
-    final ref = firebaseStorage.ref().child(uploadUrl);
-    return ref.putFile(srcFile);
+  FilesServiceImpl(this.firebaseStorage, this.firestoreInstance) {
+    filesCollection = firestoreInstance.collection('files');
   }
 
   @override
-  DownloadTask downloadFile(
-    String downloadUrl,
-    File destinationFile,
-  ) {
-    final ref = firebaseStorage.ref().child(downloadUrl);
-    return ref.writeToFile(destinationFile);
+  Future<UploadFileModel> uploadFile(
+    File srcFile,
+  ) async {
+    final fileId = const Uuid().v4();
+    final fileRef = '/files/${const Uuid().v4()}';
+    filesCollection.doc(fileId).set({'fileId': fileId, 'ref': fileRef});
+    final ref = firebaseStorage.ref().child(fileRef);
+    return UploadFileModel(
+      fileId: fileId,
+      ref: fileRef,
+      uploadTask: ref.putFile(srcFile),
+    );
+  }
+
+  @override
+  Future<String> getFileUrl(String fileId) async {
+    final fileModel = await filesCollection.doc(fileId).get().then((value) =>
+        value.exists
+            ? FileModel.fromJson(value.data()!)
+            : throw NotFoundException(),);
+    return firebaseStorage.ref().child(fileModel.ref).getDownloadURL();
   }
 }

@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import './exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,7 +28,7 @@ class UserServiceImpl implements UserService {
         .then(
           (value) => value.exists
               ? UserModel.fromJson(value.data()!)
-              : throw UsersExceptionFactory().generateException('does-not-exist'),
+              : throw UsersExceptionFactory().generateException('not-found'),
         )
         .onError(
           (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),

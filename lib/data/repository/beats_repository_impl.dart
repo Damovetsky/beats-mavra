@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/error/exception.dart';
 import '../../core/error/failure.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 import '../../domain/beats/entity/create_beat_entity.dart';
@@ -27,10 +27,11 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Stream<Either<Failure, List<BeatEntity>>> get(
     StreamController<BeatEntity?> lastEntityStream, [
     int limit = 25,
+    List<String>? beatsIds,
   ]) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
-        final beats = (await beatsService.getBeats(lastVisible: last?.beatId, limit: limit));
+        final beats = (await beatsService.getBeats(lastVisible: last?.beatId, limit: limit, beatsIds: beatsIds));
         return Right(
           beats.map(BeatModelToBeatEntityConverter().convert).toList(),
         );
@@ -54,9 +55,9 @@ class BeatsRepositoryImpl extends BeatsRepository {
           ),
         ),
       );
-    } on BeatAlreadyExistsException catch (e) {
+    } on AlreadyExistException catch (e) {
       return Left(UnknownFailure());
-    } on BeatsUnknownException catch (e) {
+    } on UnknownException catch (e) {
       return Left(UnknownFailure());
     }
   }
