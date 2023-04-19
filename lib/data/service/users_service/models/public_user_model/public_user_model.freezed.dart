@@ -21,9 +21,9 @@ PublicUserModel _$PublicUserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PublicUserModel {
   String get id => throw _privateConstructorUsedError;
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,8 @@ abstract class $PublicUserModelCopyWith<$Res> {
           PublicUserModel value, $Res Function(PublicUserModel) then) =
       _$PublicUserModelCopyWithImpl<$Res, PublicUserModel>;
   @useResult
-  $Res call({String id, String avatarUrl, String nickname, String description});
+  $Res call(
+      {String id, String? avatarUrl, String nickname, String? description});
 }
 
 /// @nodoc
@@ -54,27 +55,27 @@ class _$PublicUserModelCopyWithImpl<$Res, $Val extends PublicUserModel>
   @override
   $Res call({
     Object? id = null,
-    Object? avatarUrl = null,
+    Object? avatarUrl = freezed,
     Object? nickname = null,
-    Object? description = null,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: null == avatarUrl
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +88,8 @@ abstract class _$$_PublicUserModelCopyWith<$Res>
       __$$_PublicUserModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String avatarUrl, String nickname, String description});
+  $Res call(
+      {String id, String? avatarUrl, String nickname, String? description});
 }
 
 /// @nodoc
@@ -102,27 +104,27 @@ class __$$_PublicUserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? avatarUrl = null,
+    Object? avatarUrl = freezed,
     Object? nickname = null,
-    Object? description = null,
+    Object? description = freezed,
   }) {
     return _then(_$_PublicUserModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: null == avatarUrl
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -142,11 +144,11 @@ class _$_PublicUserModel implements _PublicUserModel {
   @override
   final String id;
   @override
-  final String avatarUrl;
+  final String? avatarUrl;
   @override
   final String nickname;
   @override
-  final String description;
+  final String? description;
 
   @override
   String toString() {
@@ -189,9 +191,9 @@ class _$_PublicUserModel implements _PublicUserModel {
 abstract class _PublicUserModel implements PublicUserModel {
   const factory _PublicUserModel(
       {required final String id,
-      required final String avatarUrl,
+      required final String? avatarUrl,
       required final String nickname,
-      required final String description}) = _$_PublicUserModel;
+      required final String? description}) = _$_PublicUserModel;
 
   factory _PublicUserModel.fromJson(Map<String, dynamic> json) =
       _$_PublicUserModel.fromJson;
@@ -199,11 +201,11 @@ abstract class _PublicUserModel implements PublicUserModel {
   @override
   String get id;
   @override
-  String get avatarUrl;
+  String? get avatarUrl;
   @override
   String get nickname;
   @override
-  String get description;
+  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$_PublicUserModelCopyWith<_$_PublicUserModel> get copyWith =>

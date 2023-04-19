@@ -9,9 +9,9 @@ part of 'public_user_model.dart';
 _$_PublicUserModel _$$_PublicUserModelFromJson(Map<String, dynamic> json) =>
     _$_PublicUserModel(
       id: json['id'] as String,
-      avatarUrl: json['avatarUrl'] as String,
+      avatarUrl: json['avatarUrl'] as String?,
       nickname: json['nickname'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_PublicUserModelToJson(_$_PublicUserModel instance) =>
