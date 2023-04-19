@@ -83,10 +83,8 @@ class AuthServiceImpl implements AuthService {
 
   @override
   Future<UserCredential> signInWithGoogle() async {
-
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
