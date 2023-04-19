@@ -241,6 +241,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.1"
+  draggable_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: draggable_bottom_sheet
+      sha256: "21470ca0ec2014778691ae1d0df7bb2530bc0c9e7b77dee3442f33b5546f2fc1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   easy_localization:
     dependency: "direct main"
     description:
@@ -257,6 +265,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.2"
+  expandable_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: expandable_bottom_sheet
+      sha256: d62455231ccd53bf7a153c87e2cdecd2c8e7d737cb5262a5fc9481c5e3aed7d1
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1+1"
   extended_image:
     dependency: "direct main"
     description:
@@ -914,6 +930,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  solid_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: solid_bottom_sheet
+      sha256: "7a18ee17da1c57fdad953f785be4cbdaf5e1116650888162ceaccb80e6b6a6aa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.10"
   source_gen:
     dependency: transitive
     description:

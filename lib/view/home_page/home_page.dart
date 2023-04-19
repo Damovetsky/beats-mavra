@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../beat_sheet/beat_sheet.dart';
+import '../player_bottom_sheet/player_bottom_sheet.dart';
 import '../profile_page/profile_page.dart';
 import '../search_page/search_page.dart';
 
@@ -28,6 +32,8 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
+  SolidController bottomSheetController = SolidController();
+
   @override
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
@@ -36,6 +42,10 @@ class HomePageState extends State<HomePage> {
           key: _pagesGlobalKey,
           index: currentPageIndex,
           children: pages,
+        ),
+        bottomSheet: PlayerBottomSheet(
+          bottomSheetController,
+          key: UniqueKey(),
         ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
