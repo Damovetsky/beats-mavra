@@ -11,6 +11,7 @@ CreatePublicUserModel _$CreatePublicUserModelFromJson(
     CreatePublicUserModel(
       json['id'] as String,
       json['avatarUrl'] as String?,
+      json['nickname'] as String,
       json['description'] as String,
     );
 
@@ -19,5 +20,6 @@ Map<String, dynamic> _$CreatePublicUserModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'avatarUrl': instance.avatarUrl,
+      'nickname': instance.nickname,
       'description': instance.description,
     };
