@@ -33,7 +33,7 @@ import 'package:beats/domain/beats/repository/beats_repository.dart' as _i23;
 import 'package:beats/domain/profile/repository/profile_repository.dart'
     as _i26;
 import 'package:beats/domain/users/repository/users_repository.dart' as _i19;
-import 'package:beats/view/auth_page/cubit/cubit.dart' as _i29;
+import 'package:beats/view/auth_sheet/cubit/cubit.dart' as _i29;
 import 'package:beats/view/player_bottom_sheet/cubit/cubit.dart' as _i25;
 import 'package:beats/view/profile_page/beat_list_page/cubit/cubit.dart' as _i4;
 import 'package:beats/view/profile_page/cubit/cubit.dart' as _i31;

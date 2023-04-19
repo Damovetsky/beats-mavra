@@ -13,7 +13,7 @@ CreatePrivateUserModel _$CreatePrivateUserModelFromJson(
       json['email'] as String,
     )
       ..balance = (json['balance'] as num?)?.toDouble() ?? 0
-      ..favorites = (json['favorites'] as Map<String, dynamic>?)?.map(
+      ..favorite = (json['favorite'] as Map<String, dynamic>?)?.map(
             (k, e) => MapEntry(k, e as bool),
           ) ??
           {}
@@ -32,7 +32,7 @@ Map<String, dynamic> _$CreatePrivateUserModelToJson(
       'id': instance.id,
       'email': instance.email,
       'balance': instance.balance,
-      'favorites': instance.favorites,
+      'favorite': instance.favorite,
       'bought': instance.bought,
       'created': instance.created,
     };

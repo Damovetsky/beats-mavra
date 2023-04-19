@@ -15,9 +15,22 @@ class AuthCubit extends Cubit<AuthState> {
 
   void changeAuthState() {
     emit(
-      state is _AuthSignInState
-          ? const AuthState.signUp()
-          : const AuthState.signIn(),
+      state is _AuthSignInState ? const AuthState.signUp() : const AuthState.signIn(),
     );
+  }
+
+  void signUp({
+    required String email,
+    required String nickname,
+    required String password,
+  }) async {
+    await authRepository.signUp(nickname: nickname, email: email, password: password);
+  }
+
+  void signIn({
+    required String email,
+    required String password,
+  }) async {
+    await authRepository.signIn(email: email, password: password);
   }
 }

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/di/di.dart';
+import '../../core/helper/sheet_helper.dart';
 import '../../core/reg_exp.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
@@ -13,29 +13,25 @@ import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/text_styles.dart';
 import 'cubit/cubit.dart';
 
-@RoutePage()
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class AuthSheet extends StatefulWidget {
+  const AuthSheet({super.key});
+
+  static show(BuildContext context) async {
+    BottomSheetHelper.show(
+      context,
+      (context, padding) => const AuthSheet(),
+      isScrollControlled: true,
+    );
+  }
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthSheet> createState() => _AuthSheetState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthSheetState extends State<AuthSheet> {
   final _emailController = TextEditingController();
-
-  void _trySubmit(BuildContext context) {
-    final isValid = Form.of(context).validate();
-    FocusScope.of(context).unfocus();
-
-    // if (isValid ?? false) {
-    //   _formKey.currentState?.save();
-    //   widget.submitFn(
-    //     _userEmail.trim(),
-    //     _userName.trim(),
-    //     _userPassword.trim(),
-    //   );
-  }
+  final _nicknameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,55 +39,60 @@ class _AuthPageState extends State<AuthPage> {
       create: (context) {
         return getIt.get<AuthCubit>();
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                return ListView(
-                  padding: const EdgeInsets.only(
-                    left: screenHorizontalMargin,
-                    right: screenHorizontalMargin,
-                    top: screenTopScrollPadding,
-                    bottom: screenBottomScrollPadding,
-                  ),
-                  children: [
-                    Pulse(
-                      preferences: const AnimationPreferences(
-                        autoPlay: AnimationPlayStates.Loop,
-                        duration: Duration(milliseconds: 300),
-                        offset: Duration(milliseconds: 200),
-                        magnitude: 0.3,
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 100,
-                          horizontal: 50,
-                        ),
-                        child: Image.asset(
-                          'assets/images/beats.png',
-                        ),
-                      ),
-                    ),
-                    Form(
-                      child: Column(
-                        children: [
-                          _EmailTextField(_emailController),
-                          _UsernameTextField(),
-                          const _PasswordTextField(),
-                          const SizedBox(height: 8),
-                          _SubmitButton(trySubmit: _trySubmit),
-                          _AlternativeSigning(),
-                          _SwitchScreenText(),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height * 0.4,
+          maxHeight: MediaQuery.of(context).size.height * 0.85,
+        ),
+        child: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(
+              left: screenHorizontalMargin,
+              right: screenHorizontalMargin,
+              top: screenTopScrollPadding,
+              bottom: screenBottomScrollPadding,
+            ),
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
               },
+              child: BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  return Form(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Pulse(
+                          preferences: const AnimationPreferences(
+                            autoPlay: AnimationPlayStates.Loop,
+                            duration: Duration(milliseconds: 300),
+                            offset: Duration(milliseconds: 200),
+                            magnitude: 0.3,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 32, bottom: 64, left: 32, right: 32),
+                            child: Image.asset(
+                              'assets/images/beats.png',
+                            ),
+                          ),
+                        ),
+                        _EmailTextField(controller: _emailController),
+                        _NicknameTextField(controller: _nicknameController),
+                        _PasswordTextField(controller: _passwordController),
+                        const SizedBox(height: 8),
+                        _SubmitButton(
+                          emailController: _emailController,
+                          nicknameController: _nicknameController,
+                          passwordController: _passwordController,
+                        ),
+                        _AlternativeSigning(),
+                        _SwitchScreenText(),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -123,9 +124,7 @@ class _SwitchScreenTextState extends State<_SwitchScreenText> {
             style: currentTextTheme(context).bodyLarge,
             children: [
               TextSpan(
-                text: _isSigningIn
-                    ? 'auth_not_registered'.tr()
-                    : 'auth_already_registered'.tr(),
+                text: _isSigningIn ? 'auth_not_registered'.tr() : 'auth_already_registered'.tr(),
                 style: TextStyle(
                   color: currentColorScheme(context).onBackground,
                 ),
@@ -145,57 +144,79 @@ class _SwitchScreenTextState extends State<_SwitchScreenText> {
 }
 
 class _SubmitButton extends StatelessWidget {
-  const _SubmitButton({
-    required Function trySubmit,
-  }) : _trySubmit = trySubmit;
+  final TextEditingController emailController;
+  final TextEditingController nicknameController;
+  final TextEditingController passwordController;
 
-  final Function _trySubmit;
+  const _SubmitButton({
+    required this.emailController,
+    required this.nicknameController,
+    required this.passwordController,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: () {
-        _trySubmit(context);
+    return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (_, current) => current.mapOrNull(signIn: (_) => true, signUp: (_) => true) ?? false,
+      builder: (context, state) {
+        return FilledButton(
+          onPressed: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+            if (Form.of(context).validate()) {
+              state.mapOrNull(
+                signIn: (_) {
+                  context.read<AuthCubit>().signIn(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                },
+                signUp: (_) {
+                  context.read<AuthCubit>().signUp(
+                        email: emailController.text,
+                        nickname: nicknameController.text,
+                        password: passwordController.text,
+                      );
+                },
+              );
+            }
+          },
+          style: FilledButton.styleFrom(
+            minimumSize: const Size(double.maxFinite, 52),
+          ),
+          child: BlocBuilder<AuthCubit, AuthState>(
+            buildWhen: (_, current) {
+              return current.mapOrNull(signIn: (_) => true, signUp: (_) => true) ?? false;
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () => Container(),
+                signIn: () => Text(
+                  'auth_sign_in'.tr(),
+                  style: currentTextTheme(context).bodyLarge?.copyWith(
+                        color: currentColorScheme(context).onPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                signUp: () => Text(
+                  'auth_sign_up'.tr(),
+                  style: currentTextTheme(context).bodyLarge?.copyWith(
+                        color: currentColorScheme(context).onPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              );
+            },
+          ),
+        );
       },
-      style: FilledButton.styleFrom(
-        minimumSize: const Size(double.maxFinite, 52),
-      ),
-      child: BlocBuilder<AuthCubit, AuthState>(
-        buildWhen: (_, current) {
-          return current.mapOrNull(
-                signIn: (_) => true,
-                signUp: (_) => true,
-              ) ??
-              false;
-        },
-        builder: (context, state) {
-          return state.maybeWhen(
-            orElse: () => Container(),
-            signIn: () => Text(
-              'auth_sign_in'.tr(),
-              style: currentTextTheme(context).bodyLarge?.copyWith(
-                    color: currentColorScheme(context).onPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            signUp: () => Text(
-              'auth_sign_up'.tr(),
-              style: currentTextTheme(context).bodyLarge?.copyWith(
-                    color: currentColorScheme(context).onPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
 
 class _EmailTextField extends StatelessWidget {
-  const _EmailTextField(this.emailController);
+  final TextEditingController controller;
 
-  final TextEditingController emailController;
+  const _EmailTextField({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +224,7 @@ class _EmailTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         key: const ValueKey('email'),
-        controller: emailController,
+        controller: controller,
         validator: (text) {
           if (text == null || !emailRegExp.hasMatch(text)) {
             return 'auth_email_validator'.tr();
@@ -223,7 +244,9 @@ class _EmailTextField extends StatelessWidget {
 }
 
 class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField();
+  final TextEditingController controller;
+
+  const _PasswordTextField({required this.controller});
 
   @override
   State<_PasswordTextField> createState() => _PasswordTextFieldState();
@@ -237,6 +260,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         key: const ValueKey('password'),
+        controller: widget.controller,
         validator: (text) {
           if (text == null || text.length < 6) {
             return 'auth_password_validator'.tr();
@@ -249,9 +273,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
         decoration: InputDecoration(
           labelText: 'password'.tr(),
           suffixIcon: BouncingGestureDetector(
-            child: _obscurePassword
-                ? const Icon(Icons.visibility_off_outlined)
-                : const Icon(Icons.visibility_outlined),
+            child: _obscurePassword ? const Icon(Icons.visibility_off_outlined) : const Icon(Icons.visibility_outlined),
             onTap: () {
               setState(() {
                 _obscurePassword = !_obscurePassword;
@@ -283,8 +305,7 @@ class _AlternativeSigning extends StatelessWidget {
             return FadeTransition(
               opacity: animation,
               child: SizeTransition(
-                sizeFactor:
-                    animation.drive(CurveTween(curve: Curves.easeInOut)),
+                sizeFactor: animation.drive(CurveTween(curve: Curves.easeInOut)),
                 child: child,
               ),
             );
@@ -337,7 +358,11 @@ class _AlternativeSigning extends StatelessWidget {
   }
 }
 
-class _UsernameTextField extends StatelessWidget {
+class _NicknameTextField extends StatelessWidget {
+  final TextEditingController controller;
+
+  const _NicknameTextField({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -370,6 +395,7 @@ class _UsernameTextField extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: TextFormField(
                   key: const ValueKey('username'),
+                  controller: controller,
                   validator: (text) {
                     if (text == null || text.length < 4) {
                       return 'Please enter at least 4 characters';
