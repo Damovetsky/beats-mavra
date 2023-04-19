@@ -118,7 +118,7 @@ class _SwitchScreenTextState extends State<_SwitchScreenText> {
         padding: const EdgeInsets.symmetric(vertical: 30),
         child: RichText(
           text: TextSpan(
-            style: currentTextStyle(context).bodyLarge,
+            style: currentTextTheme(context).bodyLarge,
             children: [
               TextSpan(
                 text: _isSigningIn
@@ -171,14 +171,14 @@ class _SubmitButton extends StatelessWidget {
             orElse: () => Container(),
             signIn: () => Text(
               'auth_sign_in'.tr(),
-              style: currentTextStyle(context).bodyLarge?.copyWith(
+              style: currentTextTheme(context).bodyLarge?.copyWith(
                     color: currentColorScheme(context).onPrimary,
                     fontWeight: FontWeight.w600,
                   ),
             ),
             signUp: () => Text(
               'auth_sign_up'.tr(),
-              style: currentTextStyle(context).bodyLarge?.copyWith(
+              style: currentTextTheme(context).bodyLarge?.copyWith(
                     color: currentColorScheme(context).onPrimary,
                     fontWeight: FontWeight.w600,
                   ),
