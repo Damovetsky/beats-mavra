@@ -31,7 +31,6 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => HomePageState();
 }
-
 class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
