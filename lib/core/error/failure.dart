@@ -6,7 +6,9 @@ abstract class Failure {
 
 class ConnectionFailure extends Failure {}
 
-class UnauthorizedFailur extends Failure {}
+class UnauthorizedFailure extends Failure {}
+
+class NotFoundFailure extends Failure {}
 
 class WrongFormatFailure extends Failure {
   WrongFormatFailure({required super.message});

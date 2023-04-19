@@ -12,11 +12,12 @@ class BeatModel with _$BeatModel {
     required String title,
     required String description,
     required String mp3,
-    required String wav,
-    required String zip,
+    required String? wav,
+    required String? zip,
     required List<String> genres,
     required int temp,
     required String dimension,
+    required List<double> graph,
   }) = _BeatModel;
 
   factory BeatModel.fromJson(Map<String, dynamic> json) => _$BeatModelFromJson(json);

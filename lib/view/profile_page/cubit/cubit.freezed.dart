@@ -19,21 +19,30 @@ mixin _$ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity profile) profile,
+    required TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)
+        profile,
+    required TResult Function() needAuth,
     required TResult Function(String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity profile)? profile,
+    TResult? Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult? Function()? needAuth,
     TResult? Function(String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity profile)? profile,
+    TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult Function()? needAuth,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) =>
@@ -42,6 +51,7 @@ mixin _$ProfileState {
   TResult map<TResult extends Object?>({
     required TResult Function(_ProfileLoadingState value) loading,
     required TResult Function(_ProfileState value) profile,
+    required TResult Function(_ProfileNeedAuthState value) needAuth,
     required TResult Function(_ProfileFailureState value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +59,7 @@ mixin _$ProfileState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ProfileLoadingState value)? loading,
     TResult? Function(_ProfileState value)? profile,
+    TResult? Function(_ProfileNeedAuthState value)? needAuth,
     TResult? Function(_ProfileFailureState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +67,7 @@ mixin _$ProfileState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ProfileLoadingState value)? loading,
     TResult Function(_ProfileState value)? profile,
+    TResult Function(_ProfileNeedAuthState value)? needAuth,
     TResult Function(_ProfileFailureState value)? failure,
     required TResult orElse(),
   }) =>
@@ -119,7 +131,10 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity profile) profile,
+    required TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)
+        profile,
+    required TResult Function() needAuth,
     required TResult Function(String message) failure,
   }) {
     return loading();
@@ -129,7 +144,10 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity profile)? profile,
+    TResult? Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult? Function()? needAuth,
     TResult? Function(String message)? failure,
   }) {
     return loading?.call();
@@ -139,7 +157,10 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity profile)? profile,
+    TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult Function()? needAuth,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -154,6 +175,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_ProfileLoadingState value) loading,
     required TResult Function(_ProfileState value) profile,
+    required TResult Function(_ProfileNeedAuthState value) needAuth,
     required TResult Function(_ProfileFailureState value) failure,
   }) {
     return loading(this);
@@ -164,6 +186,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ProfileLoadingState value)? loading,
     TResult? Function(_ProfileState value)? profile,
+    TResult? Function(_ProfileNeedAuthState value)? needAuth,
     TResult? Function(_ProfileFailureState value)? failure,
   }) {
     return loading?.call(this);
@@ -174,6 +197,7 @@ class _$_ProfileLoadingState implements _ProfileLoadingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ProfileLoadingState value)? loading,
     TResult Function(_ProfileState value)? profile,
+    TResult Function(_ProfileNeedAuthState value)? needAuth,
     TResult Function(_ProfileFailureState value)? failure,
     required TResult orElse(),
   }) {
@@ -194,9 +218,10 @@ abstract class _$$_ProfileStateCopyWith<$Res> {
           _$_ProfileState value, $Res Function(_$_ProfileState) then) =
       __$$_ProfileStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserEntity profile});
+  $Res call({PrivateUserEntity privateUser, PublicUserEntity publicUser});
 
-  $UserEntityCopyWith<$Res> get profile;
+  $PrivateUserEntityCopyWith<$Res> get privateUser;
+  $PublicUserEntityCopyWith<$Res> get publicUser;
 }
 
 /// @nodoc
@@ -210,21 +235,34 @@ class __$$_ProfileStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? profile = null,
+    Object? privateUser = null,
+    Object? publicUser = null,
   }) {
     return _then(_$_ProfileState(
-      profile: null == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as UserEntity,
+      privateUser: null == privateUser
+          ? _value.privateUser
+          : privateUser // ignore: cast_nullable_to_non_nullable
+              as PrivateUserEntity,
+      publicUser: null == publicUser
+          ? _value.publicUser
+          : publicUser // ignore: cast_nullable_to_non_nullable
+              as PublicUserEntity,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $UserEntityCopyWith<$Res> get profile {
-    return $UserEntityCopyWith<$Res>(_value.profile, (value) {
-      return _then(_value.copyWith(profile: value));
+  $PrivateUserEntityCopyWith<$Res> get privateUser {
+    return $PrivateUserEntityCopyWith<$Res>(_value.privateUser, (value) {
+      return _then(_value.copyWith(privateUser: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PublicUserEntityCopyWith<$Res> get publicUser {
+    return $PublicUserEntityCopyWith<$Res>(_value.publicUser, (value) {
+      return _then(_value.copyWith(publicUser: value));
     });
   }
 }
@@ -232,14 +270,16 @@ class __$$_ProfileStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ProfileState implements _ProfileState {
-  const _$_ProfileState({required this.profile});
+  const _$_ProfileState({required this.privateUser, required this.publicUser});
 
   @override
-  final UserEntity profile;
+  final PrivateUserEntity privateUser;
+  @override
+  final PublicUserEntity publicUser;
 
   @override
   String toString() {
-    return 'ProfileState.profile(profile: $profile)';
+    return 'ProfileState.profile(privateUser: $privateUser, publicUser: $publicUser)';
   }
 
   @override
@@ -247,11 +287,14 @@ class _$_ProfileState implements _ProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProfileState &&
-            (identical(other.profile, profile) || other.profile == profile));
+            (identical(other.privateUser, privateUser) ||
+                other.privateUser == privateUser) &&
+            (identical(other.publicUser, publicUser) ||
+                other.publicUser == publicUser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile);
+  int get hashCode => Object.hash(runtimeType, privateUser, publicUser);
 
   @JsonKey(ignore: true)
   @override
@@ -263,32 +306,41 @@ class _$_ProfileState implements _ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity profile) profile,
+    required TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)
+        profile,
+    required TResult Function() needAuth,
     required TResult Function(String message) failure,
   }) {
-    return profile(this.profile);
+    return profile(privateUser, publicUser);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity profile)? profile,
+    TResult? Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult? Function()? needAuth,
     TResult? Function(String message)? failure,
   }) {
-    return profile?.call(this.profile);
+    return profile?.call(privateUser, publicUser);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity profile)? profile,
+    TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult Function()? needAuth,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
     if (profile != null) {
-      return profile(this.profile);
+      return profile(privateUser, publicUser);
     }
     return orElse();
   }
@@ -298,6 +350,7 @@ class _$_ProfileState implements _ProfileState {
   TResult map<TResult extends Object?>({
     required TResult Function(_ProfileLoadingState value) loading,
     required TResult Function(_ProfileState value) profile,
+    required TResult Function(_ProfileNeedAuthState value) needAuth,
     required TResult Function(_ProfileFailureState value) failure,
   }) {
     return profile(this);
@@ -308,6 +361,7 @@ class _$_ProfileState implements _ProfileState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ProfileLoadingState value)? loading,
     TResult? Function(_ProfileState value)? profile,
+    TResult? Function(_ProfileNeedAuthState value)? needAuth,
     TResult? Function(_ProfileFailureState value)? failure,
   }) {
     return profile?.call(this);
@@ -318,6 +372,7 @@ class _$_ProfileState implements _ProfileState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ProfileLoadingState value)? loading,
     TResult Function(_ProfileState value)? profile,
+    TResult Function(_ProfileNeedAuthState value)? needAuth,
     TResult Function(_ProfileFailureState value)? failure,
     required TResult orElse(),
   }) {
@@ -329,13 +384,135 @@ class _$_ProfileState implements _ProfileState {
 }
 
 abstract class _ProfileState implements ProfileState {
-  const factory _ProfileState({required final UserEntity profile}) =
-      _$_ProfileState;
+  const factory _ProfileState(
+      {required final PrivateUserEntity privateUser,
+      required final PublicUserEntity publicUser}) = _$_ProfileState;
 
-  UserEntity get profile;
+  PrivateUserEntity get privateUser;
+  PublicUserEntity get publicUser;
   @JsonKey(ignore: true)
   _$$_ProfileStateCopyWith<_$_ProfileState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ProfileNeedAuthStateCopyWith<$Res> {
+  factory _$$_ProfileNeedAuthStateCopyWith(_$_ProfileNeedAuthState value,
+          $Res Function(_$_ProfileNeedAuthState) then) =
+      __$$_ProfileNeedAuthStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ProfileNeedAuthStateCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$_ProfileNeedAuthState>
+    implements _$$_ProfileNeedAuthStateCopyWith<$Res> {
+  __$$_ProfileNeedAuthStateCopyWithImpl(_$_ProfileNeedAuthState _value,
+      $Res Function(_$_ProfileNeedAuthState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ProfileNeedAuthState implements _ProfileNeedAuthState {
+  const _$_ProfileNeedAuthState();
+
+  @override
+  String toString() {
+    return 'ProfileState.needAuth()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ProfileNeedAuthState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)
+        profile,
+    required TResult Function() needAuth,
+    required TResult Function(String message) failure,
+  }) {
+    return needAuth();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult? Function()? needAuth,
+    TResult? Function(String message)? failure,
+  }) {
+    return needAuth?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult Function()? needAuth,
+    TResult Function(String message)? failure,
+    required TResult orElse(),
+  }) {
+    if (needAuth != null) {
+      return needAuth();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ProfileLoadingState value) loading,
+    required TResult Function(_ProfileState value) profile,
+    required TResult Function(_ProfileNeedAuthState value) needAuth,
+    required TResult Function(_ProfileFailureState value) failure,
+  }) {
+    return needAuth(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ProfileLoadingState value)? loading,
+    TResult? Function(_ProfileState value)? profile,
+    TResult? Function(_ProfileNeedAuthState value)? needAuth,
+    TResult? Function(_ProfileFailureState value)? failure,
+  }) {
+    return needAuth?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ProfileLoadingState value)? loading,
+    TResult Function(_ProfileState value)? profile,
+    TResult Function(_ProfileNeedAuthState value)? needAuth,
+    TResult Function(_ProfileFailureState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (needAuth != null) {
+      return needAuth(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ProfileNeedAuthState implements ProfileState {
+  const factory _ProfileNeedAuthState() = _$_ProfileNeedAuthState;
 }
 
 /// @nodoc
@@ -404,7 +581,10 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserEntity profile) profile,
+    required TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)
+        profile,
+    required TResult Function() needAuth,
     required TResult Function(String message) failure,
   }) {
     return failure(message);
@@ -414,7 +594,10 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserEntity profile)? profile,
+    TResult? Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult? Function()? needAuth,
     TResult? Function(String message)? failure,
   }) {
     return failure?.call(message);
@@ -424,7 +607,10 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserEntity profile)? profile,
+    TResult Function(
+            PrivateUserEntity privateUser, PublicUserEntity publicUser)?
+        profile,
+    TResult Function()? needAuth,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -439,6 +625,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   TResult map<TResult extends Object?>({
     required TResult Function(_ProfileLoadingState value) loading,
     required TResult Function(_ProfileState value) profile,
+    required TResult Function(_ProfileNeedAuthState value) needAuth,
     required TResult Function(_ProfileFailureState value) failure,
   }) {
     return failure(this);
@@ -449,6 +636,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ProfileLoadingState value)? loading,
     TResult? Function(_ProfileState value)? profile,
+    TResult? Function(_ProfileNeedAuthState value)? needAuth,
     TResult? Function(_ProfileFailureState value)? failure,
   }) {
     return failure?.call(this);
@@ -459,6 +647,7 @@ class _$_ProfileFailureState implements _ProfileFailureState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ProfileLoadingState value)? loading,
     TResult Function(_ProfileState value)? profile,
+    TResult Function(_ProfileNeedAuthState value)? needAuth,
     TResult Function(_ProfileFailureState value)? failure,
     required TResult orElse(),
   }) {

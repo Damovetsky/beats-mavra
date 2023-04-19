@@ -1,46 +1,98 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import './exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'models/user_model/user_model.dart';
+import 'models/create_user_model/create_private_user_model/create_private_user_model.dart';
+import 'models/create_user_model/create_public_user_model/create_public_user_model.dart';
+import 'models/update_user_model/update_user_model.dart';
+import 'models/user_model/private_user_model/private_user_model.dart';
+import 'models/user_model/public_user_model/public_user_model.dart';
 
 abstract class UserService {
-  Future<UserModel> getUser(String id);
-  Future<UserModel> createUser(UserModel user);
+  Future<PrivateUserModel> getPrivateUser(String id);
+  Future<PublicUserModel> getPublicUser(String id);
+  Future<void> createUser({
+    required String id,
+    required CreatePublicUserModel publicUserModel,
+    required CreatePrivateUserModel privateUserModel,
+  });
+  Future<void> updateUser(UpdateUserModel model);
+  Future<void> changeBeatInMap({
+    required String userId,
+    required String beatId,
+    required String mapName,
+    required bool checked,
+  });
 }
 
 @Injectable(as: UserService)
 class UserServiceImpl implements UserService {
   final FirebaseFirestore firestoreInstance;
   final UsersExceptionFactory exceptionFactory;
-  late CollectionReference<Map<String, dynamic>> usersCollection;
-
+  late CollectionReference<Map<String, dynamic>> publicUsersCollection;
+  late CollectionReference<Map<String, dynamic>> privateUsersCollection;
 
   UserServiceImpl(this.firestoreInstance, this.exceptionFactory) {
-    usersCollection = firestoreInstance.collection('users');
+    publicUsersCollection = firestoreInstance.collection('public_users');
+    privateUsersCollection = firestoreInstance.collection('private_users');
   }
 
   @override
-  Future<UserModel> getUser(String id) {
-    return usersCollection
+  Future<PublicUserModel> getPublicUser(String id) {
+    return publicUsersCollection
         .doc(id)
         .get()
-        .then((value) =>
-    value.exists
-        ? UserModel.fromJson(value.data()!)
-        : throw UsersExceptionFactory().generateException('does-not-exist'),)
-        .onError((FirebaseException error, stackTrace) =>
-    throw exceptionFactory.generateException(error.code),);
+        .then(
+          (value) => value.exists
+              ? PublicUserModel.fromJson(value.data()!)
+              : throw UsersExceptionFactory().generateException('not-found'),
+        )
+        .onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
   }
 
   @override
-  Future<UserModel> createUser(UserModel user) {
-    return usersCollection
-        .doc(user.userId)
-        .set(user.toJson())
-        .then((value) => getUser(user.userId))
-        .onError((FirebaseException error, stackTrace) =>
-    throw exceptionFactory.generateException(error.code),);
+  Future<PrivateUserModel> getPrivateUser(String id) {
+    return privateUsersCollection.doc(id).get().then((value) {
+      final t = value.data();
+
+      return value.exists
+          ? PrivateUserModel.fromJson(value.data()!)
+          : throw UsersExceptionFactory().generateException('not-found');
+    }).onError(
+      (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+    );
+  }
+
+  @override
+  Future<void> createUser({
+    required String id,
+    required CreatePublicUserModel publicUserModel,
+    required CreatePrivateUserModel privateUserModel,
+  }) async {
+    await publicUsersCollection.doc(id).set(publicUserModel.toJson()).onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
+
+    await privateUsersCollection.doc(id).set(privateUserModel.toJson()).onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
+  }
+
+  @override
+  Future<void> updateUser(UpdateUserModel model) {
+    return publicUsersCollection.doc(model.id).set(model.toJson(), SetOptions(merge: true)).onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+        );
+  }
+
+  @override
+  Future<void> changeBeatInMap({
+    required String userId,
+    required String beatId,
+    required String mapName,
+    required bool checked,
+  }) {
+    return publicUsersCollection.doc(userId).update({'$mapName.$beatId': checked});
   }
 }

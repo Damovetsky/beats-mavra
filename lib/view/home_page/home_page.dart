@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
+
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
+
 import 'package:flutter/material.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
@@ -22,6 +23,7 @@ const pages = [
   ProfilePage(),
 ];
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

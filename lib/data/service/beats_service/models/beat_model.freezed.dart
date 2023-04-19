@@ -26,11 +26,12 @@ mixin _$BeatModel {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get mp3 => throw _privateConstructorUsedError;
-  String get wav => throw _privateConstructorUsedError;
-  String get zip => throw _privateConstructorUsedError;
+  String? get wav => throw _privateConstructorUsedError;
+  String? get zip => throw _privateConstructorUsedError;
   List<String> get genres => throw _privateConstructorUsedError;
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
+  List<double> get graph => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,11 +51,12 @@ abstract class $BeatModelCopyWith<$Res> {
       String title,
       String description,
       String mp3,
-      String wav,
-      String zip,
+      String? wav,
+      String? zip,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -76,11 +78,12 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
     Object? title = null,
     Object? description = null,
     Object? mp3 = null,
-    Object? wav = null,
-    Object? zip = null,
+    Object? wav = freezed,
+    Object? zip = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_value.copyWith(
       beatId: null == beatId
@@ -107,14 +110,14 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
           ? _value.mp3
           : mp3 // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: null == wav
+      wav: freezed == wav
           ? _value.wav
           : wav // ignore: cast_nullable_to_non_nullable
-              as String,
-      zip: null == zip
+              as String?,
+      zip: freezed == zip
           ? _value.zip
           : zip // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genres: null == genres
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -127,6 +130,10 @@ class _$BeatModelCopyWithImpl<$Res, $Val extends BeatModel>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value.graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ) as $Val);
   }
 }
@@ -145,11 +152,12 @@ abstract class _$$_BeatModelCopyWith<$Res> implements $BeatModelCopyWith<$Res> {
       String title,
       String description,
       String mp3,
-      String wav,
-      String zip,
+      String? wav,
+      String? zip,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -169,11 +177,12 @@ class __$$_BeatModelCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? mp3 = null,
-    Object? wav = null,
-    Object? zip = null,
+    Object? wav = freezed,
+    Object? zip = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_$_BeatModel(
       beatId: null == beatId
@@ -200,14 +209,14 @@ class __$$_BeatModelCopyWithImpl<$Res>
           ? _value.mp3
           : mp3 // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: null == wav
+      wav: freezed == wav
           ? _value.wav
           : wav // ignore: cast_nullable_to_non_nullable
-              as String,
-      zip: null == zip
+              as String?,
+      zip: freezed == zip
           ? _value.zip
           : zip // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genres: null == genres
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -220,6 +229,10 @@ class __$$_BeatModelCopyWithImpl<$Res>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value._graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ));
   }
 }
@@ -238,8 +251,10 @@ class _$_BeatModel implements _BeatModel {
       required this.zip,
       required final List<String> genres,
       required this.temp,
-      required this.dimension})
-      : _genres = genres;
+      required this.dimension,
+      required final List<double> graph})
+      : _genres = genres,
+        _graph = graph;
 
   factory _$_BeatModel.fromJson(Map<String, dynamic> json) =>
       _$$_BeatModelFromJson(json);
@@ -257,9 +272,9 @@ class _$_BeatModel implements _BeatModel {
   @override
   final String mp3;
   @override
-  final String wav;
+  final String? wav;
   @override
-  final String zip;
+  final String? zip;
   final List<String> _genres;
   @override
   List<String> get genres {
@@ -272,10 +287,17 @@ class _$_BeatModel implements _BeatModel {
   final int temp;
   @override
   final String dimension;
+  final List<double> _graph;
+  @override
+  List<double> get graph {
+    if (_graph is EqualUnmodifiableListView) return _graph;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_graph);
+  }
 
   @override
   String toString() {
-    return 'BeatModel(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'BeatModel(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension, graph: $graph)';
   }
 
   @override
@@ -296,7 +318,8 @@ class _$_BeatModel implements _BeatModel {
             const DeepCollectionEquality().equals(other._genres, _genres) &&
             (identical(other.temp, temp) || other.temp == temp) &&
             (identical(other.dimension, dimension) ||
-                other.dimension == dimension));
+                other.dimension == dimension) &&
+            const DeepCollectionEquality().equals(other._graph, _graph));
   }
 
   @JsonKey(ignore: true)
@@ -313,7 +336,8 @@ class _$_BeatModel implements _BeatModel {
       zip,
       const DeepCollectionEquality().hash(_genres),
       temp,
-      dimension);
+      dimension,
+      const DeepCollectionEquality().hash(_graph));
 
   @JsonKey(ignore: true)
   @override
@@ -337,11 +361,12 @@ abstract class _BeatModel implements BeatModel {
       required final String title,
       required final String description,
       required final String mp3,
-      required final String wav,
-      required final String zip,
+      required final String? wav,
+      required final String? zip,
       required final List<String> genres,
       required final int temp,
-      required final String dimension}) = _$_BeatModel;
+      required final String dimension,
+      required final List<double> graph}) = _$_BeatModel;
 
   factory _BeatModel.fromJson(Map<String, dynamic> json) =
       _$_BeatModel.fromJson;
@@ -359,15 +384,17 @@ abstract class _BeatModel implements BeatModel {
   @override
   String get mp3;
   @override
-  String get wav;
+  String? get wav;
   @override
-  String get zip;
+  String? get zip;
   @override
   List<String> get genres;
   @override
   int get temp;
   @override
   String get dimension;
+  @override
+  List<double> get graph;
   @override
   @JsonKey(ignore: true)
   _$$_BeatModelCopyWith<_$_BeatModel> get copyWith =>
