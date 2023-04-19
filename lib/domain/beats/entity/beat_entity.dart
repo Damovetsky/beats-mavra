@@ -16,5 +16,21 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
-}) = _BeatEntity;
+  }) = _BeatEntity;
+
+  factory BeatEntity.empty() {
+    return BeatEntity(
+      beatId: '',
+      authorId: '',
+      cover: '',
+      title: '',
+      description: '',
+      mp3: '',
+      wav: '',
+      zip: '',
+      genres: List.empty(),
+      temp: 20,
+      dimension: '',
+    );
+  }
 }
