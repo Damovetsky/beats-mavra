@@ -272,42 +272,6 @@ class _$_BeatEntity implements _BeatEntity {
     return 'BeatEntity(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BeatEntity &&
-            (identical(other.beatId, beatId) || other.beatId == beatId) &&
-            (identical(other.authorId, authorId) ||
-                other.authorId == authorId) &&
-            (identical(other.cover, cover) || other.cover == cover) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.mp3, mp3) || other.mp3 == mp3) &&
-            (identical(other.wav, wav) || other.wav == wav) &&
-            (identical(other.zip, zip) || other.zip == zip) &&
-            const DeepCollectionEquality().equals(other._genres, _genres) &&
-            (identical(other.temp, temp) || other.temp == temp) &&
-            (identical(other.dimension, dimension) ||
-                other.dimension == dimension));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      beatId,
-      authorId,
-      cover,
-      title,
-      description,
-      mp3,
-      wav,
-      zip,
-      const DeepCollectionEquality().hash(_genres),
-      temp,
-      dimension);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
