@@ -33,12 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   ProfileCubit cubit = getIt.get<ProfileCubit>();
 
   @override
-  void initState() {
-    super.initState();
-    unawaited(cubit.loadUser());
-  }
-
-  @override
   void didChangeDependencies() {
     Localizations.localeOf(context);
     super.didChangeDependencies();
@@ -103,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           ShimmerBuilder(
-                            data: state.mapOrNull(profile: (value) => value.profile.avatarUrl),
+                            data: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
                             loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
                             builder: (context, data) {
                               return EditableAvatar(
@@ -115,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(height: 12),
                           _ProfileBalance(
                             balance: state.mapOrNull(
-                              profile: (value) => 5,
+                              profile: (state) => state.privateUser.balance,
                             ),
                           ),
                         ],
@@ -132,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Expanded(
                                 child: ShimmerBuilder(
                                   data: state.mapOrNull(
-                                    profile: (value) => value.profile.nickname,
+                                    profile: (value) => value.publicUser.nickname,
                                   ),
                                   loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
                                   builder: (context, data) {
@@ -152,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               const SizedBox(height: 4),
                               Expanded(
                                 child: ShimmerBuilder(
-                                  data: state.mapOrNull(profile: (value) => 'email'),
+                                  data: state.mapOrNull(profile: (state) => state.privateUser.email),
                                   loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
                                   builder: (context, data) {
                                     return Text(
@@ -173,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 24),
                   ShimmerBuilder(
                     data: state.mapOrNull(
-                      profile: (value) => value.profile.description,
+                      profile: (value) => value.publicUser.description,
                     ),
                     loadingChild: BorderRadiusShimmer(
                       height: 96,

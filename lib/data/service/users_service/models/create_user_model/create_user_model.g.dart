@@ -11,7 +11,7 @@ CreateUserModel _$CreateUserModelFromJson(Map<String, dynamic> json) =>
       json['id'] as String,
       json['email'] as String,
       json['avatarUrl'] as String?,
-      json['description'] as String?,
+      json['description'] as String,
     )
       ..balance = (json['balance'] as num?)?.toDouble() ?? 0
       ..favorites = (json['favorites'] as Map<String, dynamic>?)?.map(

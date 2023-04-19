@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import '../../domain/beats/entity/update_beat_entity.dart';
-import '../service/beats_service/models/beat_model.dart';
+import 'package:injectable/injectable.dart';
 
-class UpdateBeatEntityToBeatModelConverter
-    extends Converter<UpdateBeatEntity, BeatModel> {
+import '../../../domain/beats/entity/update_beat_entity.dart';
+import '../../service/beats_service/models/beat_model.dart';
+
+class UpdateBeatEntityToBeatModelConverter extends Converter<UpdateBeatEntity, BeatModel> {
   final String beatId;
   final String authorId;
 

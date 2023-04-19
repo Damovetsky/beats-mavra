@@ -7,7 +7,7 @@ class CreateUserModel {
   final String id;
   final String email;
   final String? avatarUrl;
-  final String? description;
+  final String description;
 
   @JsonKey(defaultValue: 0)
   double balance = 0;

@@ -11,6 +11,12 @@ abstract class UserService {
   Future<PublicUserModel> getPublicUser(String id);
   Future<void> createUser(CreateUserModel model);
   Future<void> updateUser(UpdateUserModel model);
+  Future<void> changeBeatInMap({
+    required String userId,
+    required String beatId,
+    required String mapName,
+    required bool checked,
+  });
 }
 
 @Injectable(as: UserService)
@@ -21,8 +27,6 @@ class UserServiceImpl implements UserService {
 
   UserServiceImpl(this.firestoreInstance, this.exceptionFactory) {
     usersCollection = firestoreInstance.collection('users');
-
-    // User
   }
 
   @override
@@ -42,17 +46,13 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<PrivateUserModel> getPrivateUser(String id) {
-    return usersCollection
-        .doc(id)
-        .get()
-        .then(
-          (value) => value.exists
-              ? PrivateUserModel.fromJson(value.data()!)
-              : throw UsersExceptionFactory().generateException('not-found'),
-        )
-        .onError(
-          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
-        );
+    return usersCollection.doc(id).get().then((value) {
+      return value.exists
+          ? PrivateUserModel.fromJson(value.data()!)
+          : throw UsersExceptionFactory().generateException('not-found');
+    }).onError(
+      (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+    );
   }
 
   @override
@@ -67,5 +67,15 @@ class UserServiceImpl implements UserService {
     return usersCollection.doc(model.id).set(model.toJson(), SetOptions(merge: true)).onError(
           (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
+  }
+
+  @override
+  Future<void> changeBeatInMap({
+    required String userId,
+    required String beatId,
+    required String mapName,
+    required bool checked,
+  }) {
+    return usersCollection.doc(userId).update({'$mapName.$beatId': checked});
   }
 }

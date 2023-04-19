@@ -9,10 +9,10 @@ class PrivateUserModel with _$PrivateUserModel {
     required String id,
     required String email,
     required double balance,
-    required List<String> favorites,
-    required List<String> bought,
-    required List<String> created,
-}) = _PrivateUserModel;
+    required Map<String, bool> favorites,
+    required Map<String, bool> bought,
+    required Map<String, bool> created,
+  }) = _PrivateUserModel;
 
-factory PrivateUserModel.fromJson(Map<String, dynamic> json) => _$PrivateUserModelFromJson(json);
+  factory PrivateUserModel.fromJson(Map<String, dynamic> json) => _$PrivateUserModelFromJson(json);
 }

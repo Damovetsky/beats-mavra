@@ -1,13 +1,9 @@
 import 'dart:convert';
 
-import 'package:injectable/injectable.dart';
+import '../../../domain/beats/entity/create_beat_entity.dart';
+import '../../service/beats_service/models/beat_model.dart';
 
-import '../../domain/beats/entity/create_beat_entity.dart';
-import '../service/beats_service/models/beat_model.dart';
-
-@Injectable(as: Converter<CreateBeatEntity, BeatModel>)
-class CreateBeatEntityToBeatModelConverter
-    extends Converter<CreateBeatEntity, BeatModel> {
+class CreateBeatEntityToBeatModelConverter extends Converter<CreateBeatEntity, BeatModel> {
   final String beatId;
 
   CreateBeatEntityToBeatModelConverter(this.beatId);
