@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
+import 'core/ui/router/router.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
 import 'view/home_page/home_page.dart';
@@ -22,13 +23,13 @@ Future<void> main() async {
       supportedLocales: const [Locale('ru', 'RU'), Locale('en', 'US')],
       path: 'assets/i18n',
       fallbackLocale: const Locale('ru', 'RU'),
-      child: const App(),
+      child: App(),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +39,14 @@ class App extends StatelessWidget {
         return LocaleBuilder(
           key: localeGlobalKey,
           builder: (context, locale) {
-            return MaterialApp(
+            return MaterialApp.router(
+              routerConfig: _appRouter.config(),
               debugShowCheckedModeBanner: false,
               title: 'app_title'.tr(),
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: locale,
               theme: theme,
-              home: const HomePage(),
             );
           },
         );
