@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../core/error/failure.dart';
-import '../../entity/user_entity.dart';
+import '../entity/private_user_entity/private_user_entity.dart';
 
 abstract class ProfileRepository {
-  Future<Either<Failure, UserEntity>> getProfile();
+  Stream<Either<Failure, PrivateUserEntity>> getProfile();
+  Future<Either<Failure, void>> signOut();
 }

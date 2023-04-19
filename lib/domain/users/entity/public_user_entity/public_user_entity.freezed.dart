@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_entity.dart';
+part of 'public_user_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,30 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$UserEntity {
+mixin _$PublicUserEntity {
   String get id => throw _privateConstructorUsedError;
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UserEntityCopyWith<UserEntity> get copyWith =>
+  $PublicUserEntityCopyWith<PublicUserEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserEntityCopyWith<$Res> {
-  factory $UserEntityCopyWith(
-          UserEntity value, $Res Function(UserEntity) then) =
-      _$UserEntityCopyWithImpl<$Res, UserEntity>;
+abstract class $PublicUserEntityCopyWith<$Res> {
+  factory $PublicUserEntityCopyWith(
+          PublicUserEntity value, $Res Function(PublicUserEntity) then) =
+      _$PublicUserEntityCopyWithImpl<$Res, PublicUserEntity>;
   @useResult
-  $Res call({String id, String avatarUrl, String nickname, String description});
+  $Res call(
+      {String id, String? avatarUrl, String nickname, String? description});
 }
 
 /// @nodoc
-class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
-    implements $UserEntityCopyWith<$Res> {
-  _$UserEntityCopyWithImpl(this._value, this._then);
+class _$PublicUserEntityCopyWithImpl<$Res, $Val extends PublicUserEntity>
+    implements $PublicUserEntityCopyWith<$Res> {
+  _$PublicUserEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -49,83 +50,84 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? avatarUrl = null,
+    Object? avatarUrl = freezed,
     Object? nickname = null,
-    Object? description = null,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: null == avatarUrl
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_UserEntityCopyWith<$Res>
-    implements $UserEntityCopyWith<$Res> {
-  factory _$$_UserEntityCopyWith(
-          _$_UserEntity value, $Res Function(_$_UserEntity) then) =
-      __$$_UserEntityCopyWithImpl<$Res>;
+abstract class _$$_PublicUserEntityCopyWith<$Res>
+    implements $PublicUserEntityCopyWith<$Res> {
+  factory _$$_PublicUserEntityCopyWith(
+          _$_PublicUserEntity value, $Res Function(_$_PublicUserEntity) then) =
+      __$$_PublicUserEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String avatarUrl, String nickname, String description});
+  $Res call(
+      {String id, String? avatarUrl, String nickname, String? description});
 }
 
 /// @nodoc
-class __$$_UserEntityCopyWithImpl<$Res>
-    extends _$UserEntityCopyWithImpl<$Res, _$_UserEntity>
-    implements _$$_UserEntityCopyWith<$Res> {
-  __$$_UserEntityCopyWithImpl(
-      _$_UserEntity _value, $Res Function(_$_UserEntity) _then)
+class __$$_PublicUserEntityCopyWithImpl<$Res>
+    extends _$PublicUserEntityCopyWithImpl<$Res, _$_PublicUserEntity>
+    implements _$$_PublicUserEntityCopyWith<$Res> {
+  __$$_PublicUserEntityCopyWithImpl(
+      _$_PublicUserEntity _value, $Res Function(_$_PublicUserEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? avatarUrl = null,
+    Object? avatarUrl = freezed,
     Object? nickname = null,
-    Object? description = null,
+    Object? description = freezed,
   }) {
-    return _then(_$_UserEntity(
+    return _then(_$_PublicUserEntity(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: null == avatarUrl
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_UserEntity implements _UserEntity {
-  const _$_UserEntity(
+class _$_PublicUserEntity implements _PublicUserEntity {
+  const _$_PublicUserEntity(
       {required this.id,
       required this.avatarUrl,
       required this.nickname,
@@ -134,22 +136,22 @@ class _$_UserEntity implements _UserEntity {
   @override
   final String id;
   @override
-  final String avatarUrl;
+  final String? avatarUrl;
   @override
   final String nickname;
   @override
-  final String description;
+  final String? description;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, avatarUrl: $avatarUrl, nickname: $nickname, description: $description)';
+    return 'PublicUserEntity(id: $id, avatarUrl: $avatarUrl, nickname: $nickname, description: $description)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserEntity &&
+            other is _$_PublicUserEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
@@ -166,27 +168,27 @@ class _$_UserEntity implements _UserEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
-      __$$_UserEntityCopyWithImpl<_$_UserEntity>(this, _$identity);
+  _$$_PublicUserEntityCopyWith<_$_PublicUserEntity> get copyWith =>
+      __$$_PublicUserEntityCopyWithImpl<_$_PublicUserEntity>(this, _$identity);
 }
 
-abstract class _UserEntity implements UserEntity {
-  const factory _UserEntity(
+abstract class _PublicUserEntity implements PublicUserEntity {
+  const factory _PublicUserEntity(
       {required final String id,
-      required final String avatarUrl,
+      required final String? avatarUrl,
       required final String nickname,
-      required final String description}) = _$_UserEntity;
+      required final String? description}) = _$_PublicUserEntity;
 
   @override
   String get id;
   @override
-  String get avatarUrl;
+  String? get avatarUrl;
   @override
   String get nickname;
   @override
-  String get description;
+  String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
+  _$$_PublicUserEntityCopyWith<_$_PublicUserEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

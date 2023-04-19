@@ -2,32 +2,35 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart'
-    show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:injectable/injectable.dart';
 import '../../../core/error/exception.dart';
 import 'exceptions.dart';
 
 abstract class AuthService {
-  void createUserWithEmailAndPassword(String emailAddress, String password);
+  Future<UserCredential> createUserWithEmailAndPassword(String emailAddress, String password);
   void signInWithEmailAndPassword(String emailAddress, String password);
-  String getUserID();
-  void signOut();
+  Stream<String?> getUserID();
+  Future<void> signOut();
 
-  void signInWithGoogle();
-  void signInWithApple();
+  Future<UserCredential> signInWithGoogle();
+  Future<UserCredential> signInWithApple();
 }
 
 @Injectable(as: AuthService)
 class AuthServiceImpl implements AuthService {
+  final FirebaseAuth firebaseAuth;
+
+  AuthServiceImpl(this.firebaseAuth);
 
   @override
-  Future<void> createUserWithEmailAndPassword(String emailAddress, String password) async {
+  Future<UserCredential> createUserWithEmailAndPassword(String emailAddress, String password) async {
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
+      return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw PasswordIsWeakException();
@@ -39,13 +42,12 @@ class AuthServiceImpl implements AuthService {
     }
   }
 
-
   @override
   Future<void> signInWithEmailAndPassword(String emailAddress, String password) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailAddress,
-          password: password,
+      final credential = await firebaseAuth.signInWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
       );
       // return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
@@ -62,9 +64,9 @@ class AuthServiceImpl implements AuthService {
   Future<UserCredential> signInWithApple() async {
     final appleProvider = AppleAuthProvider();
     if (kIsWeb) {
-      return await FirebaseAuth.instance.signInWithPopup(appleProvider);
+      return await firebaseAuth.signInWithPopup(appleProvider);
     } else {
-      return await FirebaseAuth.instance.signInWithProvider(appleProvider);
+      return await firebaseAuth.signInWithProvider(appleProvider);
     }
   }
 
@@ -83,20 +85,14 @@ class AuthServiceImpl implements AuthService {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await firebaseAuth.signInWithCredential(credential);
   }
 
   @override
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+    await firebaseAuth.signOut();
   }
 
   @override
-  String getUserID() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      throw UnknownException();
-    }
-    return user.uid;
-  }
+  Stream<String?> getUserID() => firebaseAuth.authStateChanges().map((user) => user?.uid);
 }

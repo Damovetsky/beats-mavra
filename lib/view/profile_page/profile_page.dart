@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,9 +13,13 @@ import '../../core/di/di.dart';
 import '../../core/reg_exp.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
+import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/shimmer_builder.dart';
+import '../../core/ui/kit/snackbar.dart';
+import '../../core/ui/router/router.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
+import '../../data/service/auth_service/auth_service.dart';
 import '../../main.dart';
 import 'cubit/cubit.dart';
 import 'widget/editable_avatar.dart';
@@ -30,12 +37,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final _descriptionController = TextEditingController();
 
   ProfileCubit cubit = getIt.get<ProfileCubit>();
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(cubit.loadUser());
-  }
 
   @override
   void didChangeDependencies() {
@@ -63,169 +64,256 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             actions: [
               _ProfileLanguagePopupButton(),
-              Padding(
-                padding: const EdgeInsets.only(right: screenHorizontalMargin),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.logout),
-                ),
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(right: screenHorizontalMargin),
+                    child: state.maybeMap(
+                      profile: (value) {
+                        return IconButton(
+                          onPressed: () {
+                            unawaited(context.read<ProfileCubit>().signOut());
+                          },
+                          icon: const Icon(Icons.logout),
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
-          body: BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              return ListView(
-                padding: const EdgeInsets.only(
-                  left: screenHorizontalMargin,
-                  right: screenHorizontalMargin,
-                  top: screenTopScrollPadding,
-                  bottom: screenBottomScrollPadding,
+          body: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              unawaited(
+                state.mapOrNull(
+                  failure: (value) async {
+                    showSnackbar(
+                      context,
+                      title: 'profile_unknown_error_title'.tr(),
+                      message: 'profile_unknown_error_message'.tr(),
+                      position: FlushbarPosition.TOP,
+                    );
+                  },
                 ),
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          ShimmerBuilder(
-                            data: state.mapOrNull(
-                              profile: (value) => value.user.avatarUrl,
+              );
+            },
+            builder: (context, state) {
+              if (state.mapOrNull(needAuth: (value) => true) ?? false) {
+                return _NeedAuth();
+              }
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                  return context.read<ProfileCubit>().loadUser();
+                },
+                child: ListView(
+                  padding: const EdgeInsets.only(
+                    left: screenHorizontalMargin,
+                    right: screenHorizontalMargin,
+                    top: screenTopScrollPadding,
+                    bottom: screenBottomScrollPadding,
+                  ),
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            ShimmerBuilder(
+                              data: state.mapOrNull(
+                                  profile: (value) =>
+                                      value.publicUser.avatarUrl),
+                              loadingChild: const CircleShimmer(
+                                  radius: _profileAvatarSize / 2),
+                              builder: (context, data) {
+                                return EditableAvatar(
+                                  size: _profileAvatarSize,
+                                  url: data,
+                                );
+                              },
                             ),
-                            loadingChild: const CircleShimmer(
-                              radius: _profileAvatarSize / 2,
-                            ),
-                            builder: (context, data) {
-                              return EditableAvatar(
-                                size: _profileAvatarSize,
-                                url: data,
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 12),
-                          _ProfileBalance(
-                            balance: state.mapOrNull(
-                              profile: (value) => 5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Container(
-                          height: _profileAvatarSize,
-                          alignment: Alignment.center,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: ShimmerBuilder(
-                                  data: state.mapOrNull(
-                                    profile: (value) => value.user.nickname,
-                                  ),
-                                  loadingChild: const CircleBordersShimmer(
-                                    height: titleLargeHeight,
-                                  ),
-                                  builder: (context, data) {
-                                    return Row(
-                                      children: [
-                                        Text(data,
-                                            style: currentTextStyle(context)
-                                                .titleLarge),
-                                        const SizedBox(width: 8),
-                                        Icon(
-                                          Icons.edit,
-                                          color: currentColorScheme(context)
-                                              .onBackground
-                                              .withOpacity(0.2),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                            const SizedBox(height: 12),
+                            _ProfileBalance(
+                              balance: state.mapOrNull(
+                                profile: (state) => state.privateUser.balance,
                               ),
-                              const SizedBox(height: 4),
-                              Expanded(
-                                child: ShimmerBuilder(
-                                  data: state.mapOrNull(
-                                    profile: (value) => 'example@example.com',
-                                  ),
-                                  loadingChild: const CircleBordersShimmer(
-                                    height: bodyLargeHeight,
-                                  ),
-                                  builder: (context, data) {
-                                    return Text(
-                                      data,
-                                      style: currentTextStyle(context)
-                                          .bodyLarge
-                                          ?.copyWith(
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Container(
+                            height: _profileAvatarSize,
+                            alignment: Alignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: ShimmerBuilder(
+                                    data: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.publicUser.nickname,
+                                    ),
+                                    loadingChild: const CircleBordersShimmer(
+                                        height: titleLargeHeight),
+                                    builder: (context, data) {
+                                      return Row(
+                                        children: [
+                                          Text(data,
+                                              style: currentTextTheme(context)
+                                                  .titleLarge),
+                                          const SizedBox(width: 8),
+                                          Icon(
+                                            Icons.edit,
                                             color: currentColorScheme(context)
                                                 .onBackground
-                                                .withOpacity(0.5),
+                                                .withOpacity(0.2),
                                           ),
-                                    );
-                                  },
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 4),
+                                Expanded(
+                                  child: ShimmerBuilder(
+                                    data: state.mapOrNull(
+                                        profile: (state) =>
+                                            state.privateUser.email),
+                                    loadingChild: const CircleBordersShimmer(
+                                        height: bodyLargeHeight),
+                                    builder: (context, data) {
+                                      return Text(
+                                        data,
+                                        style: currentTextTheme(context)
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: currentColorScheme(context)
+                                                  .onBackground
+                                                  .withOpacity(0.5),
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  ShimmerBuilder(
-                    data: state.mapOrNull(
-                      profile: (value) => value.user.description,
+                        )
+                      ],
                     ),
-                    loadingChild: BorderRadiusShimmer(
-                      height: 96,
-                      borderRadius: BorderRadius.circular(16),
+                    const SizedBox(height: 24),
+                    ShimmerBuilder(
+                      data: state.mapOrNull(
+                        profile: (value) => value.publicUser.description,
+                      ),
+                      loadingChild: BorderRadiusShimmer(
+                        height: 96,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      builder: (context, data) {
+                        return TextField(
+                          controller: _descriptionController..text = data,
+                          maxLines: 2,
+                          decoration: InputDecoration(
+                            hintText: 'profile_description_hint'.tr(),
+                          ),
+                        );
+                      },
                     ),
-                    builder: (context, data) {
-                      return TextField(
-                        controller: _descriptionController..text = data,
-                        maxLines: 2,
-                        decoration: InputDecoration(
-                          hintText: 'profile_description_hint'.tr(),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  _ProfilePageTile(
-                    title: 'profile_your_purchases'.tr(),
-                    icon: Icons.shopping_cart,
-                  ),
-                  const SizedBox(height: 8),
-                  _ProfilePageTile(
-                    title: 'profile_your_beats'.tr(),
-                    icon: Icons.folder_special,
-                  ),
-                  const SizedBox(height: 8),
-                  _ProfilePageTile(
-                    title: 'profile_favorite'.tr(),
-                    icon: Icons.favorite,
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    _ProfilePageTile(
+                      title: 'profile_your_purchases'.tr(),
+                      icon: Icons.shopping_cart,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_your_purchases'.tr(),
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.bought) ??
+                                  [],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    _ProfilePageTile(
+                      title: 'profile_your_beats'.tr(),
+                      icon: Icons.folder_special,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_your_beats'.tr(),
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.created) ??
+                                  [],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    _ProfilePageTile(
+                      title: 'profile_favorite'.tr(),
+                      icon: Icons.favorite,
+                      onTap: () {
+                        unawaited(
+                          context.router.push(
+                            BeatListRoute(
+                              title: 'profile_favorite'.tr(),
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.favorite) ??
+                                  [],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               );
             },
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
-            child: FilledButton(
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('profile_logout'.tr()),
-                ],
-              ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NeedAuth extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 64),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FilledButton(
+              onPressed: () {
+                AuthServiceImpl(getIt.get<FirebaseAuth>())
+                    .signInWithEmailAndPassword(
+                        'kerjen01@gmail.com', "123123123");
+              },
+              child: Text('Войти в аккаунт'),
             ),
-          ),
+            const SizedBox(height: 16),
+            Text(
+              'Профиль будет доступен после авторизации',
+              style: currentTextTheme(context).titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
@@ -285,12 +373,12 @@ class _ProfileLanguagePopupButton extends StatelessWidget {
                 children: [
                   Text(
                     '$flag',
-                    style: currentTextStyle(context).headlineSmall,
+                    style: currentTextTheme(context).headlineSmall,
                   ),
                   const SizedBox(width: 16),
                   Text(
                     '${languageLocalizedNames[locale.countryCode]}',
-                    style: currentTextStyle(context).bodyMedium?.copyWith(),
+                    style: currentTextTheme(context).bodyMedium?.copyWith(),
                   ),
                 ],
               ),
@@ -328,7 +416,7 @@ class _ProfileBalance extends StatelessWidget {
             children: [
               Text(
                 data.toStringAsFixed(0),
-                style: currentTextStyle(context).bodyMedium?.copyWith(
+                style: currentTextTheme(context).bodyMedium?.copyWith(
                       color: currentColorScheme(context).onSecondaryContainer,
                     ),
               ),
@@ -349,45 +437,49 @@ class _ProfileBalance extends StatelessWidget {
 class _ProfilePageTile extends StatelessWidget {
   final String title;
   final IconData icon;
+  final VoidCallback onTap;
 
   const _ProfilePageTile({
     required this.title,
     required this.icon,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: currentColorScheme(context).surface,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        children: [
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              color: currentColorScheme(context).secondaryContainer,
-              shape: BoxShape.circle,
+    return BouncingGestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: currentColorScheme(context).surface,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Row(
+          children: [
+            Container(
+              height: 48,
+              width: 48,
+              decoration: BoxDecoration(
+                color: currentColorScheme(context).secondaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                color: currentColorScheme(context).primary,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: currentColorScheme(context).primary,
+            const SizedBox(width: 16),
+            Expanded(
+                child: Text(title, style: currentTextTheme(context).bodyLarge)),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: currentColorScheme(context)
+                  .onSecondaryContainer
+                  .withOpacity(0.5),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(title, style: currentTextStyle(context).bodyLarge),
-          ),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: currentColorScheme(context)
-                .onSecondaryContainer
-                .withOpacity(0.5),
-          ),
-          const SizedBox(width: 16)
-        ],
+            const SizedBox(width: 16)
+          ],
+        ),
       ),
     );
   }
