@@ -7,7 +7,6 @@ import '../../domain/auth/repository/auth_repository.dart';
 import '../../domain/auth/repository/failure.dart';
 import '../service/auth_service/auth_service.dart';
 import '../service/auth_service/exceptions.dart';
-import '../service/users_service/models/create_user_model/create_user_model.dart';
 import '../service/users_service/users_service.dart';
 
 @LazySingleton(as: AuthRepository)
@@ -35,14 +34,9 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
     try {
-      final id = await authService.createUserWithEmailAndPassword(email, password); 
-      await userService.createUser(CreateUserModel(id, email, null, null));
-      //   nickname: nickname,
-      //   avatar: '',
-      //   description: '',
-      //   favorites: List.empty(),
-      //   balance: 0,
-      // ),);
+      // final id = await authService.createUserWithEmailAndPassword(email, password);
+      // await userService.createUser(CreateUserModel(id, email, null, null));
+
       return const Right(null);
     } on NotFoundUserException {
       return Left(EmailNotFoundFailure());
@@ -75,15 +69,8 @@ class AuthRepositoryImpl implements AuthRepository {
           return Left(UnknownFailure());
         }
 
-        await userService.createUser(CreateUserModel(userID, email, null, null));
-        // await userService.createUser(UserModel(
-        //   userId: userID,
-        //   nickname: nickname,
-        //   avatar: '',
-        //   description: '',
-        //   favorites: List.empty(),
-        //   balance: 0,
-        // ),);
+        // await userService.createUser(CreateUserModel(userID, email, null, null));
+
       } catch (_) {
         return Left(UnknownFailure());
       }
@@ -115,15 +102,8 @@ class AuthRepositoryImpl implements AuthRepository {
           return Left(UnknownFailure());
         }
 
-        await userService.createUser(CreateUserModel(userID, email, null, null));
-        // await userService.createUser(CreateUserModel(
-        //   id: userID,
-        //   nickname: nickname,
-        //   avatar: '',
-        //   description: '',
-        //   favorites: List.empty(),
-        //   balance: 0,
-        // ),);
+        // await userService.createUser(CreateUserModel(userID, email, null, null));
+
       } catch (_) {
         return Left(UnknownFailure());
       }

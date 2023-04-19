@@ -32,7 +32,7 @@ class AppTags extends StatelessWidget {
               vertical: 4,
             ),
             decoration: BoxDecoration(
-              color: currentColorScheme(context).primary,
+              color: currentColorScheme(context).secondaryContainer,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -41,7 +41,7 @@ class AppTags extends StatelessWidget {
                 Text(
                   tags[index],
                   style: currentTextTheme(context).bodyMedium?.copyWith(
-                        color: currentColorScheme(context).onPrimary,
+                        color: currentColorScheme(context).primary,
                       ),
                 ),
                 if (onRemove != null) ...[

@@ -11,30 +11,40 @@ import '../../domain/beats/entity/create_beat_entity.dart';
 import '../../domain/beats/entity/update_beat_entity.dart';
 import '../../domain/beats/repository/beats_repository.dart';
 
-import '../converters/beat_model_to_beat_entity_converter.dart';
-import '../converters/create_beat_entity_to_beat_model_converter.dart';
-import '../converters/update_beat_entity_to_beat_model_converter.dart';
+import '../converters/beats/beat_model_to_beat_entity_converter.dart';
+import '../converters/beats/create_beat_entity_to_beat_model_converter.dart';
+import '../converters/beats/update_beat_entity_to_beat_model_converter.dart';
 import '../service/beats_service/beats_service.dart';
-import '../service/beats_service/exceptions.dart';
 
 @LazySingleton(as: BeatsRepository)
 class BeatsRepositoryImpl extends BeatsRepository {
   final BeatsService beatsService;
 
-  BeatsRepositoryImpl(this.beatsService);
+  final BeatModelToBeatEntityConverter beatEntityConverter;
+
+  BeatsRepositoryImpl(
+    this.beatsService,
+    this.beatEntityConverter,
+  );
 
   @override
   Stream<Either<Failure, List<BeatEntity>>> get(
-      StreamController<BeatEntity> lastEntityStream,
-      [int limit = 25,
-      List<String>? beatsIds,]) {
+    StreamController<BeatEntity?> lastEntityStream, {
+    int limit = 25,
+    List<String>? beatsIds,
+  }) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
-        final beats = (await beatsService.getBeats(lastVisible: last.beatId, limit: limit, beatsIds: beatsIds));
+        final beats = (await beatsService.getBeats(
+          orderby: 'title',
+          lastVisible: last?.beatId,
+          limit: limit,
+          beatsIds: beatsIds,
+        ));
         return Right(
-          beats.map(BeatModelToBeatEntityConverter().convert).toList(),
+          beats.map(beatEntityConverter.convert).toList(),
         );
-      } on BeatsUnknownException catch (e) {
+      } on UnknownException {
         return Left(UnknownFailure());
       }
     });
@@ -54,9 +64,9 @@ class BeatsRepositoryImpl extends BeatsRepository {
           ),
         ),
       );
-    } on AlreadyExistException catch (e) {
+    } on AlreadyExistException {
       return Left(UnknownFailure());
-    } on UnknownException catch (e) {
+    } on UnknownException {
       return Left(UnknownFailure());
     }
   }
@@ -65,9 +75,9 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Future<Either<Failure, void>> deleteBeat(String beatId) async {
     try {
       return Right(await beatsService.deleteBeat(beatId));
-    } on BeatNotFoundException catch (e) {
-      return Left(UnknownFailure());
-    } on BeatsUnknownException catch (e) {
+    } on NotFoundException {
+      return Left(NotFoundFailure());
+    } on UnknownException {
       return Left(UnknownFailure());
     }
   }
@@ -76,12 +86,11 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Future<Either<Failure, BeatEntity>> getBeat(String beatId) async {
     try {
       return Right(
-        BeatModelToBeatEntityConverter()
-            .convert(await beatsService.getBeat(beatId)),
+        beatEntityConverter.convert(await beatsService.getBeat(beatId)),
       );
-    } on BeatNotFoundException catch (e) {
-      return Left(UnknownFailure());
-    } on BeatsUnknownException catch (e) {
+    } on NotFoundException {
+      return Left(NotFoundFailure());
+    } on UnknownException {
       return Left(UnknownFailure());
     }
   }
@@ -102,9 +111,9 @@ class BeatsRepositoryImpl extends BeatsRepository {
           ),
         ),
       );
-    } on BeatNotFoundException catch (e) {
-      return Left(UnknownFailure());
-    } on BeatsUnknownException catch (e) {
+    } on NotFoundException {
+      return Left(NotFoundFailure());
+    } on UnknownException {
       return Left(UnknownFailure());
     }
   }

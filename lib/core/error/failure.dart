@@ -8,6 +8,8 @@ class ConnectionFailure extends Failure {}
 
 class UnauthorizedFailure extends Failure {}
 
+class NotFoundFailure extends Failure {}
+
 class WrongFormatFailure extends Failure {
   WrongFormatFailure({required super.message});
 }

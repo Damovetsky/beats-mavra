@@ -8,10 +8,10 @@ import '../../../core/error/exception.dart';
 import 'exceptions.dart';
 
 abstract class AuthService {
-  Future<String> createUserWithEmailAndPassword(String emailAddress, String password);
-  Future<String> signInWithEmailAndPassword(String emailAddress, String password);
+  void createUserWithEmailAndPassword(String emailAddress, String password);
+  void signInWithEmailAndPassword(String emailAddress, String password);
   Stream<String?> getUserID();
-  void signOut();
+  Future<void> signOut();
 
   Future<UserCredential> signInWithGoogle();
   Future<UserCredential> signInWithApple();
@@ -24,18 +24,12 @@ class AuthServiceImpl implements AuthService {
   AuthServiceImpl(this.firebaseAuth);
 
   @override
-  Future<String> createUserWithEmailAndPassword(String emailAddress, String password) async {
+  Future<void> createUserWithEmailAndPassword(String emailAddress, String password) async {
     try {
       final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
-
-      if (credential.user == null) {
-        throw NotFoundUserException();
-      }
-
-      return credential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw PasswordIsWeakException();
@@ -48,18 +42,13 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<String> signInWithEmailAndPassword(String emailAddress, String password) async {
+  Future<void> signInWithEmailAndPassword(String emailAddress, String password) async {
     try {
       final credential = await firebaseAuth.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
-
-      if (credential.user == null) {
-        throw NotFoundUserException();
-      }
-
-      return credential.user!.uid;
+      // return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw NotFoundUserException();
@@ -80,11 +69,11 @@ class AuthServiceImpl implements AuthService {
     }
   }
 
-
   @override
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
@@ -104,7 +93,5 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Stream<String?> getUserID() {
-    return firebaseAuth.authStateChanges().map((user) => user?.uid);
-  }
+  Stream<String?> getUserID() => firebaseAuth.authStateChanges().map((user) => user?.uid);
 }
