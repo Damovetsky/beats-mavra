@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:injectable/injectable.dart';
-
 import '../../../domain/beats/entity/update_beat_entity.dart';
 import '../../service/beats_service/models/beat_model.dart';
 
