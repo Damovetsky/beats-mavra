@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'beat_entity.freezed.dart';
 
-@freezed
+@Freezed(equal: false)
 class BeatEntity with _$BeatEntity {
   const factory BeatEntity({
     required String beatId,
