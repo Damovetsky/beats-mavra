@@ -17,7 +17,7 @@ import 'package:beats/data/converters/users/private_user_model_to_private_user_e
     as _i11;
 import 'package:beats/data/converters/users/public_user_model_to_public_user_entity_converter.dart'
     as _i12;
-import 'package:beats/data/module/firebase_module.dart' as _i31;
+import 'package:beats/data/module/firebase_module.dart' as _i32;
 import 'package:beats/data/repository/auth_repository_impl.dart' as _i22;
 import 'package:beats/data/repository/beats_repository_impl.dart' as _i24;
 import 'package:beats/data/repository/profile_repository_impl.dart' as _i27;
@@ -33,12 +33,13 @@ import 'package:beats/domain/beats/repository/beats_repository.dart' as _i23;
 import 'package:beats/domain/profile/repository/profile_repository.dart'
     as _i26;
 import 'package:beats/domain/users/repository/users_repository.dart' as _i19;
+import 'package:beats/view/auth_page/cubit/cubit.dart' as _i29;
 import 'package:beats/view/player_bottom_sheet/cubit/cubit.dart' as _i25;
 import 'package:beats/view/profile_page/beat_list_page/cubit/cubit.dart' as _i4;
-import 'package:beats/view/profile_page/cubit/cubit.dart' as _i30;
+import 'package:beats/view/profile_page/cubit/cubit.dart' as _i31;
 import 'package:beats/view/search_page/cubit/cubit.dart' as _i28;
 import 'package:beats/view/splash_page/cubit/cubit.dart' as _i13;
-import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i29;
+import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i30;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i9;
 import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:firebase_core/firebase_core.dart' as _i7;
@@ -112,9 +113,10 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i28.SearchCubit>(
         () => _i28.SearchCubit(gh<_i23.BeatsRepository>()));
-    gh.factory<_i29.BeatCardListCubit>(
-        () => _i29.BeatCardListCubit(gh<_i23.BeatsRepository>()));
-    gh.factory<_i30.ProfileCubit>(() => _i30.ProfileCubit(
+    gh.factory<_i29.AuthCubit>(() => _i29.AuthCubit(gh<_i21.AuthRepository>()));
+    gh.factory<_i30.BeatCardListCubit>(
+        () => _i30.BeatCardListCubit(gh<_i23.BeatsRepository>()));
+    gh.factory<_i31.ProfileCubit>(() => _i31.ProfileCubit(
           gh<_i26.ProfileRepository>(),
           gh<_i19.UsersRepository>(),
         ));
@@ -122,4 +124,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$FirebaseModule extends _i31.FirebaseModule {}
+class _$FirebaseModule extends _i32.FirebaseModule {}

@@ -8,6 +8,7 @@ import 'core/di/di.dart';
 import 'core/ui/router/router.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
+import 'view/auth_page/auth_page.dart';
 import 'view/home_page/home_page.dart';
 import 'view/profile_page/beat_list_page/beat_list_page.dart';
 

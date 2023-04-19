@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/const.dart';
 import '../../core/di/di.dart';
+import '../../core/reg_exp.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
@@ -66,7 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
                   return Padding(
-                    padding: const EdgeInsets.only(right: screenHorizontalMargin),
+                    padding:
+                        const EdgeInsets.only(right: screenHorizontalMargin),
                     child: state.maybeMap(
                       profile: (value) {
                         return IconButton(
@@ -121,8 +123,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         Column(
                           children: [
                             ShimmerBuilder(
-                              data: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
-                              loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
+                              data: state.mapOrNull(
+                                  profile: (value) =>
+                                      value.publicUser.avatarUrl),
+                              loadingChild: const CircleShimmer(
+                                  radius: _profileAvatarSize / 2),
                               builder: (context, data) {
                                 return EditableAvatar(
                                   size: _profileAvatarSize,
@@ -150,17 +155,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Expanded(
                                   child: ShimmerBuilder(
                                     data: state.mapOrNull(
-                                      profile: (value) => value.publicUser.nickname,
+                                      profile: (value) =>
+                                          value.publicUser.nickname,
                                     ),
-                                    loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
+                                    loadingChild: const CircleBordersShimmer(
+                                        height: titleLargeHeight),
                                     builder: (context, data) {
                                       return Row(
                                         children: [
-                                          Text(data, style: currentTextTheme(context).titleLarge),
+                                          Text(data,
+                                              style: currentTextTheme(context)
+                                                  .titleLarge),
                                           const SizedBox(width: 8),
                                           Icon(
                                             Icons.edit,
-                                            color: currentColorScheme(context).onBackground.withOpacity(0.2),
+                                            color: currentColorScheme(context)
+                                                .onBackground
+                                                .withOpacity(0.2),
                                           ),
                                         ],
                                       );
@@ -170,13 +181,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const SizedBox(height: 4),
                                 Expanded(
                                   child: ShimmerBuilder(
-                                    data: state.mapOrNull(profile: (state) => state.privateUser.email),
-                                    loadingChild: const CircleBordersShimmer(height: bodyLargeHeight),
+                                    data: state.mapOrNull(
+                                        profile: (state) =>
+                                            state.privateUser.email),
+                                    loadingChild: const CircleBordersShimmer(
+                                        height: bodyLargeHeight),
                                     builder: (context, data) {
                                       return Text(
                                         data,
-                                        style: currentTextTheme(context).bodyLarge?.copyWith(
-                                              color: currentColorScheme(context).onBackground.withOpacity(0.5),
+                                        style: currentTextTheme(context)
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: currentColorScheme(context)
+                                                  .onBackground
+                                                  .withOpacity(0.5),
                                             ),
                                       );
                                     },
@@ -216,7 +234,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           context.router.push(
                             BeatListRoute(
                               title: 'profile_your_purchases'.tr(),
-                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.bought) ?? [],
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.bought) ??
+                                  [],
                             ),
                           ),
                         );
@@ -231,7 +252,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           context.router.push(
                             BeatListRoute(
                               title: 'profile_your_beats'.tr(),
-                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.created) ?? [],
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.created) ??
+                                  [],
                             ),
                           ),
                         );
@@ -246,7 +270,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           context.router.push(
                             BeatListRoute(
                               title: 'profile_favorite'.tr(),
-                              beatIds: state.mapOrNull(profile: (value) => value.privateUser.favorite) ?? [],
+                              beatIds: state.mapOrNull(
+                                      profile: (value) =>
+                                          value.privateUser.favorite) ??
+                                  [],
                             ),
                           ),
                         );
@@ -275,7 +302,8 @@ class _NeedAuth extends StatelessWidget {
             FilledButton(
               onPressed: () {
                 AuthServiceImpl(getIt.get<FirebaseAuth>())
-                    .signInWithEmailAndPassword('kerjen01@gmail.com', "123123123");
+                    .signInWithEmailAndPassword(
+                        'kerjen01@gmail.com', "123123123");
               },
               child: Text('Войти в аккаунт'),
             ),
@@ -299,7 +327,10 @@ class _ProfileThemeButton extends StatelessWidget {
       builder: (context, state, theme) {
         return IconButton(
           onPressed: () {
-            state.changeTheme(theme: theme == lightTheme ? darkTheme : lightTheme, isReversed: theme != lightTheme);
+            state.changeTheme(
+              theme: theme == lightTheme ? darkTheme : lightTheme,
+              isReversed: theme != lightTheme,
+            );
           },
           icon: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
@@ -330,8 +361,9 @@ class _ProfileLanguagePopupButton extends StatelessWidget {
             String? flag;
             if (locale.countryCode != null) {
               flag = locale.countryCode!.toUpperCase().replaceAllMapped(
-                    RegExp(r'[A-Z]'),
-                    (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397),
+                    upperCaseRegExp,
+                    (match) => String.fromCharCode(
+                        match.group(0)!.codeUnitAt(0) + 127397),
                   );
             }
 
@@ -369,7 +401,8 @@ class _ProfileBalance extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerBuilder(
       data: balance,
-      loadingChild: const CircleBordersShimmer(height: 32, width: _profileAvatarSize),
+      loadingChild:
+          const CircleBordersShimmer(height: 32, width: _profileAvatarSize),
       builder: (context, data) {
         return Container(
           height: 32,
@@ -436,10 +469,13 @@ class _ProfilePageTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Expanded(child: Text(title, style: currentTextTheme(context).bodyLarge)),
+            Expanded(
+                child: Text(title, style: currentTextTheme(context).bodyLarge)),
             Icon(
               Icons.keyboard_arrow_right,
-              color: currentColorScheme(context).onSecondaryContainer.withOpacity(0.5),
+              color: currentColorScheme(context)
+                  .onSecondaryContainer
+                  .withOpacity(0.5),
             ),
             const SizedBox(width: 16)
           ],
