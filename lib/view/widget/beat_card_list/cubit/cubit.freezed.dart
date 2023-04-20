@@ -20,6 +20,9 @@ mixin _$BeatCardListState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
     required TResult Function() failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -27,6 +30,8 @@ mixin _$BeatCardListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
     TResult? Function()? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,28 +39,36 @@ mixin _$BeatCardListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
     TResult Function()? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_BeatCardListState value) loading,
-    required TResult Function(_BeatsBeatCardListState value) beats,
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
     required TResult Function(_FailureBeatCardListState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_BeatCardListState value)? loading,
-    TResult? Function(_BeatsBeatCardListState value)? beats,
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
     TResult? Function(_FailureBeatCardListState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_BeatCardListState value)? loading,
-    TResult Function(_BeatsBeatCardListState value)? beats,
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
     TResult Function(_FailureBeatCardListState value)? failure,
     required TResult orElse(),
   }) =>
@@ -81,25 +94,26 @@ class _$BeatCardListStateCopyWithImpl<$Res, $Val extends BeatCardListState>
 }
 
 /// @nodoc
-abstract class _$$_BeatCardListStateCopyWith<$Res> {
-  factory _$$_BeatCardListStateCopyWith(_$_BeatCardListState value,
-          $Res Function(_$_BeatCardListState) then) =
-      __$$_BeatCardListStateCopyWithImpl<$Res>;
+abstract class _$$_BeatCardListLoadingStateCopyWith<$Res> {
+  factory _$$_BeatCardListLoadingStateCopyWith(
+          _$_BeatCardListLoadingState value,
+          $Res Function(_$_BeatCardListLoadingState) then) =
+      __$$_BeatCardListLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_BeatCardListStateCopyWithImpl<$Res>
-    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatCardListState>
-    implements _$$_BeatCardListStateCopyWith<$Res> {
-  __$$_BeatCardListStateCopyWithImpl(
-      _$_BeatCardListState _value, $Res Function(_$_BeatCardListState) _then)
+class __$$_BeatCardListLoadingStateCopyWithImpl<$Res>
+    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatCardListLoadingState>
+    implements _$$_BeatCardListLoadingStateCopyWith<$Res> {
+  __$$_BeatCardListLoadingStateCopyWithImpl(_$_BeatCardListLoadingState _value,
+      $Res Function(_$_BeatCardListLoadingState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_BeatCardListState implements _BeatCardListState {
-  const _$_BeatCardListState();
+class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
+  const _$_BeatCardListLoadingState();
 
   @override
   String toString() {
@@ -109,7 +123,8 @@ class _$_BeatCardListState implements _BeatCardListState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_BeatCardListState);
+        (other.runtimeType == runtimeType &&
+            other is _$_BeatCardListLoadingState);
   }
 
   @override
@@ -120,6 +135,9 @@ class _$_BeatCardListState implements _BeatCardListState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
     required TResult Function() failure,
   }) {
     return loading();
@@ -130,6 +148,8 @@ class _$_BeatCardListState implements _BeatCardListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
     TResult? Function()? failure,
   }) {
     return loading?.call();
@@ -140,6 +160,8 @@ class _$_BeatCardListState implements _BeatCardListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
     TResult Function()? failure,
     required TResult orElse(),
   }) {
@@ -152,8 +174,10 @@ class _$_BeatCardListState implements _BeatCardListState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_BeatCardListState value) loading,
-    required TResult Function(_BeatsBeatCardListState value) beats,
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
     required TResult Function(_FailureBeatCardListState value) failure,
   }) {
     return loading(this);
@@ -162,8 +186,10 @@ class _$_BeatCardListState implements _BeatCardListState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_BeatCardListState value)? loading,
-    TResult? Function(_BeatsBeatCardListState value)? beats,
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
     TResult? Function(_FailureBeatCardListState value)? failure,
   }) {
     return loading?.call(this);
@@ -172,8 +198,10 @@ class _$_BeatCardListState implements _BeatCardListState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_BeatCardListState value)? loading,
-    TResult Function(_BeatsBeatCardListState value)? beats,
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
     TResult Function(_FailureBeatCardListState value)? failure,
     required TResult orElse(),
   }) {
@@ -184,25 +212,25 @@ class _$_BeatCardListState implements _BeatCardListState {
   }
 }
 
-abstract class _BeatCardListState implements BeatCardListState {
-  const factory _BeatCardListState() = _$_BeatCardListState;
+abstract class _BeatCardListLoadingState implements BeatCardListState {
+  const factory _BeatCardListLoadingState() = _$_BeatCardListLoadingState;
 }
 
 /// @nodoc
-abstract class _$$_BeatsBeatCardListStateCopyWith<$Res> {
-  factory _$$_BeatsBeatCardListStateCopyWith(_$_BeatsBeatCardListState value,
-          $Res Function(_$_BeatsBeatCardListState) then) =
-      __$$_BeatsBeatCardListStateCopyWithImpl<$Res>;
+abstract class _$$_BeatCardListStateCopyWith<$Res> {
+  factory _$$_BeatCardListStateCopyWith(_$_BeatCardListState value,
+          $Res Function(_$_BeatCardListState) then) =
+      __$$_BeatCardListStateCopyWithImpl<$Res>;
   @useResult
   $Res call({List<BeatEntity> beats});
 }
 
 /// @nodoc
-class __$$_BeatsBeatCardListStateCopyWithImpl<$Res>
-    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatsBeatCardListState>
-    implements _$$_BeatsBeatCardListStateCopyWith<$Res> {
-  __$$_BeatsBeatCardListStateCopyWithImpl(_$_BeatsBeatCardListState _value,
-      $Res Function(_$_BeatsBeatCardListState) _then)
+class __$$_BeatCardListStateCopyWithImpl<$Res>
+    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatCardListState>
+    implements _$$_BeatCardListStateCopyWith<$Res> {
+  __$$_BeatCardListStateCopyWithImpl(
+      _$_BeatCardListState _value, $Res Function(_$_BeatCardListState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -210,7 +238,7 @@ class __$$_BeatsBeatCardListStateCopyWithImpl<$Res>
   $Res call({
     Object? beats = null,
   }) {
-    return _then(_$_BeatsBeatCardListState(
+    return _then(_$_BeatCardListState(
       beats: null == beats
           ? _value._beats
           : beats // ignore: cast_nullable_to_non_nullable
@@ -221,8 +249,8 @@ class __$$_BeatsBeatCardListStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
-  const _$_BeatsBeatCardListState({required final List<BeatEntity> beats})
+class _$_BeatCardListState implements _BeatCardListState {
+  const _$_BeatCardListState({required final List<BeatEntity> beats})
       : _beats = beats;
 
   final List<BeatEntity> _beats;
@@ -242,7 +270,7 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BeatsBeatCardListState &&
+            other is _$_BeatCardListState &&
             const DeepCollectionEquality().equals(other._beats, _beats));
   }
 
@@ -253,8 +281,8 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BeatsBeatCardListStateCopyWith<_$_BeatsBeatCardListState> get copyWith =>
-      __$$_BeatsBeatCardListStateCopyWithImpl<_$_BeatsBeatCardListState>(
+  _$$_BeatCardListStateCopyWith<_$_BeatCardListState> get copyWith =>
+      __$$_BeatCardListStateCopyWithImpl<_$_BeatCardListState>(
           this, _$identity);
 
   @override
@@ -262,6 +290,9 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
     required TResult Function() failure,
   }) {
     return beats(this.beats);
@@ -272,6 +303,8 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
     TResult? Function()? failure,
   }) {
     return beats?.call(this.beats);
@@ -282,6 +315,8 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
     TResult Function()? failure,
     required TResult orElse(),
   }) {
@@ -294,8 +329,10 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_BeatCardListState value) loading,
-    required TResult Function(_BeatsBeatCardListState value) beats,
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
     required TResult Function(_FailureBeatCardListState value) failure,
   }) {
     return beats(this);
@@ -304,8 +341,10 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_BeatCardListState value)? loading,
-    TResult? Function(_BeatsBeatCardListState value)? beats,
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
     TResult? Function(_FailureBeatCardListState value)? failure,
   }) {
     return beats?.call(this);
@@ -314,8 +353,10 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_BeatCardListState value)? loading,
-    TResult Function(_BeatsBeatCardListState value)? beats,
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
     TResult Function(_FailureBeatCardListState value)? failure,
     required TResult orElse(),
   }) {
@@ -326,14 +367,302 @@ class _$_BeatsBeatCardListState implements _BeatsBeatCardListState {
   }
 }
 
-abstract class _BeatsBeatCardListState implements BeatCardListState {
-  const factory _BeatsBeatCardListState(
-      {required final List<BeatEntity> beats}) = _$_BeatsBeatCardListState;
+abstract class _BeatCardListState implements BeatCardListState {
+  const factory _BeatCardListState({required final List<BeatEntity> beats}) =
+      _$_BeatCardListState;
 
   List<BeatEntity> get beats;
   @JsonKey(ignore: true)
-  _$$_BeatsBeatCardListStateCopyWith<_$_BeatsBeatCardListState> get copyWith =>
+  _$$_BeatCardListStateCopyWith<_$_BeatCardListState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_BeatPlayableBeatStateCopyWith<$Res> {
+  factory _$$_BeatPlayableBeatStateCopyWith(_$_BeatPlayableBeatState value,
+          $Res Function(_$_BeatPlayableBeatState) then) =
+      __$$_BeatPlayableBeatStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String beatId, BeatPlayingStatus status});
+}
+
+/// @nodoc
+class __$$_BeatPlayableBeatStateCopyWithImpl<$Res>
+    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatPlayableBeatState>
+    implements _$$_BeatPlayableBeatStateCopyWith<$Res> {
+  __$$_BeatPlayableBeatStateCopyWithImpl(_$_BeatPlayableBeatState _value,
+      $Res Function(_$_BeatPlayableBeatState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? beatId = null,
+    Object? status = null,
+  }) {
+    return _then(_$_BeatPlayableBeatState(
+      beatId: null == beatId
+          ? _value.beatId
+          : beatId // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BeatPlayingStatus,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
+  const _$_BeatPlayableBeatState({required this.beatId, required this.status});
+
+  @override
+  final String beatId;
+  @override
+  final BeatPlayingStatus status;
+
+  @override
+  String toString() {
+    return 'BeatCardListState.playableBeat(beatId: $beatId, status: $status)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_BeatPlayableBeatState &&
+            (identical(other.beatId, beatId) || other.beatId == beatId) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, beatId, status);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_BeatPlayableBeatStateCopyWith<_$_BeatPlayableBeatState> get copyWith =>
+      __$$_BeatPlayableBeatStateCopyWithImpl<_$_BeatPlayableBeatState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
+    required TResult Function() failure,
+  }) {
+    return playableBeat(beatId, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
+    TResult? Function()? failure,
+  }) {
+    return playableBeat?.call(beatId, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
+    TResult Function()? failure,
+    required TResult orElse(),
+  }) {
+    if (playableBeat != null) {
+      return playableBeat(beatId, status);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
+    required TResult Function(_FailureBeatCardListState value) failure,
+  }) {
+    return playableBeat(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
+    TResult? Function(_FailureBeatCardListState value)? failure,
+  }) {
+    return playableBeat?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
+    TResult Function(_FailureBeatCardListState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (playableBeat != null) {
+      return playableBeat(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BeatPlayableBeatState implements BeatCardListState {
+  const factory _BeatPlayableBeatState(
+      {required final String beatId,
+      required final BeatPlayingStatus status}) = _$_BeatPlayableBeatState;
+
+  String get beatId;
+  BeatPlayingStatus get status;
+  @JsonKey(ignore: true)
+  _$$_BeatPlayableBeatStateCopyWith<_$_BeatPlayableBeatState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_BeatPlayableBeatStopStateCopyWith<$Res> {
+  factory _$$_BeatPlayableBeatStopStateCopyWith(
+          _$_BeatPlayableBeatStopState value,
+          $Res Function(_$_BeatPlayableBeatStopState) then) =
+      __$$_BeatPlayableBeatStopStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_BeatPlayableBeatStopStateCopyWithImpl<$Res>
+    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatPlayableBeatStopState>
+    implements _$$_BeatPlayableBeatStopStateCopyWith<$Res> {
+  __$$_BeatPlayableBeatStopStateCopyWithImpl(
+      _$_BeatPlayableBeatStopState _value,
+      $Res Function(_$_BeatPlayableBeatStopState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
+  const _$_BeatPlayableBeatStopState();
+
+  @override
+  String toString() {
+    return 'BeatCardListState.stop()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_BeatPlayableBeatStopState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
+    required TResult Function() failure,
+  }) {
+    return stop();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
+    TResult? Function()? failure,
+  }) {
+    return stop?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
+    TResult Function()? failure,
+    required TResult orElse(),
+  }) {
+    if (stop != null) {
+      return stop();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
+    required TResult Function(_FailureBeatCardListState value) failure,
+  }) {
+    return stop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
+    TResult? Function(_FailureBeatCardListState value)? failure,
+  }) {
+    return stop?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
+    TResult Function(_FailureBeatCardListState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (stop != null) {
+      return stop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BeatPlayableBeatStopState implements BeatCardListState {
+  const factory _BeatPlayableBeatStopState() = _$_BeatPlayableBeatStopState;
 }
 
 /// @nodoc
@@ -378,6 +707,9 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<BeatEntity> beats) beats,
+    required TResult Function(String beatId, BeatPlayingStatus status)
+        playableBeat,
+    required TResult Function() stop,
     required TResult Function() failure,
   }) {
     return failure();
@@ -388,6 +720,8 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(List<BeatEntity> beats)? beats,
+    TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult? Function()? stop,
     TResult? Function()? failure,
   }) {
     return failure?.call();
@@ -398,6 +732,8 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<BeatEntity> beats)? beats,
+    TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
+    TResult Function()? stop,
     TResult Function()? failure,
     required TResult orElse(),
   }) {
@@ -410,8 +746,10 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_BeatCardListState value) loading,
-    required TResult Function(_BeatsBeatCardListState value) beats,
+    required TResult Function(_BeatCardListLoadingState value) loading,
+    required TResult Function(_BeatCardListState value) beats,
+    required TResult Function(_BeatPlayableBeatState value) playableBeat,
+    required TResult Function(_BeatPlayableBeatStopState value) stop,
     required TResult Function(_FailureBeatCardListState value) failure,
   }) {
     return failure(this);
@@ -420,8 +758,10 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_BeatCardListState value)? loading,
-    TResult? Function(_BeatsBeatCardListState value)? beats,
+    TResult? Function(_BeatCardListLoadingState value)? loading,
+    TResult? Function(_BeatCardListState value)? beats,
+    TResult? Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult? Function(_BeatPlayableBeatStopState value)? stop,
     TResult? Function(_FailureBeatCardListState value)? failure,
   }) {
     return failure?.call(this);
@@ -430,8 +770,10 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_BeatCardListState value)? loading,
-    TResult Function(_BeatsBeatCardListState value)? beats,
+    TResult Function(_BeatCardListLoadingState value)? loading,
+    TResult Function(_BeatCardListState value)? beats,
+    TResult Function(_BeatPlayableBeatState value)? playableBeat,
+    TResult Function(_BeatPlayableBeatStopState value)? stop,
     TResult Function(_FailureBeatCardListState value)? failure,
     required TResult orElse(),
   }) {

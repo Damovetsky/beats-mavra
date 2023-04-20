@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../domain/beats/entity/beat_entity.dart';
+import '../../../../domain/beats/entity/playable_beat_entity.dart';
 import '../../../../domain/beats/repository/beats_repository.dart';
 
 part 'cubit.freezed.dart';
@@ -19,8 +20,17 @@ class BeatCardListCubit extends Cubit<BeatCardListState> {
 
   BehaviorSubject<BeatEntity?>? _feedController;
   StreamSubscription? _feedSubscription;
+  StreamSubscription? _playableBeatSubscription;
 
-  BeatCardListCubit(this.beatsRepository) : super(const BeatCardListState.loading());
+  BeatCardListCubit(this.beatsRepository) : super(const BeatCardListState.loading()) {
+    _playableBeatSubscription = beatsRepository.playableBeatStream().map((playableBeat) {
+      if (playableBeat == null) {
+        return const BeatCardListState.stop();
+      } else {
+        return BeatCardListState.playableBeat(beatId: playableBeat.entity.beatId, status: playableBeat.status);
+      }
+    }).listen(emit);
+  }
 
   Future<void> initialBeats({List<String>? beatsIds}) async {
     emit(const BeatCardListState.loading());
@@ -48,6 +58,7 @@ class BeatCardListCubit extends Cubit<BeatCardListState> {
   @override
   Future<void> close() async {
     await _refreshFeed();
+    await _playableBeatSubscription?.cancel();
     return super.close();
   }
 }

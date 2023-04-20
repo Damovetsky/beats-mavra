@@ -13,7 +13,8 @@ import '../../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../../core/ui/kit/snackbar.dart';
 import '../../../core/ui/text_styles.dart';
 import '../../../domain/beats/entity/beat_entity.dart';
-import '../beat_card.dart';
+import '../../../domain/beats/entity/playable_beat_entity.dart';
+import '../beat_card/beat_card.dart';
 import 'cubit/cubit.dart';
 
 class BeatCardPopupItem {
@@ -131,7 +132,19 @@ class _BeatCardListState extends State<BeatCardList> {
                         }
                       }
                     : null,
-                child: BeatCard(beat: beat),
+                child: BlocBuilder<BeatCardListCubit, BeatCardListState>(
+                  builder: (context, state) {
+                    return BeatCard(
+                      beat: beat,
+                      playing: state.mapOrNull(
+                            playableBeat: (value) =>
+                                value.beatId == beat.beatId && value.status != BeatPlayingStatus.paused,
+                            stop: (value) => false,
+                          ) ??
+                          false,
+                    );
+                  },
+                ),
               ),
               firstPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
               animateTransitions: true,

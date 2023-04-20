@@ -16,5 +16,6 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
-}) = _BeatEntity;
+    required List<double> graph,
+  }) = _BeatEntity;
 }
