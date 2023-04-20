@@ -1,15 +1,14 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:injectable/injectable.dart';
-import '../../../core/error/exception.dart';
 import 'exceptions.dart';
 
 abstract class AuthService {
   Future<UserCredential> createUserWithEmailAndPassword(String emailAddress, String password);
-  void signInWithEmailAndPassword(String emailAddress, String password);
+  Future<void> signInWithEmailAndPassword(String emailAddress, String password);
   Stream<String?> getUserID();
   Future<void> signOut();
 
@@ -21,7 +20,9 @@ abstract class AuthService {
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth firebaseAuth;
 
-  AuthServiceImpl(this.firebaseAuth);
+  final AuthExceptionFactory authExceptionFactory;
+
+  AuthServiceImpl(this.firebaseAuth, this.authExceptionFactory);
 
   @override
   Future<UserCredential> createUserWithEmailAndPassword(String emailAddress, String password) async {
@@ -32,31 +33,20 @@ class AuthServiceImpl implements AuthService {
       );
       return credential;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw PasswordIsWeakException();
-      } else if (e.code == 'email-already-in-use') {
-        throw AccountAlreadyExistsException();
-      } else {
-        throw UnknownException();
-      }
+      throw authExceptionFactory.generateException(e.code);
     }
   }
 
   @override
   Future<void> signInWithEmailAndPassword(String emailAddress, String password) async {
     try {
-      final credential = await firebaseAuth.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
       // return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw NotFoundUserException();
-      } else if (e.code == 'wrong-password') {
-        throw PasswordWrongException();
-      }
-      throw UnknownException();
+      throw authExceptionFactory.generateException(e.code);
     }
   }
 

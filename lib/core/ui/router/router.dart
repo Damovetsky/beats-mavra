@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../view/auth_page/auth_page.dart';
 import '../../../view/home_page/home_page.dart';
 import '../../../view/profile_page/beat_list_page/beat_list_page.dart';
 
