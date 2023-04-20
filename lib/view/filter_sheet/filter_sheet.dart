@@ -2,10 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/const.dart';
 import '../../core/helper/sheet_helper.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
+import '../../core/ui/kit/radio_tags.dart';
 import '../../core/ui/text_styles.dart';
+import '../beat_sheet/widget/genres_text_field.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({super.key});
@@ -26,6 +29,8 @@ class FilterSheet extends StatefulWidget {
 class _FilterSheetState extends State<FilterSheet> {
 
   List<String> currentGenres = [];
+  RangeValues currentTempo = RangeValues(20, 300);
+  int currentDimensionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +64,205 @@ class _FilterSheetState extends State<FilterSheet> {
                     color: currentColorScheme(context).primary,
                   ),
                 ),
+                const SizedBox(height: 24),
+                _Genre(
+                  genres: currentGenres,
+                  onChanged: (newGenres) {
+                    setState(() {
+                      currentGenres = newGenres;
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+                _TempoSlider(
+                  initialTempo: currentTempo,
+                  onChanged: (newTempo) {
+                    setState(() {
+                      currentTempo = newTempo;
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+                _Dimension(
+                  currentIndex: currentDimensionIndex,
+                  dimensions: const ['4/4', '2/4', '3/4', '5/4', '3/8', '6/8', 'All'],
+                  onChanged: (index) {
+                    setState(() {
+                      currentDimensionIndex = index;
+                    });
+                  },
+                ),
               ],
             ),
           ),
       ),
       ),
+    );
+  }
+}
+
+
+class _Genre extends StatefulWidget {
+  final List<String> genres;
+  final Function(List<String> newGenres) onChanged;
+
+  const _Genre({
+    required this.genres,
+    required this.onChanged,
+  });
+
+  @override
+  State<_Genre> createState() => _GenreState();
+}
+
+class _GenreState extends State<_Genre> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'beats_sheet_genre_title'.tr(),
+          style: currentTextTheme(context).titleMedium?.copyWith(
+            color: currentColorScheme(context).primary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'beats_sheet_genre_hint'.tr(),
+          style: currentTextTheme(context).bodyMedium?.copyWith(
+            color: currentColorScheme(context).onBackground.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: 16),
+        GenreTextField(
+          availableGenres: availableGenres,
+          genres: widget.genres,
+          onChanged: (genres) {
+            widget.onChanged(genres);
+          },
+          onRemoved: (index) {
+            widget.onChanged([...widget.genres]..removeAt(index));
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _TempoSlider extends StatefulWidget {
+  final RangeValues initialTempo;
+  final Function(RangeValues newTempo) onChanged;
+
+  const _TempoSlider({
+    required this.initialTempo,
+    required this.onChanged,
+  });
+
+  @override
+  State<_TempoSlider> createState() => _TempoSliderState();
+}
+
+class _TempoSliderState extends State<_TempoSlider> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'beats_sheet_tempo_title'.tr(),
+          style: currentTextTheme(context).titleMedium?.copyWith(
+            color: currentColorScheme(context).primary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'beats_sheet_tempo_hint'.tr(),
+          style: currentTextTheme(context).bodyMedium?.copyWith(
+            color: currentColorScheme(context).onBackground.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Text(
+              '20',
+              style: currentTextTheme(context).bodyLarge?.copyWith(
+                color: currentColorScheme(context).onBackground.withOpacity(0.5),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Expanded(
+              child: RangeSlider(
+            values: widget.initialTempo,
+            min: 20,
+            max: 300,
+            divisions: 280,
+            labels: RangeLabels(
+              widget.initialTempo.start.round().toString(),
+              widget.initialTempo.end.round().toString(),
+            ),
+            onChanged: (changedTempo) {
+              widget.onChanged(changedTempo);
+            },
+              ),
+            ),
+            Text(
+              '300',
+              style: currentTextTheme(context).bodyLarge?.copyWith(
+                color: currentColorScheme(context).onBackground.withOpacity(0.5),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+
+class _Dimension extends StatelessWidget {
+  final int currentIndex;
+  final List<String> dimensions;
+  final Function(int index) onChanged;
+
+  const _Dimension({
+    required this.currentIndex,
+    required this.dimensions,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'beats_sheet_dimensions_title'.tr(),
+          style: currentTextTheme(context).titleMedium?.copyWith(
+            color: currentColorScheme(context).primary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'beats_sheet_dimensions_hint'.tr(),
+          style: currentTextTheme(context).bodyMedium?.copyWith(
+            color: currentColorScheme(context).onBackground.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: 16),
+        RadioTags(
+          currentIndex: currentIndex,
+          tags: dimensions,
+          onChoosed: onChanged,
+        )
+      ],
     );
   }
 }

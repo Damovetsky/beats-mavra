@@ -39,5 +39,6 @@
     "beats_sheet_tempo_hint": "Выставите основной темп инструментала в ударах в минуту",
     "beats_sheet_create": "Создать",
     "beats_sheet_edit": "Изменить",
-    "filter_sheet_title": "Фильтер"
+    "filter_sheet_title": "Фильтер",
+    "auto_tempo_hand": "Настройка вручную"
 }
