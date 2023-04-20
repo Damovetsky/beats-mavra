@@ -65,7 +65,7 @@ class HomePageState extends State<HomePage> {
             ),
             BouncingGestureDetector(
               onTap: () {
-                unawaited(BeatSheet.show(context));
+                unawaited(BeatSheet.show(context, ' '));
               },
               child: Container(
                 height: 52,
