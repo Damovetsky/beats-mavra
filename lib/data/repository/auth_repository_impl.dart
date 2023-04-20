@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/error/exception.dart';
@@ -13,7 +14,6 @@ import '../service/users_service/users_service.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
-
   final AuthService authService;
   final UserService userService;
 
@@ -22,19 +22,22 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signIn({required String email, required String password}) async {
     try {
-      authService.signInWithEmailAndPassword(email, password);
+      await authService.signInWithEmailAndPassword(email, password);
       return const Right(null);
     } on NotFoundUserException {
       return Left(EmailNotFoundFailure());
     } on PasswordWrongException {
       return Left(WrongPasswordFailure());
+    } on TooManyRequestsException {
+      return Left(TooManyRequestsFailure());
     } catch (_) {
       return Left(UnknownFailure());
     }
   }
 
   @override
-  Future<Either<Failure, void>> signUp({required String nickname, required String email, required String password}) async {
+  Future<Either<Failure, void>> signUp(
+      {required String nickname, required String email, required String password}) async {
     try {
       final credential = await authService.createUserWithEmailAndPassword(email, password);
       final user = credential.user;
@@ -48,11 +51,12 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(AccountAlreadyExistsFailure());
     } on PasswordIsWeakException {
       return Left(PasswordIsWeakFailure());
+    } on TooManyRequestsException {
+      return Left(TooManyRequestsFailure());
     } catch (_) {
       return Left(UnknownFailure());
     }
   }
-
 
   @override
   Future<Either<Failure, void>> signInWithApple() async {
@@ -65,7 +69,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       try {
         userService.getPrivateUser(user.uid);
-      }  on NotFoundException {
+      } on NotFoundException {
         final nickname = user.displayName ?? 'User';
 
         final email = user.email;
@@ -74,7 +78,6 @@ class AuthRepositoryImpl implements AuthRepository {
         }
 
         await _createUser(id: user.uid, email: email, nickname: nickname);
-
       } catch (_) {
         return Left(UnknownFailure());
       }
@@ -87,16 +90,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signInWithGoogle() async {
     try {
-
       final credential = await authService.signInWithGoogle();
-
       final user = credential.user;
       if (user == null) {
         return Left(UnknownFailure());
       }
       try {
         userService.getPrivateUser(user.uid);
-      }  on NotFoundException {
+      } on NotFoundException {
         final nickname = user.displayName ?? 'User';
 
         final email = user.email;
@@ -105,11 +106,12 @@ class AuthRepositoryImpl implements AuthRepository {
         }
 
         await _createUser(id: user.uid, email: email, nickname: nickname);
-
       } catch (_) {
         return Left(UnknownFailure());
       }
       return const Right(null);
+    } on AssertionError {
+      return Left(UnauthorizedFailure());
     } catch (_) {
       return Left(UnknownFailure());
     }
@@ -117,9 +119,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   Future<void> _createUser({required String id, required String email, required String nickname}) async {
     await userService.createUser(
-        id: id,
-        publicUserModel: CreatePublicUserModel(id, null, nickname, ''),
-        privateUserModel: CreatePrivateUserModel(id, email),
+      id: id,
+      publicUserModel: CreatePublicUserModel(id, null, nickname, ''),
+      privateUserModel: CreatePrivateUserModel(id, email),
     );
   }
 

@@ -4,12 +4,12 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/const.dart';
 import '../../core/di/di.dart';
+import '../../core/reg_exp.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
@@ -18,8 +18,8 @@ import '../../core/ui/kit/snackbar.dart';
 import '../../core/ui/router/router.dart';
 import '../../core/ui/text_styles.dart';
 import '../../core/ui/theme.dart';
-import '../../data/service/auth_service/auth_service.dart';
 import '../../main.dart';
+import '../auth_sheet/auth_sheet.dart';
 import 'cubit/cubit.dart';
 import 'widget/editable_avatar.dart';
 
@@ -90,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   failure: (value) async {
                     showSnackbar(
                       context,
-                      title: 'profile_unknown_error_title'.tr(),
-                      message: 'profile_unknown_error_message'.tr(),
+                      title: 'unknown_error_title'.tr(),
+                      message: 'unknown_error_message'.tr(),
                       position: FlushbarPosition.TOP,
                     );
                   },
@@ -274,8 +274,7 @@ class _NeedAuth extends StatelessWidget {
           children: [
             FilledButton(
               onPressed: () {
-                AuthServiceImpl(getIt.get<FirebaseAuth>())
-                    .signInWithEmailAndPassword('kerjen01@gmail.com', "123123123");
+                AuthSheet.show(context);
               },
               child: Text('Войти в аккаунт'),
             ),
@@ -299,7 +298,10 @@ class _ProfileThemeButton extends StatelessWidget {
       builder: (context, state, theme) {
         return IconButton(
           onPressed: () {
-            state.changeTheme(theme: theme == lightTheme ? darkTheme : lightTheme, isReversed: theme != lightTheme);
+            state.changeTheme(
+              theme: theme == lightTheme ? darkTheme : lightTheme,
+              isReversed: theme != lightTheme,
+            );
           },
           icon: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
@@ -330,7 +332,7 @@ class _ProfileLanguagePopupButton extends StatelessWidget {
             String? flag;
             if (locale.countryCode != null) {
               flag = locale.countryCode!.toUpperCase().replaceAllMapped(
-                    RegExp(r'[A-Z]'),
+                    upperCaseRegExp,
                     (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397),
                   );
             }

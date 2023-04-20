@@ -10,8 +10,8 @@ class UnauthorizedFailure extends Failure {}
 
 class NotFoundFailure extends Failure {}
 
-class WrongFormatFailure extends Failure {
-  WrongFormatFailure({required super.message});
-}
+class WrongFormatFailure extends Failure {}
+
+class TooManyRequestsFailure extends Failure {}
 
 class UnknownFailure extends Failure {}

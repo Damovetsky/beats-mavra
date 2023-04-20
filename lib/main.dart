@@ -1,15 +1,11 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:beats/view/profile_page/profile_page.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
 import 'core/ui/router/router.dart';
 import 'core/ui/theme.dart';
 import 'locale_builder.dart';
-import 'view/home_page/home_page.dart';
-import 'view/profile_page/beat_list_page/beat_list_page.dart';
 
 const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 

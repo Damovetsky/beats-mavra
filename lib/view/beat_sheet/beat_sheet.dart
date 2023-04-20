@@ -7,16 +7,18 @@ import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/radio_tags.dart';
 import '../../core/ui/text_styles.dart';
+import '../../domain/beats/entity/beat_entity.dart';
 import 'widget/beat_files.dart';
 import 'widget/genres_text_field.dart';
 
 class BeatSheet extends StatefulWidget {
-  const BeatSheet({super.key});
+  final String beatId;
+  const BeatSheet({super.key, required this.beatId});
 
-  static Future<void> show(BuildContext context) {
+  static Future<void> show(BuildContext context, String beatId) {
     return BottomSheetHelper.show(
       context,
-      (context, padding) => const BeatSheet(),
+      (context, padding) => BeatSheet(beatId: beatId),
       isScrollControlled: true,
     );
   }

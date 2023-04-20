@@ -11,7 +11,7 @@ class CreatePrivateUserModel {
   double balance = 0;
 
   @JsonKey(defaultValue: {})
-  Map<String, bool> favorites = {};
+  Map<String, bool> favorite = {};
 
   @JsonKey(defaultValue: {})
   Map<String, bool> bought = {};
