@@ -27,6 +27,7 @@ mixin _$BeatEntity {
   List<String> get genres => throw _privateConstructorUsedError;
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
+  List<double> get graph => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BeatEntityCopyWith<BeatEntity> get copyWith =>
@@ -50,7 +51,8 @@ abstract class $BeatEntityCopyWith<$Res> {
       String? zipFileId,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -77,6 +79,7 @@ class _$BeatEntityCopyWithImpl<$Res, $Val extends BeatEntity>
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_value.copyWith(
       beatId: null == beatId
@@ -123,6 +126,10 @@ class _$BeatEntityCopyWithImpl<$Res, $Val extends BeatEntity>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value.graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ) as $Val);
   }
 }
@@ -146,7 +153,8 @@ abstract class _$$_BeatEntityCopyWith<$Res>
       String? zipFileId,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -171,6 +179,7 @@ class __$$_BeatEntityCopyWithImpl<$Res>
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_$_BeatEntity(
       beatId: null == beatId
@@ -217,6 +226,10 @@ class __$$_BeatEntityCopyWithImpl<$Res>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value._graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ));
   }
 }
@@ -235,8 +248,10 @@ class _$_BeatEntity implements _BeatEntity {
       required this.zipFileId,
       required final List<String> genres,
       required this.temp,
-      required this.dimension})
-      : _genres = genres;
+      required this.dimension,
+      required final List<double> graph})
+      : _genres = genres,
+        _graph = graph;
 
   @override
   final String beatId;
@@ -266,10 +281,17 @@ class _$_BeatEntity implements _BeatEntity {
   final int temp;
   @override
   final String dimension;
+  final List<double> _graph;
+  @override
+  List<double> get graph {
+    if (_graph is EqualUnmodifiableListView) return _graph;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_graph);
+  }
 
   @override
   String toString() {
-    return 'BeatEntity(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'BeatEntity(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension, graph: $graph)';
   }
 
   @JsonKey(ignore: true)
@@ -291,7 +313,8 @@ abstract class _BeatEntity implements BeatEntity {
       required final String? zipFileId,
       required final List<String> genres,
       required final int temp,
-      required final String dimension}) = _$_BeatEntity;
+      required final String dimension,
+      required final List<double> graph}) = _$_BeatEntity;
 
   @override
   String get beatId;
@@ -315,6 +338,8 @@ abstract class _BeatEntity implements BeatEntity {
   int get temp;
   @override
   String get dimension;
+  @override
+  List<double> get graph;
   @override
   @JsonKey(ignore: true)
   _$$_BeatEntityCopyWith<_$_BeatEntity> get copyWith =>

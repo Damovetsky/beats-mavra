@@ -27,6 +27,8 @@ Future<void> main() async {
 class App extends StatelessWidget {
   final _appRouter = AppRouter();
 
+  App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(

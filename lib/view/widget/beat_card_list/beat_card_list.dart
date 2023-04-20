@@ -13,7 +13,8 @@ import '../../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../../core/ui/kit/snackbar.dart';
 import '../../../core/ui/text_styles.dart';
 import '../../../domain/beats/entity/beat_entity.dart';
-import '../beat_card.dart';
+import '../../../domain/beats/entity/playable_beat_entity.dart';
+import '../beat_card/beat_card.dart';
 import 'cubit/cubit.dart';
 
 class BeatCardPopupItem {
@@ -44,7 +45,10 @@ class BeatCardList extends StatefulWidget {
 
 class _BeatCardListState extends State<BeatCardList> {
   final cubit = getIt.get<BeatCardListCubit>();
+
   final _beatsController = PagingController<int, BeatEntity>(firstPageKey: 0);
+
+  String? currentPlayableBeatId;
 
   @override
   void initState() {
@@ -80,12 +84,18 @@ class _BeatCardListState extends State<BeatCardList> {
                 );
               }
             },
+            playableBeat: (value) {
+              currentPlayableBeatId = value.beatId;
+            },
+            stop: (value) {
+              currentPlayableBeatId = null;
+            },
             failure: (value) {
               unawaited(
                 showSnackbar(
                   context,
-                  title: 'О БОЖЕ!',
-                  message: 'Беда беда ошибка()',
+                  title: value.title,
+                  message: value.message,
                   position: FlushbarPosition.TOP,
                 ),
               );
@@ -131,7 +141,14 @@ class _BeatCardListState extends State<BeatCardList> {
                         }
                       }
                     : null,
-                child: BeatCard(beat: beat),
+                child: BlocBuilder<BeatCardListCubit, BeatCardListState>(
+                  builder: (context, state) {
+                    return BeatCard(
+                      beat: beat,
+                      playing: currentPlayableBeatId == beat.beatId,
+                    );
+                  },
+                ),
               ),
               firstPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
               animateTransitions: true,

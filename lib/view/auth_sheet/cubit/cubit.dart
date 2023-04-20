@@ -74,7 +74,6 @@ class AuthCubit extends Cubit<AuthState> {
         (_) => const AuthState.success(),
       ),
     );
-    await authRepository.signIn(email: email, password: password);
   }
 
   void signInWithGoogle() async {
