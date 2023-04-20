@@ -21,9 +21,9 @@ mixin _$BeatEntity {
   String get cover => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get mp3 => throw _privateConstructorUsedError;
-  String? get wav => throw _privateConstructorUsedError;
-  String? get zip => throw _privateConstructorUsedError;
+  String get mp3FileId => throw _privateConstructorUsedError;
+  String? get wavFileId => throw _privateConstructorUsedError;
+  String? get zipFileId => throw _privateConstructorUsedError;
   List<String> get genres => throw _privateConstructorUsedError;
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
@@ -45,9 +45,9 @@ abstract class $BeatEntityCopyWith<$Res> {
       String cover,
       String title,
       String description,
-      String mp3,
-      String? wav,
-      String? zip,
+      String mp3FileId,
+      String? wavFileId,
+      String? zipFileId,
       List<String> genres,
       int temp,
       String dimension});
@@ -71,9 +71,9 @@ class _$BeatEntityCopyWithImpl<$Res, $Val extends BeatEntity>
     Object? cover = null,
     Object? title = null,
     Object? description = null,
-    Object? mp3 = null,
-    Object? wav = freezed,
-    Object? zip = freezed,
+    Object? mp3FileId = null,
+    Object? wavFileId = freezed,
+    Object? zipFileId = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
@@ -99,17 +99,17 @@ class _$BeatEntityCopyWithImpl<$Res, $Val extends BeatEntity>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      mp3: null == mp3
-          ? _value.mp3
-          : mp3 // ignore: cast_nullable_to_non_nullable
+      mp3FileId: null == mp3FileId
+          ? _value.mp3FileId
+          : mp3FileId // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: freezed == wav
-          ? _value.wav
-          : wav // ignore: cast_nullable_to_non_nullable
+      wavFileId: freezed == wavFileId
+          ? _value.wavFileId
+          : wavFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
+      zipFileId: freezed == zipFileId
+          ? _value.zipFileId
+          : zipFileId // ignore: cast_nullable_to_non_nullable
               as String?,
       genres: null == genres
           ? _value.genres
@@ -141,9 +141,9 @@ abstract class _$$_BeatEntityCopyWith<$Res>
       String cover,
       String title,
       String description,
-      String mp3,
-      String? wav,
-      String? zip,
+      String mp3FileId,
+      String? wavFileId,
+      String? zipFileId,
       List<String> genres,
       int temp,
       String dimension});
@@ -165,9 +165,9 @@ class __$$_BeatEntityCopyWithImpl<$Res>
     Object? cover = null,
     Object? title = null,
     Object? description = null,
-    Object? mp3 = null,
-    Object? wav = freezed,
-    Object? zip = freezed,
+    Object? mp3FileId = null,
+    Object? wavFileId = freezed,
+    Object? zipFileId = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
@@ -193,17 +193,17 @@ class __$$_BeatEntityCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      mp3: null == mp3
-          ? _value.mp3
-          : mp3 // ignore: cast_nullable_to_non_nullable
+      mp3FileId: null == mp3FileId
+          ? _value.mp3FileId
+          : mp3FileId // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: freezed == wav
-          ? _value.wav
-          : wav // ignore: cast_nullable_to_non_nullable
+      wavFileId: freezed == wavFileId
+          ? _value.wavFileId
+          : wavFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
+      zipFileId: freezed == zipFileId
+          ? _value.zipFileId
+          : zipFileId // ignore: cast_nullable_to_non_nullable
               as String?,
       genres: null == genres
           ? _value._genres
@@ -230,9 +230,9 @@ class _$_BeatEntity implements _BeatEntity {
       required this.cover,
       required this.title,
       required this.description,
-      required this.mp3,
-      required this.wav,
-      required this.zip,
+      required this.mp3FileId,
+      required this.wavFileId,
+      required this.zipFileId,
       required final List<String> genres,
       required this.temp,
       required this.dimension})
@@ -249,11 +249,11 @@ class _$_BeatEntity implements _BeatEntity {
   @override
   final String description;
   @override
-  final String mp3;
+  final String mp3FileId;
   @override
-  final String? wav;
+  final String? wavFileId;
   @override
-  final String? zip;
+  final String? zipFileId;
   final List<String> _genres;
   @override
   List<String> get genres {
@@ -269,7 +269,7 @@ class _$_BeatEntity implements _BeatEntity {
 
   @override
   String toString() {
-    return 'BeatEntity(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'BeatEntity(beatId: $beatId, authorId: $authorId, cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension)';
   }
 
   @JsonKey(ignore: true)
@@ -286,9 +286,9 @@ abstract class _BeatEntity implements BeatEntity {
       required final String cover,
       required final String title,
       required final String description,
-      required final String mp3,
-      required final String? wav,
-      required final String? zip,
+      required final String mp3FileId,
+      required final String? wavFileId,
+      required final String? zipFileId,
       required final List<String> genres,
       required final int temp,
       required final String dimension}) = _$_BeatEntity;
@@ -304,11 +304,11 @@ abstract class _BeatEntity implements BeatEntity {
   @override
   String get description;
   @override
-  String get mp3;
+  String get mp3FileId;
   @override
-  String? get wav;
+  String? get wavFileId;
   @override
-  String? get zip;
+  String? get zipFileId;
   @override
   List<String> get genres;
   @override

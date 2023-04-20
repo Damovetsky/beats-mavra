@@ -68,8 +68,14 @@ class BeatCard extends StatelessWidget {
             child: Row(
               children: [
                 const _BeatFormat(title: 'MP3'),
-                if (beat.wav != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'WAV')],
-                if (beat.zip != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'ZIP')],
+                if (beat.wavFileId != null) ...const [
+                  SizedBox(width: 8),
+                  _BeatFormat(title: 'WAV')
+                ],
+                if (beat.zipFileId != null) ...const [
+                  SizedBox(width: 8),
+                  _BeatFormat(title: 'ZIP')
+                ],
                 const SizedBox(width: 8),
                 Expanded(
                   child: ShaderMask(
@@ -114,7 +120,8 @@ class BeatCard extends StatelessWidget {
               children: [
                 Pulse(
                   preferences: AnimationPreferences(
-                    duration: Duration(milliseconds: (60 * 1000 / beat.temp).round()),
+                    duration:
+                        Duration(milliseconds: (60 * 1000 / beat.temp).round()),
                     autoPlay: AnimationPlayStates.Loop,
                   ),
                   child: AppChip(

@@ -43,5 +43,7 @@
     "beats_sheet_dimensions_hint": "Set the main instrumental size",
     "beats_sheet_tempo_title": "Tempo",
     "beats_sheet_tempo_hint": "Set the main tempo of the instrumental in beats per minute",
-    "beats_sheet_create": "Create"
+    "beats_sheet_create": "Create",
+    "filter_sheet_title": "Filter",
+    "auto_tempo_hand": "Manual setting"
 }

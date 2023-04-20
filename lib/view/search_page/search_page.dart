@@ -5,6 +5,7 @@ import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/text_styles.dart';
+import '../filter_sheet/filter_sheet.dart';
 import '../widget/beat_card_list/beat_card_list.dart';
 import 'cubit/cubit.dart';
 
@@ -69,7 +70,9 @@ class _SearchSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           ),
           const SizedBox(width: 8),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              FilterSheet.show(context);
+            },
             icon: Icon(
               Icons.filter_alt_outlined,
               color: currentColorScheme(context).primary,

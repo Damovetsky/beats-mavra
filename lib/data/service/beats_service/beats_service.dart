@@ -9,12 +9,13 @@ import './exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
+import 'models/filter_beats_model.dart';
+
 abstract class BeatsService {
-  Future<List<BeatModel>> getBeats<T>({
-    String orderby = 'beatId',
+  Future<List<BeatModel>> getBeats({
     int limit = 25,
-    T? lastVisible,
-    List<String>? beatsIds,
+    String? lastVisibleTitle,
+    FilterBeatsModel filter = const FilterBeatsModel(),
   });
 
   Future<BeatModel> createBeat(BeatModel beatModel);
@@ -45,14 +46,16 @@ class BeatsServiceImpl implements BeatsService {
         .set(beatModel.toJson())
         .then((value) => getBeat(beatModel.beatId))
         .onError(
-          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) =>
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
   @override
   Future<void> deleteBeat(String beatId) async {
     return beatsCollection.doc(beatId).delete().then((value) => null).onError(
-          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) =>
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -62,35 +65,37 @@ class BeatsServiceImpl implements BeatsService {
         .doc(beatId)
         .get()
         .then(
-          (value) =>
-              value.exists ? BeatModel.fromJson(value.data()!) : throw exceptionFactory.generateException('not-found'),
+          (value) => value.exists
+              ? BeatModel.fromJson(value.data()!)
+              : throw exceptionFactory.generateException('not-found'),
         )
         .onError(
-          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) =>
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
   @override
-  Future<List<BeatModel>> getBeats<T>({
-    String orderby = 'beatId',
+  Future<List<BeatModel>> getBeats({
     int limit = 25,
-    T? lastVisible,
-    List<String>? beatsIds,
+    String? lastVisibleTitle,
+    FilterBeatsModel filter = const FilterBeatsModel(),
   }) async {
-    var cursor = beatsCollection.orderBy(orderby).limit(limit);
-    if (beatsIds != null) {
-      cursor = cursor.where('beatId', whereIn: beatsIds);
+    var cursor = beatsCollection.orderBy('title').limit(limit);
+    if (lastVisibleTitle != null) {
+      cursor = cursor.startAfter([lastVisibleTitle]);
     }
-    if (lastVisible != null) {
-      cursor = cursor.startAfter([lastVisible]);
-    }
+    cursor = _createQueryFromFilter(cursor, filter);
     return cursor
         .get()
         .then(
-          (snapshots) => snapshots.docs.map((element) => BeatModel.fromJson(element.data())).toList(growable: false),
+          (snapshots) => snapshots.docs
+              .map((element) => BeatModel.fromJson(element.data()))
+              .toList(growable: false),
         )
         .onError(
-          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) =>
+              throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -102,7 +107,8 @@ class BeatsServiceImpl implements BeatsService {
           .set(beatModel.toJson())
           .then((value) => getBeat(beatModel.beatId))
           .onError(
-            (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
+            (FirebaseException error, stackTrace) =>
+                throw exceptionFactory.generateException(error.code),
           ),
     );
   }
@@ -137,5 +143,24 @@ class BeatsServiceImpl implements BeatsService {
     } else {
       throw UnknownException();
     }
+  }
+
+  Query<Map<String, dynamic>> _createQueryFromFilter(Query<Map<String, dynamic>> cursor, FilterBeatsModel filter) {
+    if (filter.beatsIds != null) {
+      cursor = cursor.where('beatId', whereIn: filter.beatsIds);
+    }
+    if (filter.genres != null) {
+      cursor = cursor.where('genres', arrayContainsAny: filter.genres);
+    }
+    if (filter.tempStart != null) {
+      cursor = cursor.where('temp', isGreaterThanOrEqualTo: filter.tempStart);
+    }
+    if (filter.tempEnd != null) {
+      cursor = cursor.where('temp', isLessThanOrEqualTo: filter.tempEnd);
+    }
+    if (filter.dimension != null) {
+      cursor = cursor.where('dimension', isEqualTo: filter.dimension);
+    }
+    return cursor;
   }
 }
