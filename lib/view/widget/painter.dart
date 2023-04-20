@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class WaveWidget extends StatefulWidget {
   final List<double> graph;
   final double percentOfHeights;
-  const WaveWidget({Key? key, required this.graph, required this.percentOfHeights}) : super(key: key);
+  const WaveWidget(
+      {Key? key, required this.graph, required this.percentOfHeights})
+      : super(key: key);
 
   @override
   State<WaveWidget> createState() => _WaveWidgetState(graph, percentOfHeights);
@@ -15,17 +17,18 @@ class _WaveWidgetState extends State<WaveWidget> {
   late final List<double> graph;
   late final double percentOfHeights;
 
-
   _WaveWidgetState(this.graph, this.percentOfHeights);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: AmplitudePainter(amplitudeData: graph, percentOfDurability: percentOfHeights),
+      painter: AmplitudePainter(
+        amplitudeData: graph,
+        percentOfDurability: percentOfHeights,
+      ),
     );
   }
 }
-
 
 class AmplitudePainter extends CustomPainter {
   final List<double> amplitudeData;
@@ -39,10 +42,9 @@ class AmplitudePainter extends CustomPainter {
     required this.percentOfDurability,
     required this.amplitudeData,
     this.barWidth = 2,
-    this.barSpacing = 1,
-    this.maxHeight = 100,
+    this.barSpacing = 1.2,
+    this.maxHeight = 50,
   });
-
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -61,9 +63,11 @@ class AmplitudePainter extends CustomPainter {
         startY + barHeight,
       );
       canvas.drawRect(
-          rect,
-          Paint()
-            ..color = ((i/barCount).toDouble() <= percentOfDurability) ? Colors.blue : Colors.blue[300]!,
+        rect,
+        Paint()
+          ..color = ((i / barCount).toDouble() <= percentOfDurability)
+              ? Colors.blue
+              : Colors.blue[300]!,
       );
     }
   }

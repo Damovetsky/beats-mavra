@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => HomePageState();
 }
+
 class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
@@ -47,7 +48,6 @@ class HomePageState extends State<HomePage> {
         ),
         bottomSheet: PlayerBottomSheet(
           bottomSheetController,
-          key: UniqueKey(),
         ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {

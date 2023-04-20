@@ -4,23 +4,27 @@ import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/text_styles.dart';
+import '../widget/painter.dart';
 
 class PlayerBottomSheet extends StatelessWidget {
-  const PlayerBottomSheet(this._controller, {super.key});
+  const PlayerBottomSheet(this.controller, {super.key});
 
-  final SolidController _controller;
+  final SolidController controller;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SolidBottomSheet(
       // toggleVisibilityOnTap: true,
-      showOnAppear: _controller.isOpened,
-      controller: _controller,
+      showOnAppear: controller.isOpened,
+      controller: controller,
       draggableBody: true,
-      smoothness: Smoothness.high,
-      headerBar: _HeaderBar(),
-      body: MusicPlayer(
+      smoothness: Smoothness.medium,
+      headerBar: _HeaderBar(
+        size: size,
+        controller: controller,
+      ),
+      body: _MusicPlayer(
         size: size,
         key: const ValueKey('player'),
       ),
@@ -29,8 +33,8 @@ class PlayerBottomSheet extends StatelessWidget {
   }
 }
 
-class MusicPlayer extends StatelessWidget {
-  const MusicPlayer({
+class _MusicPlayer extends StatelessWidget {
+  const _MusicPlayer({
     required this.size,
     super.key,
   });
@@ -41,9 +45,10 @@ class MusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
-      child: SizedBox(
+      child: Container(
         height: size.height,
         width: size.width,
+        color: currentColorScheme(context).surfaceVariant,
         child: Padding(
           padding:
               const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
@@ -67,10 +72,114 @@ class MusicPlayer extends StatelessWidget {
                 style: currentTextTheme(context).bodyLarge,
               ),
               const SizedBox(height: 10),
+              //TODO:
               Container(
                 height: size.height * 0.1,
                 width: size.width,
-                color: Colors.grey,
+                child: WaveWidget(graph: [
+                  0.466,
+                  0.284,
+                  0.569,
+                  0.529,
+                  0.768,
+                  0.763,
+                  0.765,
+                  0.905,
+                  0.152,
+                  0.954,
+                  0.187,
+                  0.215,
+                  0.429,
+                  0.694,
+                  0.324,
+                  0.689,
+                  0.603,
+                  0.522,
+                  0.750,
+                  0.658,
+                  0.874,
+                  0.438,
+                  0.029,
+                  0.695,
+                  0.645,
+                  0.077,
+                  0.797,
+                  0.417,
+                  0.992,
+                  0.881,
+                  0.638,
+                  0.181,
+                  0.803,
+                  0.272,
+                  0.192,
+                  0.975,
+                  0.357,
+                  0.788,
+                  0.678,
+                  0.131,
+                  0.102,
+                  0.910,
+                  0.547,
+                  0.109,
+                  0.602,
+                  0.141,
+                  0.712,
+                  0.196,
+                  0.839,
+                  0.867,
+                  0.438,
+                  0.208,
+                  0.711,
+                  0.145,
+                  0.905,
+                  0.765,
+                  0.295,
+                  0.518,
+                  0.529,
+                  0.994,
+                  0.076,
+                  0.570,
+                  0.139,
+                  0.919,
+                  0.368,
+                  0.845,
+                  0.974,
+                  0.172,
+                  0.216,
+                  0.048,
+                  0.052,
+                  0.036,
+                  0.398,
+                  0.712,
+                  0.861,
+                  0.981,
+                  0.497,
+                  0.341,
+                  0.459,
+                  0.120,
+                  0.150,
+                  0.580,
+                  0.320,
+                  0.750,
+                  0.878,
+                  0.080,
+                  0.058,
+                  0.952,
+                  0.464,
+                  0.441,
+                  0.778,
+                  0.198,
+                  0.738,
+                  0.841,
+                  0.245,
+                  0.774,
+                  0.657,
+                  0.567,
+                  0.684,
+                  0.515,
+                  0.553,
+                  0.423
+                ], percentOfHeights: 0.4),
               ),
               Padding(
                 padding:
@@ -127,53 +236,71 @@ class MusicPlayer extends StatelessWidget {
 }
 
 class _HeaderBar extends StatelessWidget {
-  _HeaderBar();
+  _HeaderBar({
+    required this.size,
+    required this.controller,
+  });
 
   bool isShown = true;
+  final SolidController controller;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return isShown
         ? Column(
             children: [
-              //TODO: timmeline
+              //TODO: timeline
               Container(
                 height: 5,
                 color: Colors.grey,
               ),
-              ListTile(
-                visualDensity: VisualDensity.compact,
-                leading: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 6),
-                  child: GestureDetector(
-                    child: const Icon(
-                      Icons.favorite_outline,
-                      size: 40,
-                    ),
-                    onTap: () {
-                      //Favourite button
-                    },
+              Container(
+                height: size.height * 0.06,
+                width: size.width,
+                color: currentColorScheme(context).surfaceVariant,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.favorite_border_rounded,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          //Favourite button
+                        },
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Beat title',
+                            textAlign: TextAlign.center,
+                            style: currentTextTheme(context).bodyLarge,
+                          ),
+                          Text(
+                            'Author',
+                            textAlign: TextAlign.center,
+                            style: currentTextTheme(context).bodyMedium,
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          //Favourite button
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                title: const Text(
-                  'Beat title',
-                  textAlign: TextAlign.center,
-                ),
-                subtitle: const Text(
-                  'Author',
-                  textAlign: TextAlign.center,
-                ),
-                trailing: GestureDetector(
-                  child: const Icon(
-                    Icons.play_arrow_rounded,
-                    size: 55,
-                  ),
-                  onTap: () {
-                    //Play button
-                  },
-                ),
-                tileColor: currentColorScheme(context).surfaceVariant,
-              ),
+              )
             ],
           )
         : SizedBox.shrink();
