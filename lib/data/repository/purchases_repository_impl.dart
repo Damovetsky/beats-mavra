@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/error/exception.dart';
@@ -17,6 +18,7 @@ import '../service/purchases_service/models/purchase_model.dart';
 import '../service/purchases_service/purchases_service.dart';
 import '../service/users_service/users_service.dart';
 
+@LazySingleton(as: PurchasesRepository)
 class PurchasesRepositoryImpl implements PurchasesRepository {
   BeatsService beatsService;
   UserService usersService;
