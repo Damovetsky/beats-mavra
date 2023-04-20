@@ -8,6 +8,7 @@ import '../../core/error/exception.dart';
 import '../../core/error/failure.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 import '../../domain/beats/entity/create_beat_entity.dart';
+import '../../domain/beats/entity/filter_beats_entity.dart';
 import '../../domain/beats/entity/update_beat_entity.dart';
 import '../../domain/beats/repository/beats_repository.dart';
 
@@ -31,15 +32,13 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Stream<Either<Failure, List<BeatEntity>>> get(
     StreamController<BeatEntity?> lastEntityStream, {
     int limit = 25,
-    List<String>? beatsIds,
+    FilterBeatsEntity filterBeatsEntity = const FilterBeatsEntity(),
   }) {
     return lastEntityStream.stream.asyncMap((last) async {
       try {
         final beats = (await beatsService.getBeats(
-          orderby: 'title',
-          lastVisible: last?.beatId,
+          lastVisibleTitle: last?.title,
           limit: limit,
-          beatsIds: beatsIds,
         ));
         return Right(
           beats.map(beatEntityConverter.convert).toList(),

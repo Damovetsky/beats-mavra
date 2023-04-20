@@ -19,9 +19,9 @@ mixin _$UpdateBeatEntity {
   String get cover => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get mp3 => throw _privateConstructorUsedError;
-  String? get wav => throw _privateConstructorUsedError;
-  String? get zip => throw _privateConstructorUsedError;
+  String get mp3FileId => throw _privateConstructorUsedError;
+  String? get wavFileId => throw _privateConstructorUsedError;
+  String? get zipFileId => throw _privateConstructorUsedError;
   List<String> get genres => throw _privateConstructorUsedError;
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
@@ -41,9 +41,9 @@ abstract class $UpdateBeatEntityCopyWith<$Res> {
       {String cover,
       String title,
       String description,
-      String mp3,
-      String? wav,
-      String? zip,
+      String mp3FileId,
+      String? wavFileId,
+      String? zipFileId,
       List<String> genres,
       int temp,
       String dimension});
@@ -65,9 +65,9 @@ class _$UpdateBeatEntityCopyWithImpl<$Res, $Val extends UpdateBeatEntity>
     Object? cover = null,
     Object? title = null,
     Object? description = null,
-    Object? mp3 = null,
-    Object? wav = freezed,
-    Object? zip = freezed,
+    Object? mp3FileId = null,
+    Object? wavFileId = freezed,
+    Object? zipFileId = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
@@ -85,17 +85,17 @@ class _$UpdateBeatEntityCopyWithImpl<$Res, $Val extends UpdateBeatEntity>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      mp3: null == mp3
-          ? _value.mp3
-          : mp3 // ignore: cast_nullable_to_non_nullable
+      mp3FileId: null == mp3FileId
+          ? _value.mp3FileId
+          : mp3FileId // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: freezed == wav
-          ? _value.wav
-          : wav // ignore: cast_nullable_to_non_nullable
+      wavFileId: freezed == wavFileId
+          ? _value.wavFileId
+          : wavFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
+      zipFileId: freezed == zipFileId
+          ? _value.zipFileId
+          : zipFileId // ignore: cast_nullable_to_non_nullable
               as String?,
       genres: null == genres
           ? _value.genres
@@ -125,9 +125,9 @@ abstract class _$$_UpdateBeatEntityCopyWith<$Res>
       {String cover,
       String title,
       String description,
-      String mp3,
-      String? wav,
-      String? zip,
+      String mp3FileId,
+      String? wavFileId,
+      String? zipFileId,
       List<String> genres,
       int temp,
       String dimension});
@@ -147,9 +147,9 @@ class __$$_UpdateBeatEntityCopyWithImpl<$Res>
     Object? cover = null,
     Object? title = null,
     Object? description = null,
-    Object? mp3 = null,
-    Object? wav = freezed,
-    Object? zip = freezed,
+    Object? mp3FileId = null,
+    Object? wavFileId = freezed,
+    Object? zipFileId = freezed,
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
@@ -167,17 +167,17 @@ class __$$_UpdateBeatEntityCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      mp3: null == mp3
-          ? _value.mp3
-          : mp3 // ignore: cast_nullable_to_non_nullable
+      mp3FileId: null == mp3FileId
+          ? _value.mp3FileId
+          : mp3FileId // ignore: cast_nullable_to_non_nullable
               as String,
-      wav: freezed == wav
-          ? _value.wav
-          : wav // ignore: cast_nullable_to_non_nullable
+      wavFileId: freezed == wavFileId
+          ? _value.wavFileId
+          : wavFileId // ignore: cast_nullable_to_non_nullable
               as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
+      zipFileId: freezed == zipFileId
+          ? _value.zipFileId
+          : zipFileId // ignore: cast_nullable_to_non_nullable
               as String?,
       genres: null == genres
           ? _value._genres
@@ -202,9 +202,9 @@ class _$_UpdateBeatEntity implements _UpdateBeatEntity {
       {required this.cover,
       required this.title,
       required this.description,
-      required this.mp3,
-      required this.wav,
-      required this.zip,
+      required this.mp3FileId,
+      required this.wavFileId,
+      required this.zipFileId,
       required final List<String> genres,
       required this.temp,
       required this.dimension})
@@ -217,11 +217,11 @@ class _$_UpdateBeatEntity implements _UpdateBeatEntity {
   @override
   final String description;
   @override
-  final String mp3;
+  final String mp3FileId;
   @override
-  final String? wav;
+  final String? wavFileId;
   @override
-  final String? zip;
+  final String? zipFileId;
   final List<String> _genres;
   @override
   List<String> get genres {
@@ -237,7 +237,7 @@ class _$_UpdateBeatEntity implements _UpdateBeatEntity {
 
   @override
   String toString() {
-    return 'UpdateBeatEntity(cover: $cover, title: $title, description: $description, mp3: $mp3, wav: $wav, zip: $zip, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'UpdateBeatEntity(cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension)';
   }
 
   @override
@@ -249,9 +249,12 @@ class _$_UpdateBeatEntity implements _UpdateBeatEntity {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.mp3, mp3) || other.mp3 == mp3) &&
-            (identical(other.wav, wav) || other.wav == wav) &&
-            (identical(other.zip, zip) || other.zip == zip) &&
+            (identical(other.mp3FileId, mp3FileId) ||
+                other.mp3FileId == mp3FileId) &&
+            (identical(other.wavFileId, wavFileId) ||
+                other.wavFileId == wavFileId) &&
+            (identical(other.zipFileId, zipFileId) ||
+                other.zipFileId == zipFileId) &&
             const DeepCollectionEquality().equals(other._genres, _genres) &&
             (identical(other.temp, temp) || other.temp == temp) &&
             (identical(other.dimension, dimension) ||
@@ -259,8 +262,17 @@ class _$_UpdateBeatEntity implements _UpdateBeatEntity {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, cover, title, description, mp3,
-      wav, zip, const DeepCollectionEquality().hash(_genres), temp, dimension);
+  int get hashCode => Object.hash(
+      runtimeType,
+      cover,
+      title,
+      description,
+      mp3FileId,
+      wavFileId,
+      zipFileId,
+      const DeepCollectionEquality().hash(_genres),
+      temp,
+      dimension);
 
   @JsonKey(ignore: true)
   @override
@@ -274,9 +286,9 @@ abstract class _UpdateBeatEntity implements UpdateBeatEntity {
       {required final String cover,
       required final String title,
       required final String description,
-      required final String mp3,
-      required final String? wav,
-      required final String? zip,
+      required final String mp3FileId,
+      required final String? wavFileId,
+      required final String? zipFileId,
       required final List<String> genres,
       required final int temp,
       required final String dimension}) = _$_UpdateBeatEntity;
@@ -288,11 +300,11 @@ abstract class _UpdateBeatEntity implements UpdateBeatEntity {
   @override
   String get description;
   @override
-  String get mp3;
+  String get mp3FileId;
   @override
-  String? get wav;
+  String? get wavFileId;
   @override
-  String? get zip;
+  String? get zipFileId;
   @override
   List<String> get genres;
   @override
