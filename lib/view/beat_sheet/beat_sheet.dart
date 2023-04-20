@@ -19,10 +19,10 @@ import 'widget/beat_files.dart';
 import 'widget/genres_text_field.dart';
 
 class BeatSheet extends StatefulWidget {
-  final String beatId;
+  final String? beatId;
   const BeatSheet({super.key, required this.beatId});
 
-  static Future<void> show(BuildContext context, String beatId) {
+  static Future<void> show(BuildContext context, String? beatId) {
     return BottomSheetHelper.show(
       context,
       (context, padding) => BeatSheet(beatId: beatId),
@@ -49,13 +49,16 @@ class _BeatSheetState extends State<BeatSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<BeatSheetCubit>(),
+      create: (context)  =>  getIt.get<BeatSheetCubit>()..loadBeat(widget.beatId),
       child: BlocListener<BeatSheetCubit, BeatSheetState>(
         listener: (context, state) {
           state.mapOrNull(
             beat: (value) {
               if(value.beat != null) {
+                setState(() {
                 currentBeatToChange = value.beat;
+                
+                });
               }
             },
             loading: (value) {
@@ -91,7 +94,7 @@ class _BeatSheetState extends State<BeatSheet> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      currentBeatToChange == null ? 'beat_sheet_add_title'.tr() : currentBeatToChange!.title,
+                      widget.beatId == null ? 'beat_sheet_add_title'.tr() : 'beat_sheet_edit_title'.tr(),
                       style: currentTextTheme(context).titleLarge?.copyWith(
                             color: currentColorScheme(context).primary,
                           ),
