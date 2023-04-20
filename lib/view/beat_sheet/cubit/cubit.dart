@@ -15,13 +15,17 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
 
   BeatSheetCubit(this.beatsRepository) : super(const BeatSheetState.loading());
 
-  Future<void> loadBeat(String beatId) async {
+  Future<void> loadBeat(String? beatId) async {
     emit(const BeatSheetState.loading());
-    final beat = await beatsRepository.getBeat(beatId);
-    emit(beat.fold(
-          (failure) => const BeatSheetState.failure('not-found'),
-          (beats) => BeatSheetState.beat(beats),
-    ),
-    );
+    if (beatId != null) {
+      final beat = await beatsRepository.getBeat(beatId);
+      emit(beat.fold(
+            (failure) => const BeatSheetState.failure('not-found'),
+            (beats) => BeatSheetState.beat(beats),
+      ),);
+    }
+    else {
+      emit(const BeatSheetState.beat(null));
+    }
   }
 }

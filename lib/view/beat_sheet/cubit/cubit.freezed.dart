@@ -19,7 +19,7 @@ mixin _$BeatSheetState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(BeatEntity beat) beat,
+    required TResult Function(BeatEntity? beat) beat,
     required TResult Function() applyLoading,
     required TResult Function(String message) failure,
   }) =>
@@ -27,7 +27,7 @@ mixin _$BeatSheetState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(BeatEntity beat)? beat,
+    TResult? Function(BeatEntity? beat)? beat,
     TResult? Function()? applyLoading,
     TResult? Function(String message)? failure,
   }) =>
@@ -35,7 +35,7 @@ mixin _$BeatSheetState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(BeatEntity beat)? beat,
+    TResult Function(BeatEntity? beat)? beat,
     TResult Function()? applyLoading,
     TResult Function(String message)? failure,
     required TResult orElse(),
@@ -125,7 +125,7 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(BeatEntity beat) beat,
+    required TResult Function(BeatEntity? beat) beat,
     required TResult Function() applyLoading,
     required TResult Function(String message) failure,
   }) {
@@ -136,7 +136,7 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(BeatEntity beat)? beat,
+    TResult? Function(BeatEntity? beat)? beat,
     TResult? Function()? applyLoading,
     TResult? Function(String message)? failure,
   }) {
@@ -147,7 +147,7 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(BeatEntity beat)? beat,
+    TResult Function(BeatEntity? beat)? beat,
     TResult Function()? applyLoading,
     TResult Function(String message)? failure,
     required TResult orElse(),
@@ -206,9 +206,9 @@ abstract class _$$_BeatSheetStateCopyWith<$Res> {
           _$_BeatSheetState value, $Res Function(_$_BeatSheetState) then) =
       __$$_BeatSheetStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({BeatEntity beat});
+  $Res call({BeatEntity? beat});
 
-  $BeatEntityCopyWith<$Res> get beat;
+  $BeatEntityCopyWith<$Res>? get beat;
 }
 
 /// @nodoc
@@ -222,20 +222,24 @@ class __$$_BeatSheetStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? beat = null,
+    Object? beat = freezed,
   }) {
     return _then(_$_BeatSheetState(
-      null == beat
+      freezed == beat
           ? _value.beat
           : beat // ignore: cast_nullable_to_non_nullable
-              as BeatEntity,
+              as BeatEntity?,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BeatEntityCopyWith<$Res> get beat {
-    return $BeatEntityCopyWith<$Res>(_value.beat, (value) {
+  $BeatEntityCopyWith<$Res>? get beat {
+    if (_value.beat == null) {
+      return null;
+    }
+
+    return $BeatEntityCopyWith<$Res>(_value.beat!, (value) {
       return _then(_value.copyWith(beat: value));
     });
   }
@@ -247,7 +251,7 @@ class _$_BeatSheetState implements _BeatSheetState {
   const _$_BeatSheetState(this.beat);
 
   @override
-  final BeatEntity beat;
+  final BeatEntity? beat;
 
   @override
   String toString() {
@@ -275,7 +279,7 @@ class _$_BeatSheetState implements _BeatSheetState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(BeatEntity beat) beat,
+    required TResult Function(BeatEntity? beat) beat,
     required TResult Function() applyLoading,
     required TResult Function(String message) failure,
   }) {
@@ -286,7 +290,7 @@ class _$_BeatSheetState implements _BeatSheetState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(BeatEntity beat)? beat,
+    TResult? Function(BeatEntity? beat)? beat,
     TResult? Function()? applyLoading,
     TResult? Function(String message)? failure,
   }) {
@@ -297,7 +301,7 @@ class _$_BeatSheetState implements _BeatSheetState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(BeatEntity beat)? beat,
+    TResult Function(BeatEntity? beat)? beat,
     TResult Function()? applyLoading,
     TResult Function(String message)? failure,
     required TResult orElse(),
@@ -347,9 +351,9 @@ class _$_BeatSheetState implements _BeatSheetState {
 }
 
 abstract class _BeatSheetState implements BeatSheetState {
-  const factory _BeatSheetState(final BeatEntity beat) = _$_BeatSheetState;
+  const factory _BeatSheetState(final BeatEntity? beat) = _$_BeatSheetState;
 
-  BeatEntity get beat;
+  BeatEntity? get beat;
   @JsonKey(ignore: true)
   _$$_BeatSheetStateCopyWith<_$_BeatSheetState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -397,7 +401,7 @@ class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(BeatEntity beat) beat,
+    required TResult Function(BeatEntity? beat) beat,
     required TResult Function() applyLoading,
     required TResult Function(String message) failure,
   }) {
@@ -408,7 +412,7 @@ class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(BeatEntity beat)? beat,
+    TResult? Function(BeatEntity? beat)? beat,
     TResult? Function()? applyLoading,
     TResult? Function(String message)? failure,
   }) {
@@ -419,7 +423,7 @@ class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(BeatEntity beat)? beat,
+    TResult Function(BeatEntity? beat)? beat,
     TResult Function()? applyLoading,
     TResult Function(String message)? failure,
     required TResult orElse(),
@@ -538,7 +542,7 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(BeatEntity beat) beat,
+    required TResult Function(BeatEntity? beat) beat,
     required TResult Function() applyLoading,
     required TResult Function(String message) failure,
   }) {
@@ -549,7 +553,7 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(BeatEntity beat)? beat,
+    TResult? Function(BeatEntity? beat)? beat,
     TResult? Function()? applyLoading,
     TResult? Function(String message)? failure,
   }) {
@@ -560,7 +564,7 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(BeatEntity beat)? beat,
+    TResult Function(BeatEntity? beat)? beat,
     TResult Function()? applyLoading,
     TResult Function(String message)? failure,
     required TResult orElse(),
