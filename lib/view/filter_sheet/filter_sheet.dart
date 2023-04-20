@@ -92,6 +92,14 @@ class _FilterSheetState extends State<FilterSheet> {
                     });
                   },
                 ),
+                const SizedBox(height: 32),
+                FilledButton(
+                  onPressed: () {},
+                  child: const Center(
+                    child: Text('Применить'),
+                  ),
+                ),
+                const SizedBox(height: screenBottomScrollPadding * 2),
               ],
             ),
           ),
