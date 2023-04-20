@@ -68,11 +68,11 @@ class BeatCard extends StatelessWidget {
             child: Row(
               children: [
                 const _BeatFormat(title: 'MP3'),
-                if (beat.wavFile != null) ...const [
+                if (beat.wavFileId != null) ...const [
                   SizedBox(width: 8),
                   _BeatFormat(title: 'WAV')
                 ],
-                if (beat.zipFile != null) ...const [
+                if (beat.zipFileId != null) ...const [
                   SizedBox(width: 8),
                   _BeatFormat(title: 'ZIP')
                 ],
