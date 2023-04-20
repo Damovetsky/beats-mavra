@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -7,6 +8,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../../domain/beats/entity/beat_entity.dart';
 import '../../../../domain/beats/entity/filter_beats_entity.dart';
+import '../../../../domain/beats/entity/playable_beat_entity.dart';
 import '../../../../domain/beats/repository/beats_repository.dart';
 
 part 'cubit.freezed.dart';
@@ -45,7 +47,8 @@ class BeatCardListCubit extends Cubit<BeatCardListState> {
     )
         .map((event) {
       return event.fold(
-        (failure) => const BeatCardListState.failure(),
+        (failure) =>
+            BeatCardListState.failure(title: 'unknown_error_title'.tr(), message: 'unknown_error_message'.tr()),
         (beats) => BeatCardListState.beats(beats: beats),
       );
     }).listen(emit);

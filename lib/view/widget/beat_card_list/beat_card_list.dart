@@ -45,7 +45,10 @@ class BeatCardList extends StatefulWidget {
 
 class _BeatCardListState extends State<BeatCardList> {
   final cubit = getIt.get<BeatCardListCubit>();
+
   final _beatsController = PagingController<int, BeatEntity>(firstPageKey: 0);
+
+  String? currentPlayableBeatId;
 
   @override
   void initState() {
@@ -81,12 +84,18 @@ class _BeatCardListState extends State<BeatCardList> {
                 );
               }
             },
+            playableBeat: (value) {
+              currentPlayableBeatId = value.beatId;
+            },
+            stop: (value) {
+              currentPlayableBeatId = null;
+            },
             failure: (value) {
               unawaited(
                 showSnackbar(
                   context,
-                  title: 'О БОЖЕ!',
-                  message: 'Беда беда ошибка()',
+                  title: value.title,
+                  message: value.message,
                   position: FlushbarPosition.TOP,
                 ),
               );
@@ -136,12 +145,7 @@ class _BeatCardListState extends State<BeatCardList> {
                   builder: (context, state) {
                     return BeatCard(
                       beat: beat,
-                      playing: state.mapOrNull(
-                            playableBeat: (value) =>
-                                value.beatId == beat.beatId && value.status != BeatPlayingStatus.paused,
-                            stop: (value) => false,
-                          ) ??
-                          false,
+                      playing: currentPlayableBeatId == beat.beatId,
                     );
                   },
                 ),

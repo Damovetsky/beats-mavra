@@ -13,5 +13,8 @@ class BeatCardListState with _$BeatCardListState {
 
   const factory BeatCardListState.stop() = _BeatPlayableBeatStopState;
 
-  const factory BeatCardListState.failure() = _FailureBeatCardListState;
+  const factory BeatCardListState.failure({
+    required String title,
+    required String message,
+  }) = _BeatCardListFailureState;
 }

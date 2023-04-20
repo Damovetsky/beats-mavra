@@ -23,7 +23,7 @@ mixin _$BeatCardListState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,7 +32,7 @@ mixin _$BeatCardListState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,7 +41,7 @@ mixin _$BeatCardListState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ mixin _$BeatCardListState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,7 +60,7 @@ mixin _$BeatCardListState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,7 +69,7 @@ mixin _$BeatCardListState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -138,7 +138,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) {
     return loading();
   }
@@ -150,7 +150,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) {
     return loading?.call();
   }
@@ -162,7 +162,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -178,7 +178,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) {
     return loading(this);
   }
@@ -190,7 +190,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) {
     return loading?.call(this);
   }
@@ -202,7 +202,7 @@ class _$_BeatCardListLoadingState implements _BeatCardListLoadingState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -293,7 +293,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) {
     return beats(this.beats);
   }
@@ -305,7 +305,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) {
     return beats?.call(this.beats);
   }
@@ -317,7 +317,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (beats != null) {
@@ -333,7 +333,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) {
     return beats(this);
   }
@@ -345,7 +345,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) {
     return beats?.call(this);
   }
@@ -357,7 +357,7 @@ class _$_BeatCardListState implements _BeatCardListState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) {
     if (beats != null) {
@@ -455,7 +455,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) {
     return playableBeat(beatId, status);
   }
@@ -467,7 +467,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) {
     return playableBeat?.call(beatId, status);
   }
@@ -479,7 +479,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (playableBeat != null) {
@@ -495,7 +495,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) {
     return playableBeat(this);
   }
@@ -507,7 +507,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) {
     return playableBeat?.call(this);
   }
@@ -519,7 +519,7 @@ class _$_BeatPlayableBeatState implements _BeatPlayableBeatState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) {
     if (playableBeat != null) {
@@ -587,7 +587,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) {
     return stop();
   }
@@ -599,7 +599,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) {
     return stop?.call();
   }
@@ -611,7 +611,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -627,7 +627,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) {
     return stop(this);
   }
@@ -639,7 +639,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) {
     return stop?.call(this);
   }
@@ -651,7 +651,7 @@ class _$_BeatPlayableBeatStopState implements _BeatPlayableBeatStopState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -666,41 +666,76 @@ abstract class _BeatPlayableBeatStopState implements BeatCardListState {
 }
 
 /// @nodoc
-abstract class _$$_FailureBeatCardListStateCopyWith<$Res> {
-  factory _$$_FailureBeatCardListStateCopyWith(
-          _$_FailureBeatCardListState value,
-          $Res Function(_$_FailureBeatCardListState) then) =
-      __$$_FailureBeatCardListStateCopyWithImpl<$Res>;
+abstract class _$$_BeatCardListFailureStateCopyWith<$Res> {
+  factory _$$_BeatCardListFailureStateCopyWith(
+          _$_BeatCardListFailureState value,
+          $Res Function(_$_BeatCardListFailureState) then) =
+      __$$_BeatCardListFailureStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String title, String message});
 }
 
 /// @nodoc
-class __$$_FailureBeatCardListStateCopyWithImpl<$Res>
-    extends _$BeatCardListStateCopyWithImpl<$Res, _$_FailureBeatCardListState>
-    implements _$$_FailureBeatCardListStateCopyWith<$Res> {
-  __$$_FailureBeatCardListStateCopyWithImpl(_$_FailureBeatCardListState _value,
-      $Res Function(_$_FailureBeatCardListState) _then)
+class __$$_BeatCardListFailureStateCopyWithImpl<$Res>
+    extends _$BeatCardListStateCopyWithImpl<$Res, _$_BeatCardListFailureState>
+    implements _$$_BeatCardListFailureStateCopyWith<$Res> {
+  __$$_BeatCardListFailureStateCopyWithImpl(_$_BeatCardListFailureState _value,
+      $Res Function(_$_BeatCardListFailureState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? message = null,
+  }) {
+    return _then(_$_BeatCardListFailureState(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_FailureBeatCardListState implements _FailureBeatCardListState {
-  const _$_FailureBeatCardListState();
+class _$_BeatCardListFailureState implements _BeatCardListFailureState {
+  const _$_BeatCardListFailureState(
+      {required this.title, required this.message});
+
+  @override
+  final String title;
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'BeatCardListState.failure()';
+    return 'BeatCardListState.failure(title: $title, message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FailureBeatCardListState);
+            other is _$_BeatCardListFailureState &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, title, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_BeatCardListFailureStateCopyWith<_$_BeatCardListFailureState>
+      get copyWith => __$$_BeatCardListFailureStateCopyWithImpl<
+          _$_BeatCardListFailureState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -710,9 +745,9 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     required TResult Function(String beatId, BeatPlayingStatus status)
         playableBeat,
     required TResult Function() stop,
-    required TResult Function() failure,
+    required TResult Function(String title, String message) failure,
   }) {
-    return failure();
+    return failure(title, message);
   }
 
   @override
@@ -722,9 +757,9 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     TResult? Function(List<BeatEntity> beats)? beats,
     TResult? Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult? Function()? stop,
-    TResult? Function()? failure,
+    TResult? Function(String title, String message)? failure,
   }) {
-    return failure?.call();
+    return failure?.call(title, message);
   }
 
   @override
@@ -734,11 +769,11 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     TResult Function(List<BeatEntity> beats)? beats,
     TResult Function(String beatId, BeatPlayingStatus status)? playableBeat,
     TResult Function()? stop,
-    TResult Function()? failure,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure();
+      return failure(title, message);
     }
     return orElse();
   }
@@ -750,7 +785,7 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     required TResult Function(_BeatCardListState value) beats,
     required TResult Function(_BeatPlayableBeatState value) playableBeat,
     required TResult Function(_BeatPlayableBeatStopState value) stop,
-    required TResult Function(_FailureBeatCardListState value) failure,
+    required TResult Function(_BeatCardListFailureState value) failure,
   }) {
     return failure(this);
   }
@@ -762,7 +797,7 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     TResult? Function(_BeatCardListState value)? beats,
     TResult? Function(_BeatPlayableBeatState value)? playableBeat,
     TResult? Function(_BeatPlayableBeatStopState value)? stop,
-    TResult? Function(_FailureBeatCardListState value)? failure,
+    TResult? Function(_BeatCardListFailureState value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -774,7 +809,7 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
     TResult Function(_BeatCardListState value)? beats,
     TResult Function(_BeatPlayableBeatState value)? playableBeat,
     TResult Function(_BeatPlayableBeatStopState value)? stop,
-    TResult Function(_FailureBeatCardListState value)? failure,
+    TResult Function(_BeatCardListFailureState value)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -784,6 +819,14 @@ class _$_FailureBeatCardListState implements _FailureBeatCardListState {
   }
 }
 
-abstract class _FailureBeatCardListState implements BeatCardListState {
-  const factory _FailureBeatCardListState() = _$_FailureBeatCardListState;
+abstract class _BeatCardListFailureState implements BeatCardListState {
+  const factory _BeatCardListFailureState(
+      {required final String title,
+      required final String message}) = _$_BeatCardListFailureState;
+
+  String get title;
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_BeatCardListFailureStateCopyWith<_$_BeatCardListFailureState>
+      get copyWith => throw _privateConstructorUsedError;
 }
