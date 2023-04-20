@@ -90,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   failure: (value) async {
                     showSnackbar(
                       context,
-                      title: 'profile_unknown_error_title'.tr(),
-                      message: 'profile_unknown_error_message'.tr(),
+                      title: 'unknown_error_title'.tr(),
+                      message: 'unknown_error_message'.tr(),
                       position: FlushbarPosition.TOP,
                     );
                   },
