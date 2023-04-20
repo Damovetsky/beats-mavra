@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FilterBeatsEntity {
   List<String>? get beatIds => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
-  int? get temp => throw _privateConstructorUsedError;
+  int? get tempStart => throw _privateConstructorUsedError;
+  int? get tempEnd => throw _privateConstructorUsedError;
   String? get dimension => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,7 +36,8 @@ abstract class $FilterBeatsEntityCopyWith<$Res> {
   $Res call(
       {List<String>? beatIds,
       List<String>? genres,
-      int? temp,
+      int? tempStart,
+      int? tempEnd,
       String? dimension});
 }
 
@@ -54,7 +56,8 @@ class _$FilterBeatsEntityCopyWithImpl<$Res, $Val extends FilterBeatsEntity>
   $Res call({
     Object? beatIds = freezed,
     Object? genres = freezed,
-    Object? temp = freezed,
+    Object? tempStart = freezed,
+    Object? tempEnd = freezed,
     Object? dimension = freezed,
   }) {
     return _then(_value.copyWith(
@@ -66,9 +69,13 @@ class _$FilterBeatsEntityCopyWithImpl<$Res, $Val extends FilterBeatsEntity>
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      temp: freezed == temp
-          ? _value.temp
-          : temp // ignore: cast_nullable_to_non_nullable
+      tempStart: freezed == tempStart
+          ? _value.tempStart
+          : tempStart // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tempEnd: freezed == tempEnd
+          ? _value.tempEnd
+          : tempEnd // ignore: cast_nullable_to_non_nullable
               as int?,
       dimension: freezed == dimension
           ? _value.dimension
@@ -89,7 +96,8 @@ abstract class _$$_FilterBeatsEntityCopyWith<$Res>
   $Res call(
       {List<String>? beatIds,
       List<String>? genres,
-      int? temp,
+      int? tempStart,
+      int? tempEnd,
       String? dimension});
 }
 
@@ -106,7 +114,8 @@ class __$$_FilterBeatsEntityCopyWithImpl<$Res>
   $Res call({
     Object? beatIds = freezed,
     Object? genres = freezed,
-    Object? temp = freezed,
+    Object? tempStart = freezed,
+    Object? tempEnd = freezed,
     Object? dimension = freezed,
   }) {
     return _then(_$_FilterBeatsEntity(
@@ -118,9 +127,13 @@ class __$$_FilterBeatsEntityCopyWithImpl<$Res>
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      temp: freezed == temp
-          ? _value.temp
-          : temp // ignore: cast_nullable_to_non_nullable
+      tempStart: freezed == tempStart
+          ? _value.tempStart
+          : tempStart // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tempEnd: freezed == tempEnd
+          ? _value.tempEnd
+          : tempEnd // ignore: cast_nullable_to_non_nullable
               as int?,
       dimension: freezed == dimension
           ? _value.dimension
@@ -136,7 +149,8 @@ class _$_FilterBeatsEntity implements _FilterBeatsEntity {
   const _$_FilterBeatsEntity(
       {final List<String>? beatIds,
       final List<String>? genres,
-      this.temp,
+      this.tempStart,
+      this.tempEnd,
       this.dimension})
       : _beatIds = beatIds,
         _genres = genres;
@@ -162,13 +176,15 @@ class _$_FilterBeatsEntity implements _FilterBeatsEntity {
   }
 
   @override
-  final int? temp;
+  final int? tempStart;
+  @override
+  final int? tempEnd;
   @override
   final String? dimension;
 
   @override
   String toString() {
-    return 'FilterBeatsEntity(beatIds: $beatIds, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'FilterBeatsEntity(beatIds: $beatIds, genres: $genres, tempStart: $tempStart, tempEnd: $tempEnd, dimension: $dimension)';
   }
 
   @override
@@ -178,7 +194,9 @@ class _$_FilterBeatsEntity implements _FilterBeatsEntity {
             other is _$_FilterBeatsEntity &&
             const DeepCollectionEquality().equals(other._beatIds, _beatIds) &&
             const DeepCollectionEquality().equals(other._genres, _genres) &&
-            (identical(other.temp, temp) || other.temp == temp) &&
+            (identical(other.tempStart, tempStart) ||
+                other.tempStart == tempStart) &&
+            (identical(other.tempEnd, tempEnd) || other.tempEnd == tempEnd) &&
             (identical(other.dimension, dimension) ||
                 other.dimension == dimension));
   }
@@ -188,7 +206,8 @@ class _$_FilterBeatsEntity implements _FilterBeatsEntity {
       runtimeType,
       const DeepCollectionEquality().hash(_beatIds),
       const DeepCollectionEquality().hash(_genres),
-      temp,
+      tempStart,
+      tempEnd,
       dimension);
 
   @JsonKey(ignore: true)
@@ -203,7 +222,8 @@ abstract class _FilterBeatsEntity implements FilterBeatsEntity {
   const factory _FilterBeatsEntity(
       {final List<String>? beatIds,
       final List<String>? genres,
-      final int? temp,
+      final int? tempStart,
+      final int? tempEnd,
       final String? dimension}) = _$_FilterBeatsEntity;
 
   @override
@@ -211,7 +231,9 @@ abstract class _FilterBeatsEntity implements FilterBeatsEntity {
   @override
   List<String>? get genres;
   @override
-  int? get temp;
+  int? get tempStart;
+  @override
+  int? get tempEnd;
   @override
   String? get dimension;
   @override

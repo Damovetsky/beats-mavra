@@ -152,8 +152,11 @@ class BeatsServiceImpl implements BeatsService {
     if (filter.genres != null) {
       cursor = cursor.where('genres', arrayContainsAny: filter.genres);
     }
-    if (filter.temp != null) {
-      cursor = cursor.where('temp', isEqualTo: filter.temp);
+    if (filter.tempStart != null) {
+      cursor = cursor.where('temp', isGreaterThanOrEqualTo: filter.tempStart);
+    }
+    if (filter.tempEnd != null) {
+      cursor = cursor.where('temp', isLessThanOrEqualTo: filter.tempEnd);
     }
     if (filter.dimension != null) {
       cursor = cursor.where('dimension', isEqualTo: filter.dimension);

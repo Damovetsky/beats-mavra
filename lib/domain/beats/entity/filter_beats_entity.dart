@@ -7,7 +7,8 @@ class FilterBeatsEntity with _$FilterBeatsEntity {
   const factory FilterBeatsEntity({
     List<String>? beatIds,
     List<String>? genres,
-    int? temp,
+    int? tempStart,
+    int? tempEnd,
     String? dimension,
   }) = _FilterBeatsEntity;
 }

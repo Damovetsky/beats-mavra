@@ -7,7 +7,8 @@ class FilterBeatsModel with _$FilterBeatsModel {
   const factory FilterBeatsModel({
     List<String>? beatsIds,
     List<String>? genres,
-    int? temp,
+    int? tempStart,
+    int? tempEnd,
     String? dimension,
   }) = _FilterBeatsModel;
 }
