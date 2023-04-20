@@ -1,6 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/helper/sheet_helper.dart';
+import '../../core/ui/color_schemes.dart';
+import '../../core/ui/dimens.dart';
+import '../../core/ui/text_styles.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({super.key});
@@ -20,6 +25,8 @@ class FilterSheet extends StatefulWidget {
 
 class _FilterSheetState extends State<FilterSheet> {
 
+  List<String> currentGenres = [];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,6 +45,24 @@ class _FilterSheetState extends State<FilterSheet> {
               .size
               .height * 0.85,
         ),
+        child: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'filter_sheet_title'.tr(),
+                  style: currentTextTheme(context).titleLarge?.copyWith(
+                    color: currentColorScheme(context).primary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ),
       ),
     );
   }
