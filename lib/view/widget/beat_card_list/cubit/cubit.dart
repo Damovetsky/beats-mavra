@@ -6,9 +6,11 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../domain/beats/entity/beat_entity.dart';
+import '../../../../domain/beats/entity/filter_beats_entity.dart';
 import '../../../../domain/beats/repository/beats_repository.dart';
 
 part 'cubit.freezed.dart';
+
 part 'state.dart';
 
 const int beatsPageSize = 12;
@@ -20,14 +22,18 @@ class BeatCardListCubit extends Cubit<BeatCardListState> {
   BehaviorSubject<BeatEntity?>? _feedController;
   StreamSubscription? _feedSubscription;
 
-  BeatCardListCubit(this.beatsRepository) : super(const BeatCardListState.loading());
+  BeatCardListCubit(this.beatsRepository)
+      : super(const BeatCardListState.loading());
 
   Future<void> initialBeats({List<String>? beatsIds}) async {
     emit(const BeatCardListState.loading());
     await _refreshFeed();
 
-    _feedSubscription =
-        beatsRepository.get(_feedController!..add(null), limit: beatsPageSize, beatsIds: beatsIds).map((event) {
+    _feedSubscription = beatsRepository
+        .get(_feedController!..add(null),
+            limit: beatsPageSize,
+            filterBeatsEntity: FilterBeatsEntity(beatIds: beatsIds),)
+        .map((event) {
       return event.fold(
         (failure) => const BeatCardListState.failure(),
         (beats) => BeatCardListState.beats(beats: beats),
