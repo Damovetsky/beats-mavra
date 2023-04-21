@@ -67,13 +67,6 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
                 children: [
                   BeatCard(beat: widget.beat),
                   const SizedBox(height: 50),
-                  // IconButton(
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         _isShown = !_isShown;
-                  //       });
-                  //     },
-                  //     icon: Icon(Icons.abc)),
                   Text(
                     'purchase_sheet_tracks_hint'.tr(),
                     textAlign: TextAlign.left,
@@ -181,7 +174,18 @@ class _ConfirmPurchaseButton extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.normal),
                           ),
                           TextSpan(
-                            text: '700',
+                            text: context
+                                .read<PurchaseCubit>()
+                                .offers
+                                .firstWhere(
+                                  (element) =>
+                                      element.fileType ==
+                                      state.mapOrNull(
+                                        unactive: (value) => value.currentGrade,
+                                      ),
+                                )
+                                .price
+                                .toString(),
                             style: currentTextTheme(context)
                                 .titleMedium
                                 ?.copyWith(fontWeight: FontWeight.normal),
