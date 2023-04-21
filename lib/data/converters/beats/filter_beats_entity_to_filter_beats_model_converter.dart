@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
+
 import '../../../domain/beats/entity/filter_beats_entity.dart';
 import '../../service/beats_service/models/filter_beats_model.dart';
 
-class FilterBeatsEntityToFilterBeatsModelConverter
-    extends Converter<FilterBeatsEntity, FilterBeatsModel> {
+@injectable
+class FilterBeatsEntityToFilterBeatsModelConverter extends Converter<FilterBeatsEntity, FilterBeatsModel> {
   @override
   FilterBeatsModel convert(FilterBeatsEntity input) => FilterBeatsModel(
         beatsIds: input.beatIds,

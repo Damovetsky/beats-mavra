@@ -150,7 +150,9 @@ class BeatCard extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<BeatCardCubit>().like(beat.beatId);
+                        },
                         icon: Icon(
                           Icons.favorite,
                           color: redColor.withOpacity(0.3),
