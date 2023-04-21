@@ -12,7 +12,7 @@ import '../../core/di/di.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../beat_sheet/beat_sheet.dart';
-import '../player_bottom_sheet/player_bottom_sheet.dart';
+import '../player_sheet/player_sheet.dart';
 import '../profile_page/profile_page.dart';
 import '../purchase_sheet/purchase_sheet.dart';
 import '../search_page/search_page.dart';
@@ -42,15 +42,12 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
       child: Scaffold(
+        key: _pagesGlobalKey,
         body: IndexedStack(
-          key: _pagesGlobalKey,
           index: currentPageIndex,
           children: pages,
         ),
-        bottomSheet: PlayerBottomSheet(
-          bottomSheetController,
-          key: UniqueKey(),
-        ),
+        bottomSheet: PlayerSheet(controller: bottomSheetController),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
