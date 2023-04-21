@@ -135,46 +135,7 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
                   ),
 
                   const SizedBox(height: 50),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Stack(
-                      alignment: Alignment.bottomLeft,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 15),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.decelerate,
-                            padding: const EdgeInsets.only(bottom: 28),
-                            child: Center(
-                              child: Text(
-                                'Итог: 100500',
-                                style: currentTextTheme(context)
-                                    .titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                            height: _isShown ? 65 : 0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: currentColorScheme(context)
-                                  .secondaryContainer,
-                            ),
-                          ),
-                        ),
-                        FilledButton(
-                          onPressed: _isShown ? () {} : null,
-                          style: FilledButton.styleFrom(
-                            disabledBackgroundColor:
-                                currentColorScheme(context).outlineVariant,
-                          ),
-                          child: Center(
-                            child: Text('purchase_sheet_confirm_purchase'.tr()),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _ConfirmPurchaseButton(),
                   const SizedBox(height: 30),
                 ],
               ),
@@ -182,6 +143,86 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ConfirmPurchaseButton extends StatelessWidget {
+  const _ConfirmPurchaseButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PurchaseCubit, PurchaseState>(
+      buildWhen: (_, current) =>
+          current.mapOrNull(
+            unactive: (_) => true,
+          ) ??
+          false,
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.decelerate,
+                  padding: const EdgeInsets.only(bottom: 28),
+                  child: Center(
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Итог: ',
+                            style: currentTextTheme(context)
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.normal),
+                          ),
+                          TextSpan(
+                            text: '700',
+                            style: currentTextTheme(context)
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.normal),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  height: state.mapOrNull(
+                            unactive: (value) =>
+                                value.currentGrade != null ? true : false,
+                          ) ??
+                          false
+                      ? 65
+                      : 0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: currentColorScheme(context).secondaryContainer,
+                  ),
+                ),
+              ),
+              FilledButton(
+                onPressed: state.mapOrNull(
+                          unactive: (value) =>
+                              value.currentGrade != null ? true : false,
+                        ) ??
+                        false
+                    ? () {}
+                    : null,
+                style: FilledButton.styleFrom(
+                  disabledBackgroundColor:
+                      currentColorScheme(context).outlineVariant,
+                ),
+                child: Center(
+                  child: Text('purchase_sheet_confirm_purchase'.tr()),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -199,71 +240,75 @@ class _FileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      decoration: BoxDecoration(
-        color: currentColorScheme(context).primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: currentColorScheme(context).primary,
-          width: 2,
+    return GestureDetector(
+      onTap: () => context.read<PurchaseCubit>().changeGrade(grade),
+      child: Container(
+        height: 120,
+        decoration: BoxDecoration(
+          color: currentColorScheme(context).primary.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: currentColorScheme(context).primary,
+            width: 2,
+          ),
         ),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  description ?? 'no description',
-                  style: currentTextTheme(context).bodyMedium?.copyWith(
-                        color: currentColorScheme(context).primary,
-                      ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                child: AppChip(
-                  color: currentColorScheme(context).primary,
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    '$price ₽',
-                    style: currentTextTheme(context).labelLarge?.copyWith(
-                          color: currentColorScheme(context).onPrimary,
+                    description ?? 'no description',
+                    style: currentTextTheme(context).bodyMedium?.copyWith(
+                          color: currentColorScheme(context).primary,
                         ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              )
-            ],
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-              decoration: BoxDecoration(
-                color: currentColorScheme(context).primary,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  topRight: Radius.circular(6),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                  child: AppChip(
+                    color: currentColorScheme(context).primary,
+                    child: Text(
+                      '$price ₽',
+                      style: currentTextTheme(context).labelLarge?.copyWith(
+                            color: currentColorScheme(context).onPrimary,
+                          ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                decoration: BoxDecoration(
+                  color: currentColorScheme(context).primary,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(12),
+                    topRight: Radius.circular(6),
+                  ),
+                ),
+                child: Text(
+                  grade,
+                  style: currentTextTheme(context).labelLarge?.copyWith(
+                        color: currentColorScheme(context).onPrimary,
+                        height: 1.6,
+                      ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              child: Text(
-                grade,
-                style: currentTextTheme(context).labelLarge?.copyWith(
-                      color: currentColorScheme(context).onPrimary,
-                      height: 1.6,
-                    ),
-                textAlign: TextAlign.center,
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

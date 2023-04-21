@@ -15,6 +15,8 @@ part 'state.dart';
 class PurchaseCubit extends Cubit<PurchaseState> {
   final PurchasesRepository purchasesRepository;
 
+  List<OfferEntity> offers = [];
+
   PurchaseCubit(this.purchasesRepository)
       : super(const PurchaseState.loading());
 
@@ -25,9 +27,15 @@ class PurchaseCubit extends Cubit<PurchaseState> {
 
     emit(
       offersEither.fold<PurchaseState>(
-        (failure) => PurchaseState.failure(message: 'offer_load_error'.tr()),
-        (offersList) => PurchaseState.unactive(offers: offersList),
-      ),
+          (failure) => PurchaseState.failure(message: 'offer_load_error'.tr()),
+          (offersList) {
+        offers = offersList;
+        return PurchaseState.unactive(offers: offersList);
+      }),
     );
+  }
+
+  void changeGrade(String gradeName) {
+    emit(PurchaseState.unactive(offers: offers, currentGrade: gradeName));
   }
 }
