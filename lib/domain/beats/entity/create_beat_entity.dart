@@ -15,5 +15,6 @@ class CreateBeatEntity with _$CreateBeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
+    required List<double> graph,
   }) = _CreateBeatEntity;
 }

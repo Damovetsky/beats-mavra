@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,12 +61,9 @@ class _SearchSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           const Icon(Icons.search),
           const SizedBox(width: screenHorizontalMargin),
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                hintText: 'Поиск по инструменталам',
-              ),
+            child: Text(
+              'search_title'.tr(),
+              style: currentTextTheme(context).titleLarge,
             ),
           ),
           const SizedBox(width: 8),

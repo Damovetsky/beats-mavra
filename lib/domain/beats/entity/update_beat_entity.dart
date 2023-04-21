@@ -14,5 +14,6 @@ class UpdateBeatEntity with _$UpdateBeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
+    required List<double> graph,
   }) = _UpdateBeatEntity;
 }

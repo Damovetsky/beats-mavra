@@ -50,8 +50,7 @@ class UserServiceImpl implements UserService {
         .set({'balance': privateUser.balance + delta}, SetOptions(merge: true))
         .then((value) => null)
         .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -66,8 +65,7 @@ class UserServiceImpl implements UserService {
               : throw UsersExceptionFactory().generateException('not-found'),
         )
         .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -80,8 +78,7 @@ class UserServiceImpl implements UserService {
           ? PrivateUserModel.fromJson(value.data()!)
           : throw UsersExceptionFactory().generateException('not-found');
     }).onError(
-      (FirebaseException error, stackTrace) =>
-          throw exceptionFactory.generateException(error.code),
+      (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
     );
   }
 
@@ -92,24 +89,18 @@ class UserServiceImpl implements UserService {
     required CreatePrivateUserModel privateUserModel,
   }) async {
     await publicUsersCollection.doc(id).set(publicUserModel.toJson()).onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
 
     await privateUsersCollection.doc(id).set(privateUserModel.toJson()).onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
   @override
   Future<void> updateUser(UpdateUserModel model) {
-    return publicUsersCollection
-        .doc(model.id)
-        .set(model.toJson(), SetOptions(merge: true))
-        .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+    return publicUsersCollection.doc(model.id).set(model.toJson(), SetOptions(merge: true)).onError(
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -120,8 +111,6 @@ class UserServiceImpl implements UserService {
     required String mapName,
     required bool checked,
   }) {
-    return publicUsersCollection
-        .doc(userId)
-        .update({'$mapName.$beatId': checked});
+    return privateUsersCollection.doc(userId).update({'$mapName.$beatId': checked});
   }
 }

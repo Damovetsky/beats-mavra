@@ -29,6 +29,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
           return Left(UnauthorizedFailure());
         }
 
+        await Future.delayed(Duration(seconds: 2));
         final userModel = await userService.getPrivateUser(userId);
         final user = privateUserEntityConverter.convert(userModel);
 

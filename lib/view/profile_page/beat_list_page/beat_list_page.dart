@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +36,7 @@ class _BeatListPageState extends State<BeatListPage> {
           title: Text(widget.title),
         ),
         body: widget.beatIds.isEmpty
-            ? Center(child: Text('Грустно и пусто'))
+            ? Center(child: Text('profile_lists_empty_hint'.tr()))
             : BeatCardList(
                 beatsIds: widget.beatIds,
                 popupItems: [
