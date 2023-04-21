@@ -17,33 +17,39 @@ import 'package:beats/data/converters/users/private_user_model_to_private_user_e
     as _i12;
 import 'package:beats/data/converters/users/public_user_model_to_public_user_entity_converter.dart'
     as _i13;
-import 'package:beats/data/module/firebase_module.dart' as _i36;
-import 'package:beats/data/repository/auth_repository_impl.dart' as _i23;
-import 'package:beats/data/repository/beats_repository_impl.dart' as _i25;
-import 'package:beats/data/repository/files_repository_impl.dart' as _i27;
-import 'package:beats/data/repository/profile_repository_impl.dart' as _i30;
-import 'package:beats/data/repository/users_repository_impl.dart' as _i21;
-import 'package:beats/data/service/auth_service/auth_service.dart' as _i16;
+import 'package:beats/data/module/firebase_module.dart' as _i40;
+import 'package:beats/data/repository/auth_repository_impl.dart' as _i24;
+import 'package:beats/data/repository/beats_repository_impl.dart' as _i26;
+import 'package:beats/data/repository/files_repository_impl.dart' as _i28;
+import 'package:beats/data/repository/profile_repository_impl.dart' as _i31;
+import 'package:beats/data/repository/purchases_repository_impl.dart' as _i33;
+import 'package:beats/data/repository/users_repository_impl.dart' as _i22;
+import 'package:beats/data/service/auth_service/auth_service.dart' as _i17;
 import 'package:beats/data/service/auth_service/exceptions.dart' as _i3;
-import 'package:beats/data/service/beats_service/beats_service.dart' as _i17;
+import 'package:beats/data/service/beats_service/beats_service.dart' as _i18;
 import 'package:beats/data/service/beats_service/exceptions.dart' as _i7;
-import 'package:beats/data/service/files_service/files_service.dart' as _i18;
-import 'package:beats/data/service/users_service/exceptions.dart' as _i15;
-import 'package:beats/data/service/users_service/users_service.dart' as _i19;
-import 'package:beats/domain/auth/repository/auth_repository.dart' as _i22;
-import 'package:beats/domain/beats/repository/beats_repository.dart' as _i24;
-import 'package:beats/domain/files/files_repository.dart' as _i26;
+import 'package:beats/data/service/files_service/files_service.dart' as _i19;
+import 'package:beats/data/service/purchases_service/purchases_service.dart'
+    as _i14;
+import 'package:beats/data/service/users_service/exceptions.dart' as _i16;
+import 'package:beats/data/service/users_service/users_service.dart' as _i20;
+import 'package:beats/domain/auth/repository/auth_repository.dart' as _i23;
+import 'package:beats/domain/beats/repository/beats_repository.dart' as _i25;
+import 'package:beats/domain/files/files_repository.dart' as _i27;
 import 'package:beats/domain/profile/repository/profile_repository.dart'
-    as _i29;
-import 'package:beats/domain/users/repository/users_repository.dart' as _i20;
-import 'package:beats/view/auth_sheet/cubit/cubit.dart' as _i32;
-import 'package:beats/view/beat_sheet/cubit/cubit.dart' as _i34;
-import 'package:beats/view/player_bottom_sheet/cubit/cubit.dart' as _i28;
+    as _i30;
+import 'package:beats/domain/purchases/repository/purchases_repository.dart'
+    as _i32;
+import 'package:beats/domain/users/repository/users_repository.dart' as _i21;
+import 'package:beats/view/auth_sheet/cubit/cubit.dart' as _i35;
+import 'package:beats/view/beat_sheet/cubit/cubit.dart' as _i38;
+import 'package:beats/view/player_sheet/cubit/cubit.dart' as _i29;
 import 'package:beats/view/profile_page/beat_list_page/cubit/cubit.dart' as _i5;
-import 'package:beats/view/profile_page/cubit/cubit.dart' as _i35;
-import 'package:beats/view/search_page/cubit/cubit.dart' as _i31;
-import 'package:beats/view/splash_page/cubit/cubit.dart' as _i14;
-import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i33;
+import 'package:beats/view/profile_page/cubit/cubit.dart' as _i39;
+import 'package:beats/view/search_page/cubit/cubit.dart' as _i34;
+import 'package:beats/view/splash_page/cubit/cubit.dart' as _i15;
+import 'package:beats/view/widget/beat_card/cubit/cubit.dart' as _i36;
+import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i37;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i10;
 import 'package:firebase_auth/firebase_auth.dart' as _i9;
 import 'package:firebase_core/firebase_core.dart' as _i8;
@@ -81,61 +87,75 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i12.PrivateUserModelToPrivateUserEntityConverter());
     gh.factory<_i13.PublicUserModelToPublicUserEntityConverter>(
         () => _i13.PublicUserModelToPublicUserEntityConverter());
-    gh.factory<_i14.SplashCubit>(() => _i14.SplashCubit());
-    gh.factory<_i15.UsersExceptionFactory>(() => _i15.UsersExceptionFactory());
-    gh.factory<_i16.AuthService>(() => _i16.AuthServiceImpl(
+    gh.factory<_i14.PurchasesService>(
+        () => _i14.PurchasesServiceImpl(gh<_i10.FirebaseFirestore>()));
+    gh.factory<_i15.SplashCubit>(() => _i15.SplashCubit());
+    gh.factory<_i16.UsersExceptionFactory>(() => _i16.UsersExceptionFactory());
+    gh.factory<_i17.AuthService>(() => _i17.AuthServiceImpl(
           gh<_i9.FirebaseAuth>(),
           gh<_i3.AuthExceptionFactory>(),
         ));
-    gh.factory<_i17.BeatsService>(() => _i17.BeatsServiceImpl(
+    gh.factory<_i18.BeatsService>(() => _i18.BeatsServiceImpl(
           gh<_i10.FirebaseFirestore>(),
           gh<_i7.BeatsExceptionFactory>(),
         ));
-    gh.factory<_i18.FilesService>(() => _i18.FilesServiceImpl(
+    gh.factory<_i19.FilesService>(() => _i19.FilesServiceImpl(
           gh<_i11.FirebaseStorage>(),
           gh<_i10.FirebaseFirestore>(),
         ));
-    gh.factory<_i19.UserService>(() => _i19.UserServiceImpl(
+    gh.factory<_i20.UserService>(() => _i20.UserServiceImpl(
           gh<_i10.FirebaseFirestore>(),
-          gh<_i15.UsersExceptionFactory>(),
+          gh<_i16.UsersExceptionFactory>(),
         ));
-    gh.lazySingleton<_i20.UsersRepository>(() => _i21.UsersRepositoryImpl(
-          gh<_i19.UserService>(),
+    gh.lazySingleton<_i21.UsersRepository>(() => _i22.UsersRepositoryImpl(
+          gh<_i20.UserService>(),
           gh<_i13.PublicUserModelToPublicUserEntityConverter>(),
         ));
-    gh.lazySingleton<_i22.AuthRepository>(() => _i23.AuthRepositoryImpl(
-          gh<_i16.AuthService>(),
-          gh<_i19.UserService>(),
+    gh.lazySingleton<_i23.AuthRepository>(() => _i24.AuthRepositoryImpl(
+          gh<_i17.AuthService>(),
+          gh<_i20.UserService>(),
         ));
-    gh.lazySingleton<_i24.BeatsRepository>(() => _i25.BeatsRepositoryImpl(
-          gh<_i17.BeatsService>(),
+    gh.lazySingleton<_i25.BeatsRepository>(() => _i26.BeatsRepositoryImpl(
+          gh<_i18.BeatsService>(),
+          gh<_i19.FilesService>(),
           gh<_i6.BeatModelToBeatEntityConverter>(),
         ));
-    gh.lazySingleton<_i26.FilesRepository>(
-        () => _i27.FilesRepositoryImpl(gh<_i18.FilesService>()));
-    gh.factory<_i28.PlayerCubit>(
-        () => _i28.PlayerCubit(gh<_i24.BeatsRepository>()));
-    gh.lazySingleton<_i29.ProfileRepository>(() => _i30.ProfileRepositoryImpl(
-          gh<_i16.AuthService>(),
-          gh<_i19.UserService>(),
+    gh.lazySingleton<_i27.FilesRepository>(
+        () => _i28.FilesRepositoryImpl(gh<_i19.FilesService>()));
+    gh.factory<_i29.PlayerCubit>(() => _i29.PlayerCubit(
+          gh<_i25.BeatsRepository>(),
+          gh<_i27.FilesRepository>(),
+          gh<_i21.UsersRepository>(),
+        ));
+    gh.lazySingleton<_i30.ProfileRepository>(() => _i31.ProfileRepositoryImpl(
+          gh<_i17.AuthService>(),
+          gh<_i20.UserService>(),
           gh<_i12.PrivateUserModelToPrivateUserEntityConverter>(),
         ));
-    gh.factory<_i31.SearchCubit>(
-        () => _i31.SearchCubit(gh<_i24.BeatsRepository>()));
-    gh.factory<_i32.AuthCubit>(() => _i32.AuthCubit(gh<_i22.AuthRepository>()));
-    gh.factory<_i33.BeatCardListCubit>(
-        () => _i33.BeatCardListCubit(gh<_i24.BeatsRepository>()));
-    gh.factory<_i34.BeatSheetCubit>(() => _i34.BeatSheetCubit(
-          gh<_i24.BeatsRepository>(),
-          gh<_i26.FilesRepository>(),
-          gh<_i22.AuthRepository>(),
+    gh.lazySingleton<_i32.PurchasesRepository>(
+        () => _i33.PurchasesRepositoryImpl(
+              gh<_i18.BeatsService>(),
+              gh<_i20.UserService>(),
+              gh<_i14.PurchasesService>(),
+            ));
+    gh.factory<_i34.SearchCubit>(
+        () => _i34.SearchCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i35.AuthCubit>(() => _i35.AuthCubit(gh<_i23.AuthRepository>()));
+    gh.factory<_i36.BeatCardCubit>(
+        () => _i36.BeatCardCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i37.BeatCardListCubit>(
+        () => _i37.BeatCardListCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i38.BeatSheetCubit>(() => _i38.BeatSheetCubit(
+          gh<_i25.BeatsRepository>(),
+          gh<_i27.FilesRepository>(),
+          gh<_i23.AuthRepository>(),
         ));
-    gh.factory<_i35.ProfileCubit>(() => _i35.ProfileCubit(
-          gh<_i29.ProfileRepository>(),
-          gh<_i20.UsersRepository>(),
+    gh.factory<_i39.ProfileCubit>(() => _i39.ProfileCubit(
+          gh<_i30.ProfileRepository>(),
+          gh<_i21.UsersRepository>(),
         ));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i36.FirebaseModule {}
+class _$FirebaseModule extends _i40.FirebaseModule {}

@@ -16,6 +16,7 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
+    required List<double> graph,
   }) = _BeatEntity;
 
   static BeatEntity empty() {
@@ -31,6 +32,7 @@ class BeatEntity with _$BeatEntity {
       genres: [],
       temp: -1,
       dimension: '',
+      graph: [],
     );
   }
 }

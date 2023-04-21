@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../core/error/failure.dart';
 import '../../domain/files/files_repository.dart';
 import '../service/files_service/files_service.dart';
@@ -27,9 +26,9 @@ class FilesRepositoryImpl implements FilesRepository {
   }
 
   @override
-  Future<Either<Failure, File>> downloadFile(String fileId) async {
-    final dir = (await getTemporaryDirectory()).path;
-    final temp = File('$dir/temp.file');
+  Future<Either<Failure, File>> downloadFile({required String fileId, required String extension}) async {
+    final dir = (await getApplicationDocumentsDirectory()).path;
+    final temp = File('$dir/$fileId$extension');
     try {
       await filesService.downloadFile(fileId, temp);
     } on FirebaseException {
