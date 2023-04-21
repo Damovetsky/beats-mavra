@@ -22,6 +22,7 @@
     "auth_wrong_password_error": "Wrong password",
     "purchase_sheet_tracks_hint": "Select the format in which you want to purchase this instrumental. If you choose the WAV format, you'll also purchase an MP3 file. And by choosing a ZIP archive with all the tracks of the sequencer, you will get the whole set.",
     "purchase_sheet_confirm_purchase": "Confirm purchase",
+    "offer_load_error": "Failed to load offers",
     "search_title": "Search",
     "profile_title": "Profile",
     "profile_description_hint": "Describe your style",

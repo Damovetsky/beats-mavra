@@ -17,11 +17,12 @@ import 'package:beats/data/converters/users/private_user_model_to_private_user_e
     as _i12;
 import 'package:beats/data/converters/users/public_user_model_to_public_user_entity_converter.dart'
     as _i13;
-import 'package:beats/data/module/firebase_module.dart' as _i37;
+import 'package:beats/data/module/firebase_module.dart' as _i40;
 import 'package:beats/data/repository/auth_repository_impl.dart' as _i24;
 import 'package:beats/data/repository/beats_repository_impl.dart' as _i26;
 import 'package:beats/data/repository/files_repository_impl.dart' as _i28;
 import 'package:beats/data/repository/profile_repository_impl.dart' as _i31;
+import 'package:beats/data/repository/purchases_repository_impl.dart' as _i33;
 import 'package:beats/data/repository/users_repository_impl.dart' as _i22;
 import 'package:beats/data/service/auth_service/auth_service.dart' as _i17;
 import 'package:beats/data/service/auth_service/exceptions.dart' as _i3;
@@ -37,15 +38,18 @@ import 'package:beats/domain/beats/repository/beats_repository.dart' as _i25;
 import 'package:beats/domain/files/files_repository.dart' as _i27;
 import 'package:beats/domain/profile/repository/profile_repository.dart'
     as _i30;
+import 'package:beats/domain/purchases/repository/purchases_repository.dart'
+    as _i32;
 import 'package:beats/domain/users/repository/users_repository.dart' as _i21;
-import 'package:beats/view/auth_sheet/cubit/cubit.dart' as _i33;
+import 'package:beats/view/auth_sheet/cubit/cubit.dart' as _i35;
 import 'package:beats/view/player_sheet/cubit/cubit.dart' as _i29;
 import 'package:beats/view/profile_page/beat_list_page/cubit/cubit.dart' as _i5;
-import 'package:beats/view/profile_page/cubit/cubit.dart' as _i36;
-import 'package:beats/view/search_page/cubit/cubit.dart' as _i32;
+import 'package:beats/view/profile_page/cubit/cubit.dart' as _i38;
+import 'package:beats/view/purchase_sheet/cubit/cubit.dart' as _i39;
+import 'package:beats/view/search_page/cubit/cubit.dart' as _i34;
 import 'package:beats/view/splash_page/cubit/cubit.dart' as _i15;
-import 'package:beats/view/widget/beat_card/cubit/cubit.dart' as _i34;
-import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i35;
+import 'package:beats/view/widget/beat_card/cubit/cubit.dart' as _i36;
+import 'package:beats/view/widget/beat_card_list/cubit/cubit.dart' as _i37;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i10;
 import 'package:firebase_auth/firebase_auth.dart' as _i9;
 import 'package:firebase_core/firebase_core.dart' as _i8;
@@ -128,19 +132,27 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i20.UserService>(),
           gh<_i12.PrivateUserModelToPrivateUserEntityConverter>(),
         ));
-    gh.factory<_i32.SearchCubit>(
-        () => _i32.SearchCubit(gh<_i25.BeatsRepository>()));
-    gh.factory<_i33.AuthCubit>(() => _i33.AuthCubit(gh<_i23.AuthRepository>()));
-    gh.factory<_i34.BeatCardCubit>(
-        () => _i34.BeatCardCubit(gh<_i25.BeatsRepository>()));
-    gh.factory<_i35.BeatCardListCubit>(
-        () => _i35.BeatCardListCubit(gh<_i25.BeatsRepository>()));
-    gh.factory<_i36.ProfileCubit>(() => _i36.ProfileCubit(
+    gh.lazySingleton<_i32.PurchasesRepository>(
+        () => _i33.PurchasesRepositoryImpl(
+              gh<_i18.BeatsService>(),
+              gh<_i20.UserService>(),
+              gh<_i14.PurchasesService>(),
+            ));
+    gh.factory<_i34.SearchCubit>(
+        () => _i34.SearchCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i35.AuthCubit>(() => _i35.AuthCubit(gh<_i23.AuthRepository>()));
+    gh.factory<_i36.BeatCardCubit>(
+        () => _i36.BeatCardCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i37.BeatCardListCubit>(
+        () => _i37.BeatCardListCubit(gh<_i25.BeatsRepository>()));
+    gh.factory<_i38.ProfileCubit>(() => _i38.ProfileCubit(
           gh<_i30.ProfileRepository>(),
           gh<_i21.UsersRepository>(),
         ));
+    gh.factory<_i39.PurchaseCubit>(
+        () => _i39.PurchaseCubit(gh<_i32.PurchasesRepository>()));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i37.FirebaseModule {}
+class _$FirebaseModule extends _i40.FirebaseModule {}
