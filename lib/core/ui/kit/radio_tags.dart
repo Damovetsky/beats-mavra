@@ -12,7 +12,7 @@ class RadioTags extends StatelessWidget {
 
   const RadioTags({
     super.key,
-    this.currentIndex = 0,
+    this.currentIndex = -1,
     required this.tags,
     required this.onChoosed,
   });

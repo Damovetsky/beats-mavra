@@ -37,7 +37,7 @@ class PurchasesRepositoryImpl implements PurchasesRepository {
     try {
       return Right(
         await purchasesService.createOffer(
-          CreateOfferEntityToOfferModelConverter(const Uuid().v4()).convert(
+          CreateOfferEntityToOfferModelConverter(Uuid().v4()).convert(
             createOfferEntity,
           ),
         ),

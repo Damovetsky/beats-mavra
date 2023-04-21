@@ -8,12 +8,13 @@ import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/radio_tags.dart';
 import '../../core/ui/text_styles.dart';
+import '../../domain/beats/entity/filter_beats_entity.dart';
 import '../beat_sheet/widget/genres_text_field.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({super.key});
 
-  static Future<void> show(BuildContext context) {
+  static Future<FilterBeatsEntity?> show(BuildContext context) {
     return BottomSheetHelper.show(
       context,
           (context, padding) => const FilterSheet(),
@@ -28,9 +29,7 @@ class FilterSheet extends StatefulWidget {
 
 class _FilterSheetState extends State<FilterSheet> {
 
-  List<String> currentGenres = [];
-  RangeValues currentTempo = RangeValues(20, 300);
-  int currentDimensionIndex = 0;
+  FilterBeatsEntity filterBeats = const FilterBeatsEntity(tempStart: 20, tempEnd: 300);
 
   @override
   Widget build(BuildContext context) {
@@ -66,29 +65,34 @@ class _FilterSheetState extends State<FilterSheet> {
                 ),
                 const SizedBox(height: 24),
                 _Genre(
-                  genres: currentGenres,
+                  genres: filterBeats.genres ?? [],
                   onChanged: (newGenres) {
                     setState(() {
-                      currentGenres = newGenres;
+                      filterBeats = filterBeats.copyWith(genres: newGenres == [] ? null : newGenres);
                     });
                   },
                 ),
                 const SizedBox(height: 24),
                 _TempoSlider(
-                  initialTempo: currentTempo,
+                  initialTempo: RangeValues((filterBeats.tempStart ?? 20).toDouble(), (filterBeats.tempEnd ?? 300).toDouble()),
                   onChanged: (newTempo) {
                     setState(() {
-                      currentTempo = newTempo;
+                      filterBeats = filterBeats.copyWith(
+                          tempStart: newTempo.start.toInt(),
+                          tempEnd: newTempo.end.toInt(),
+                      );
                     });
                   },
                 ),
                 const SizedBox(height: 24),
                 _Dimension(
-                  currentIndex: currentDimensionIndex,
-                  dimensions: const ['4/4', '2/4', '3/4', '5/4', '3/8', '6/8', 'All'],
+                  currentIndex: filterBeats.dimension != null ? dimensions.indexOf(filterBeats.dimension!) : null,
+                  dimensions: dimensions,
                   onChanged: (index) {
                     setState(() {
-                      currentDimensionIndex = index;
+                      filterBeats = filterBeats.copyWith(
+                          dimension: dimensions[index],
+                      );
                     });
                   },
                 ),
@@ -235,7 +239,7 @@ class _TempoSliderState extends State<_TempoSlider> {
 
 
 class _Dimension extends StatelessWidget {
-  final int currentIndex;
+  final int? currentIndex;
   final List<String> dimensions;
   final Function(int index) onChanged;
 
@@ -266,7 +270,7 @@ class _Dimension extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         RadioTags(
-          currentIndex: currentIndex,
+          currentIndex: currentIndex ?? -1,
           tags: dimensions,
           onChoosed: onChanged,
         )
