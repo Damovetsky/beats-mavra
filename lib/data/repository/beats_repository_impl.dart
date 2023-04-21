@@ -17,7 +17,9 @@ import '../../domain/beats/repository/beats_repository.dart';
 
 import '../converters/beats/beat_model_to_beat_entity_converter.dart';
 import '../converters/beats/create_beat_entity_to_beat_model_converter.dart';
+import '../converters/beats/filter_beats_entity_to_filter_beats_model_converter.dart';
 import '../converters/beats/update_beat_entity_to_beat_model_converter.dart';
+import '../service/auth_service/auth_service.dart';
 import '../service/beats_service/beats_service.dart';
 import '../service/files_service/files_service.dart';
 import '../service/users_service/users_service.dart';
@@ -25,16 +27,20 @@ import '../service/users_service/users_service.dart';
 @LazySingleton(as: BeatsRepository)
 class BeatsRepositoryImpl extends BeatsRepository {
   final BeatsService beatsService;
+  final AuthService authService;
   final UserService usersService;
   final FilesService filesService;
 
   final BeatModelToBeatEntityConverter beatEntityConverter;
+  final FilterBeatsEntityToFilterBeatsModelConverter filterBeatsModelConvertor;
 
   BeatsRepositoryImpl(
     this.beatsService,
+    this.authService,
     this.usersService,
     this.filesService,
     this.beatEntityConverter,
+    this.filterBeatsModelConvertor,
   );
 
   @override
@@ -48,6 +54,7 @@ class BeatsRepositoryImpl extends BeatsRepository {
         final beats = (await beatsService.getBeats(
           lastVisibleTitle: last?.title,
           limit: limit,
+          filter: filterBeatsModelConvertor.convert(filterBeatsEntity),
         ));
         return Right(
           beats.map(beatEntityConverter.convert).toList(),
@@ -135,6 +142,31 @@ class BeatsRepositoryImpl extends BeatsRepository {
   Future<Either<Failure, List<double>>> getGraph(File beatFile) async {
     try {
       return Right(await beatsService.getGraph(beatFile));
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> like({required String beatId}) async {
+    try {
+      final userId = await authService.getUserID().first;
+
+      if (userId != null) {
+        final user = await usersService.getPrivateUser(userId);
+        final isFavorite = user.favorite[beatId] ?? false;
+
+        await usersService.changeBeatInMap(
+          userId: userId,
+          beatId: beatId,
+          mapName: 'favorite',
+          checked: !isFavorite,
+        );
+
+        return const Right(null);
+      }
+
+      return Left(UnknownFailure());
     } catch (_) {
       return Left(UnknownFailure());
     }

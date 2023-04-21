@@ -26,6 +26,8 @@ abstract class BeatsRepository {
 
   Future<Either<Failure, List<double>>> getGraph(File beatFile);
 
+  Future<Either<Failure, void>> like({required String beatId});
+
   void play(PlayableBeatEntity playableBeat);
 
   void resetPlayableBeat();
