@@ -20,6 +20,8 @@
     "auth_password_validator": "В пароле должно быть более 5 символов",
     "auth_password_is_weak_error": "Пароль слишком слабый",
     "auth_wrong_password_error": "Неверный пароль",
+    "purchase_sheet_tracks_hint": "Выберите формат в котором Вы хотите приобрести данный инструментал. При выборе WAV формата вы также приобретаете файл MP3. А выбирая ZIP архив со всеми дорожками секвенсора Вы получите весь набор.",
+    "purchase_sheet_confirm_purchase": "Подтвердить покупку",
     "search_title": "Поиск",
     "profile_title": "Профиль",
     "profile_description_hint": "Опиши свой стиль",

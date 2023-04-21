@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 
 import '../../core/ui/color_schemes.dart';
+import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/chip.dart';
 import '../../core/ui/kit/image.dart';
 import '../../core/ui/kit/tags.dart';
 import '../../core/ui/text_styles.dart';
 import '../../domain/beats/entity/beat_entity.dart';
+import '../purchase_sheet/purchase_sheet.dart';
 
 class BeatCard extends StatelessWidget {
   final BeatEntity beat;
@@ -150,12 +154,15 @@ class BeatCard extends StatelessWidget {
                     color: redColor.withOpacity(0.3),
                   ),
                 ),
-                AppChip(
-                  color: currentColorScheme(context).secondaryContainer,
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 18,
-                    color: currentColorScheme(context).primary,
+                BouncingGestureDetector(
+                  onTap: () => unawaited(PurchaseSheet.show(context, beat)),
+                  child: AppChip(
+                    color: currentColorScheme(context).secondaryContainer,
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 18,
+                      color: currentColorScheme(context).primary,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
