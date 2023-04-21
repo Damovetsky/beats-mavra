@@ -117,6 +117,7 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.lazySingleton<_i25.BeatsRepository>(() => _i26.BeatsRepositoryImpl(
           gh<_i18.BeatsService>(),
+          gh<_i20.UserService>(),
           gh<_i19.FilesService>(),
           gh<_i6.BeatModelToBeatEntityConverter>(),
         ));
@@ -149,6 +150,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i25.BeatsRepository>(),
           gh<_i27.FilesRepository>(),
           gh<_i23.AuthRepository>(),
+          gh<_i32.PurchasesRepository>(),
         ));
     gh.factory<_i39.ProfileCubit>(() => _i39.ProfileCubit(
           gh<_i30.ProfileRepository>(),

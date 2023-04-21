@@ -10,6 +10,9 @@ import '../../../domain/beats/entity/beat_entity.dart';
 import '../../../domain/beats/entity/create_beat_entity.dart';
 import '../../../domain/beats/repository/beats_repository.dart';
 import '../../../domain/files/files_repository.dart';
+import '../../../domain/purchases/entity/create_offer_entity.dart';
+import '../../../domain/purchases/repository/purchases_repository.dart';
+import '../widget/beat_files.dart';
 
 part 'cubit.freezed.dart';
 part 'state.dart';
@@ -19,20 +22,22 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
   final BeatsRepository beatsRepository;
   final FilesRepository filesRepository;
   final AuthRepository authRepository;
+  final PurchasesRepository purchasesRepository;
 
   BeatSheetCubit(
     this.beatsRepository,
     this.filesRepository,
     this.authRepository,
+    this.purchasesRepository,
   ) : super(const BeatSheetState.initial());
 
   void createBeat({
     required File cover,
     required String title,
     required String description,
-    required File mp3File,
-    required File? wavFile,
-    required File? zipFile,
+    required BeatViewObject mp3File,
+    required BeatViewObject? wavFile,
+    required BeatViewObject? zipFile,
     required List<String> genres,
     required int tempo,
     required String dimension,
@@ -49,7 +54,7 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
       );
     }
 
-    final coverFileId = (await filesRepository.uploadFile(mp3File)).fold((failure) => null, (url) => url);
+    final coverFileId = (await filesRepository.uploadFile(cover)).fold((failure) => null, (fileId) => fileId);
     if (coverFileId == null) {
       return emit(
         BeatSheetState.failure(
@@ -59,7 +64,17 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
       );
     }
 
-    final mp3FileId = (await filesRepository.uploadFile(mp3File)).fold((failure) => null, (url) => url);
+    final coverUrl = (await filesRepository.getFileUrl(coverFileId)).fold((l) => null, (url) => url);
+    if (coverUrl == null) {
+      return emit(
+        BeatSheetState.failure(
+          title: 'unknown_error_title'.tr(),
+          message: 'unknown_error_message'.tr(),
+        ),
+      );
+    }
+
+    final mp3FileId = (await filesRepository.uploadFile(mp3File.file)).fold((failure) => null, (url) => url);
     if (mp3FileId == null) {
       return emit(
         BeatSheetState.failure(
@@ -71,7 +86,7 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
 
     String? wavFileId;
     if (wavFile != null) {
-      wavFileId = (await filesRepository.uploadFile(wavFile)).fold((failure) => null, (url) => url);
+      wavFileId = (await filesRepository.uploadFile(wavFile.file)).fold((failure) => null, (url) => url);
 
       if (wavFileId == null) {
         return emit(
@@ -85,7 +100,7 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
 
     String? zipFileId;
     if (zipFile != null) {
-      zipFileId = (await filesRepository.uploadFile(zipFile)).fold((failure) => null, (url) => url);
+      zipFileId = (await filesRepository.uploadFile(zipFile.file)).fold((failure) => null, (url) => url);
 
       if (wavFileId == null) {
         return emit(
@@ -97,9 +112,20 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
       }
     }
 
+    final graph = (await beatsRepository.getGraph(mp3File.file)).fold((l) => null, (graph) => graph);
+
+    if (graph == null) {
+      return emit(
+        BeatSheetState.failure(
+          title: 'unknown_error_title'.tr(),
+          message: 'unknown_error_message'.tr(),
+        ),
+      );
+    }
+
     final createBeat = CreateBeatEntity(
       authorId: authorId,
-      cover: coverFileId,
+      cover: coverUrl,
       title: title,
       description: description,
       mp3FileId: mp3FileId,
@@ -108,16 +134,53 @@ class BeatSheetCubit extends Cubit<BeatSheetState> {
       genres: genres,
       temp: tempo,
       dimension: dimension,
+      graph: graph,
     );
 
-    final beatEither = await beatsRepository.createBeat(createBeat);
+    final beat = (await beatsRepository.createBeat(createBeat)).fold((l) => null, (beat) => beat);
 
-    emit(beatEither.fold(
-      (failure) => BeatSheetState.failure(
-        title: 'unknown_error_title'.tr(),
-        message: 'unknown_error_message'.tr(),
+    if (beat == null) {
+      return emit(
+        BeatSheetState.failure(
+          title: 'unknown_error_title'.tr(),
+          message: 'unknown_error_message'.tr(),
+        ),
+      );
+    }
+
+    await purchasesRepository.createOffer(
+      CreateOfferEntity(
+        beatId: beat.beatId,
+        authorId: authorId,
+        licenseType: 'Exclusive',
+        fileType: 'bronze',
+        price: int.tryParse(mp3File.priceController.text) ?? 0,
       ),
-      (beat) => const BeatSheetState.success(),
-    ));
+    );
+
+    if (wavFile != null) {
+      await purchasesRepository.createOffer(
+        CreateOfferEntity(
+          beatId: beat.beatId,
+          authorId: authorId,
+          licenseType: 'Exclusive',
+          fileType: 'silver',
+          price: int.tryParse(wavFile.priceController.text) ?? 0,
+        ),
+      );
+    }
+    if (zipFile != null) {
+      await purchasesRepository.createOffer(
+        CreateOfferEntity(
+          beatId: beat.beatId,
+          authorId: authorId,
+          licenseType: 'Exclusive',
+          fileType: 'gold',
+          price: int.tryParse(zipFile.priceController.text) ?? 0,
+        ),
+      );
+    }
+
+    emit(const BeatSheetState.success());
   }
 }

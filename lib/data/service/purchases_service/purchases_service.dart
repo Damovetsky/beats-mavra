@@ -36,8 +36,7 @@ class PurchasesServiceImpl implements PurchasesService {
         .where('beatId', isEqualTo: beatId)
         .get()
         .then(
-          (value) =>
-              value.docs.map((e) => OfferModel.fromJson(e.data())).toList(),
+          (value) => value.docs.map((e) => OfferModel.fromJson(e.data())).toList(),
         )
         .onError(
           (FirebaseException error, stackTrace) => throw UnknownException(),
@@ -46,11 +45,7 @@ class PurchasesServiceImpl implements PurchasesService {
 
   @override
   Future<void> createOffer(OfferModel offerModel) async {
-    return offersCollection
-        .doc(offerModel.beatId)
-        .set(offerModel.toJson())
-        .then((value) => null)
-        .onError(
+    return offersCollection.doc(offerModel.offerId).set(offerModel.toJson()).then((value) => null).onError(
           (FirebaseException error, stackTrace) => throw UnknownException(),
         );
   }
@@ -61,9 +56,7 @@ class PurchasesServiceImpl implements PurchasesService {
         .doc(offerId)
         .get()
         .then(
-          (value) => value.exists
-              ? OfferModel.fromJson(value.data()!)
-              : throw NotFoundException(),
+          (value) => value.exists ? OfferModel.fromJson(value.data()!) : throw NotFoundException(),
         )
         .onError(
           (FirebaseException error, stackTrace) => throw UnknownException(),
@@ -92,11 +85,7 @@ class PurchasesServiceImpl implements PurchasesService {
 
   @override
   Future<void> createPurchase(PurchaseModel purchaseModel) async {
-    return purchasesCollection
-        .doc(purchaseModel.purchaseId)
-        .set(purchaseModel.toJson())
-        .then((value) => null)
-        .onError(
+    return purchasesCollection.doc(purchaseModel.purchaseId).set(purchaseModel.toJson()).then((value) => null).onError(
           (FirebaseException error, stackTrace) => throw UnknownException(),
         );
   }

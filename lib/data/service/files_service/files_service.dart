@@ -47,9 +47,7 @@ class FilesServiceImpl extends FilesService {
   @override
   Future<String> getFileUrl(String fileId) async {
     final fileModel = await filesCollection.doc(fileId).get().then(
-          (value) => value.exists
-              ? FileModel.fromJson(value.data()!)
-              : throw NotFoundException(),
+          (value) => value.exists ? FileModel.fromJson(value.data()!) : throw NotFoundException(),
         );
     return firebaseStorage.ref().child(fileModel.ref).getDownloadURL();
   }
@@ -57,10 +55,9 @@ class FilesServiceImpl extends FilesService {
   @override
   Future<DownloadTask> downloadFile(String fileId, File destFile) async {
     final fileModel = await filesCollection.doc(fileId).get().then(
-          (value) => value.exists
-              ? FileModel.fromJson(value.data()!)
-              : throw NotFoundException(),
+          (value) => value.exists ? FileModel.fromJson(value.data()!) : throw NotFoundException(),
         );
-    return firebaseStorage.ref().child(fileModel.ref).writeToFile(destFile);
+
+    return firebaseStorage.ref().child(fileModel.ref).writeToFile(destFile);;
   }
 }

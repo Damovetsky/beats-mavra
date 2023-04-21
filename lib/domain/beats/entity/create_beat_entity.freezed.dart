@@ -26,6 +26,7 @@ mixin _$CreateBeatEntity {
   List<String> get genres => throw _privateConstructorUsedError;
   int get temp => throw _privateConstructorUsedError;
   String get dimension => throw _privateConstructorUsedError;
+  List<double> get graph => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateBeatEntityCopyWith<CreateBeatEntity> get copyWith =>
@@ -48,7 +49,8 @@ abstract class $CreateBeatEntityCopyWith<$Res> {
       String? zipFileId,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$CreateBeatEntityCopyWithImpl<$Res, $Val extends CreateBeatEntity>
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_value.copyWith(
       authorId: null == authorId
@@ -116,6 +119,10 @@ class _$CreateBeatEntityCopyWithImpl<$Res, $Val extends CreateBeatEntity>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value.graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ) as $Val);
   }
 }
@@ -138,7 +145,8 @@ abstract class _$$_CreateBeatEntityCopyWith<$Res>
       String? zipFileId,
       List<String> genres,
       int temp,
-      String dimension});
+      String dimension,
+      List<double> graph});
 }
 
 /// @nodoc
@@ -162,6 +170,7 @@ class __$$_CreateBeatEntityCopyWithImpl<$Res>
     Object? genres = null,
     Object? temp = null,
     Object? dimension = null,
+    Object? graph = null,
   }) {
     return _then(_$_CreateBeatEntity(
       authorId: null == authorId
@@ -204,6 +213,10 @@ class __$$_CreateBeatEntityCopyWithImpl<$Res>
           ? _value.dimension
           : dimension // ignore: cast_nullable_to_non_nullable
               as String,
+      graph: null == graph
+          ? _value._graph
+          : graph // ignore: cast_nullable_to_non_nullable
+              as List<double>,
     ));
   }
 }
@@ -221,8 +234,10 @@ class _$_CreateBeatEntity implements _CreateBeatEntity {
       required this.zipFileId,
       required final List<String> genres,
       required this.temp,
-      required this.dimension})
-      : _genres = genres;
+      required this.dimension,
+      required final List<double> graph})
+      : _genres = genres,
+        _graph = graph;
 
   @override
   final String authorId;
@@ -250,10 +265,17 @@ class _$_CreateBeatEntity implements _CreateBeatEntity {
   final int temp;
   @override
   final String dimension;
+  final List<double> _graph;
+  @override
+  List<double> get graph {
+    if (_graph is EqualUnmodifiableListView) return _graph;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_graph);
+  }
 
   @override
   String toString() {
-    return 'CreateBeatEntity(authorId: $authorId, cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension)';
+    return 'CreateBeatEntity(authorId: $authorId, cover: $cover, title: $title, description: $description, mp3FileId: $mp3FileId, wavFileId: $wavFileId, zipFileId: $zipFileId, genres: $genres, temp: $temp, dimension: $dimension, graph: $graph)';
   }
 
   @override
@@ -276,7 +298,8 @@ class _$_CreateBeatEntity implements _CreateBeatEntity {
             const DeepCollectionEquality().equals(other._genres, _genres) &&
             (identical(other.temp, temp) || other.temp == temp) &&
             (identical(other.dimension, dimension) ||
-                other.dimension == dimension));
+                other.dimension == dimension) &&
+            const DeepCollectionEquality().equals(other._graph, _graph));
   }
 
   @override
@@ -291,7 +314,8 @@ class _$_CreateBeatEntity implements _CreateBeatEntity {
       zipFileId,
       const DeepCollectionEquality().hash(_genres),
       temp,
-      dimension);
+      dimension,
+      const DeepCollectionEquality().hash(_graph));
 
   @JsonKey(ignore: true)
   @override
@@ -311,7 +335,8 @@ abstract class _CreateBeatEntity implements CreateBeatEntity {
       required final String? zipFileId,
       required final List<String> genres,
       required final int temp,
-      required final String dimension}) = _$_CreateBeatEntity;
+      required final String dimension,
+      required final List<double> graph}) = _$_CreateBeatEntity;
 
   @override
   String get authorId;
@@ -333,6 +358,8 @@ abstract class _CreateBeatEntity implements CreateBeatEntity {
   int get temp;
   @override
   String get dimension;
+  @override
+  List<double> get graph;
   @override
   @JsonKey(ignore: true)
   _$$_CreateBeatEntityCopyWith<_$_CreateBeatEntity> get copyWith =>

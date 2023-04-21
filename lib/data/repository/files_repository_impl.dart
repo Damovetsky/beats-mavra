@@ -26,6 +26,15 @@ class FilesRepositoryImpl implements FilesRepository {
   }
 
   @override
+  Future<Either<Failure, String>> getFileUrl(String fileId) async {
+    try {
+      return Right(await filesService.getFileUrl(fileId));
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, File>> downloadFile({required String fileId, required String extension}) async {
     final dir = (await getApplicationDocumentsDirectory()).path;
     final temp = File('$dir/$fileId$extension');

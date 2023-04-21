@@ -13,10 +13,9 @@ import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/image.dart';
+import '../../core/ui/kit/loader.dart';
 import '../../core/ui/kit/radio_tags.dart';
 import '../../core/ui/text_styles.dart';
-import '../../domain/beats/entity/beat_entity.dart';
-import '../../domain/beats/entity/create_beat_entity.dart';
 import 'cubit/cubit.dart';
 import 'widget/beat_files.dart';
 import 'widget/genres_text_field.dart';
@@ -60,7 +59,14 @@ class _BeatSheetState extends State<BeatSheet> {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: Form(
-          child: BlocBuilder<BeatSheetCubit, BeatSheetState>(
+          child: BlocConsumer<BeatSheetCubit, BeatSheetState>(
+            listener: (context, state) {
+              state.mapOrNull(
+                success: (_) {
+                  Navigator.pop(context);
+                },
+              );
+            },
             builder: (context, state) {
               return Container(
                 constraints: BoxConstraints(
@@ -185,26 +191,30 @@ class _BeatSheetState extends State<BeatSheet> {
                         ),
                         const SizedBox(height: 32),
                         FilledButton(
-                          onPressed: () {
-                            if (Form.of(context).validate() &&
-                                cover != null &&
-                                _currentFiles['mp3'] != null &&
-                                _currentGenres.isNotEmpty) {
-                              context.read<BeatSheetCubit>().createBeat(
-                                    cover: cover!,
-                                    title: _titleController.text,
-                                    description: _descriptionController.text,
-                                    mp3File: _currentFiles['mp3']!.file,
-                                    wavFile: _currentFiles['wav']?.file,
-                                    zipFile: _currentFiles['zip']?.file,
-                                    genres: _currentGenres,
-                                    tempo: _currentTempo,
-                                    dimension: availableDimensions[_currentDimensionIndex],
-                                  );
-                            }
-                          },
+                          onPressed: state.mapOrNull(loading: (_) => true) ?? false
+                              ? null
+                              : () {
+                                  if (Form.of(context).validate() &&
+                                      cover != null &&
+                                      _currentFiles['mp3'] != null &&
+                                      _currentGenres.isNotEmpty) {
+                                    context.read<BeatSheetCubit>().createBeat(
+                                          cover: cover!,
+                                          title: _titleController.text,
+                                          description: _descriptionController.text,
+                                          mp3File: _currentFiles['mp3']!,
+                                          wavFile: _currentFiles['wav'],
+                                          zipFile: _currentFiles['zip'],
+                                          genres: _currentGenres,
+                                          tempo: _currentTempo,
+                                          dimension: availableDimensions[_currentDimensionIndex],
+                                        );
+                                  }
+                                },
                           child: Center(
-                            child: Text('Создать'),
+                            child: state.mapOrNull(loading: (_) => true) ?? false
+                                ? const AppLoader()
+                                : Text('beats_sheet_create'.tr()),
                           ),
                         ),
                         const SizedBox(height: screenBottomScrollPadding * 2),

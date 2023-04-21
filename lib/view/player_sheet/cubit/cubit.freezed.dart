@@ -21,7 +21,7 @@ mixin _$PlayerState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(BeatPlayingStatus status,
-            PublicUserEntity? author, BeatEntity entity, File beatFile)
+            PublicUserEntity? author, BeatEntity entity, String beatUrl)
         player,
     required TResult Function(String title, String message) failure,
   }) =>
@@ -31,7 +31,7 @@ mixin _$PlayerState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult? Function(String title, String message)? failure,
   }) =>
@@ -41,7 +41,7 @@ mixin _$PlayerState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult Function(String title, String message)? failure,
     required TResult orElse(),
@@ -133,7 +133,7 @@ class _$_PlayerInitialState implements _PlayerInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(BeatPlayingStatus status,
-            PublicUserEntity? author, BeatEntity entity, File beatFile)
+            PublicUserEntity? author, BeatEntity entity, String beatUrl)
         player,
     required TResult Function(String title, String message) failure,
   }) {
@@ -146,7 +146,7 @@ class _$_PlayerInitialState implements _PlayerInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult? Function(String title, String message)? failure,
   }) {
@@ -159,7 +159,7 @@ class _$_PlayerInitialState implements _PlayerInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult Function(String title, String message)? failure,
     required TResult orElse(),
@@ -256,7 +256,7 @@ class _$_PlayerShrinkedLoadingState implements _PlayerShrinkedLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(BeatPlayingStatus status,
-            PublicUserEntity? author, BeatEntity entity, File beatFile)
+            PublicUserEntity? author, BeatEntity entity, String beatUrl)
         player,
     required TResult Function(String title, String message) failure,
   }) {
@@ -269,7 +269,7 @@ class _$_PlayerShrinkedLoadingState implements _PlayerShrinkedLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult? Function(String title, String message)? failure,
   }) {
@@ -282,7 +282,7 @@ class _$_PlayerShrinkedLoadingState implements _PlayerShrinkedLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult Function(String title, String message)? failure,
     required TResult orElse(),
@@ -345,7 +345,7 @@ abstract class _$$_PlayerStateCopyWith<$Res> {
       {BeatPlayingStatus status,
       PublicUserEntity? author,
       BeatEntity entity,
-      File beatFile});
+      String beatUrl});
 
   $PublicUserEntityCopyWith<$Res>? get author;
   $BeatEntityCopyWith<$Res> get entity;
@@ -365,7 +365,7 @@ class __$$_PlayerStateCopyWithImpl<$Res>
     Object? status = null,
     Object? author = freezed,
     Object? entity = null,
-    Object? beatFile = null,
+    Object? beatUrl = null,
   }) {
     return _then(_$_PlayerState(
       status: null == status
@@ -380,10 +380,10 @@ class __$$_PlayerStateCopyWithImpl<$Res>
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
               as BeatEntity,
-      beatFile: null == beatFile
-          ? _value.beatFile
-          : beatFile // ignore: cast_nullable_to_non_nullable
-              as File,
+      beatUrl: null == beatUrl
+          ? _value.beatUrl
+          : beatUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -415,7 +415,7 @@ class _$_PlayerState implements _PlayerState {
       {required this.status,
       required this.author,
       required this.entity,
-      required this.beatFile});
+      required this.beatUrl});
 
   @override
   final BeatPlayingStatus status;
@@ -424,11 +424,11 @@ class _$_PlayerState implements _PlayerState {
   @override
   final BeatEntity entity;
   @override
-  final File beatFile;
+  final String beatUrl;
 
   @override
   String toString() {
-    return 'PlayerState.player(status: $status, author: $author, entity: $entity, beatFile: $beatFile)';
+    return 'PlayerState.player(status: $status, author: $author, entity: $entity, beatUrl: $beatUrl)';
   }
 
   @override
@@ -439,13 +439,11 @@ class _$_PlayerState implements _PlayerState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.entity, entity) || other.entity == entity) &&
-            (identical(other.beatFile, beatFile) ||
-                other.beatFile == beatFile));
+            (identical(other.beatUrl, beatUrl) || other.beatUrl == beatUrl));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, author, entity, beatFile);
+  int get hashCode => Object.hash(runtimeType, status, author, entity, beatUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -459,11 +457,11 @@ class _$_PlayerState implements _PlayerState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(BeatPlayingStatus status,
-            PublicUserEntity? author, BeatEntity entity, File beatFile)
+            PublicUserEntity? author, BeatEntity entity, String beatUrl)
         player,
     required TResult Function(String title, String message) failure,
   }) {
-    return player(status, author, entity, beatFile);
+    return player(status, author, entity, beatUrl);
   }
 
   @override
@@ -472,11 +470,11 @@ class _$_PlayerState implements _PlayerState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult? Function(String title, String message)? failure,
   }) {
-    return player?.call(status, author, entity, beatFile);
+    return player?.call(status, author, entity, beatUrl);
   }
 
   @override
@@ -485,13 +483,13 @@ class _$_PlayerState implements _PlayerState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (player != null) {
-      return player(status, author, entity, beatFile);
+      return player(status, author, entity, beatUrl);
     }
     return orElse();
   }
@@ -539,12 +537,12 @@ abstract class _PlayerState implements PlayerState {
       {required final BeatPlayingStatus status,
       required final PublicUserEntity? author,
       required final BeatEntity entity,
-      required final File beatFile}) = _$_PlayerState;
+      required final String beatUrl}) = _$_PlayerState;
 
   BeatPlayingStatus get status;
   PublicUserEntity? get author;
   BeatEntity get entity;
-  File get beatFile;
+  String get beatUrl;
   @JsonKey(ignore: true)
   _$$_PlayerStateCopyWith<_$_PlayerState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -626,7 +624,7 @@ class _$_PlayerFailureState implements _PlayerFailureState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(BeatPlayingStatus status,
-            PublicUserEntity? author, BeatEntity entity, File beatFile)
+            PublicUserEntity? author, BeatEntity entity, String beatUrl)
         player,
     required TResult Function(String title, String message) failure,
   }) {
@@ -639,7 +637,7 @@ class _$_PlayerFailureState implements _PlayerFailureState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult? Function(String title, String message)? failure,
   }) {
@@ -652,7 +650,7 @@ class _$_PlayerFailureState implements _PlayerFailureState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(BeatPlayingStatus status, PublicUserEntity? author,
-            BeatEntity entity, File beatFile)?
+            BeatEntity entity, String beatUrl)?
         player,
     TResult Function(String title, String message)? failure,
     required TResult orElse(),
