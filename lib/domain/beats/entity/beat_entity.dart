@@ -16,5 +16,21 @@ class BeatEntity with _$BeatEntity {
     required List<String> genres,
     required int temp,
     required String dimension,
-}) = _BeatEntity;
+  }) = _BeatEntity;
+
+  static BeatEntity empty() {
+    return const BeatEntity(
+      beatId: '',
+      authorId: '',
+      cover: '',
+      title: '',
+      description: '',
+      mp3FileId: '',
+      wavFileId: '',
+      zipFileId: '',
+      genres: [],
+      temp: -1,
+      dimension: '',
+    );
+  }
 }

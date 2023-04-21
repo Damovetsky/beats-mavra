@@ -15,18 +15,19 @@ import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/image.dart';
 import '../../core/ui/kit/radio_tags.dart';
 import '../../core/ui/text_styles.dart';
+import '../../domain/beats/entity/beat_entity.dart';
+import '../../domain/beats/entity/create_beat_entity.dart';
 import 'cubit/cubit.dart';
 import 'widget/beat_files.dart';
 import 'widget/genres_text_field.dart';
 
 class BeatSheet extends StatefulWidget {
-  final String? beatId;
-  const BeatSheet({super.key, required this.beatId});
+  const BeatSheet({super.key});
 
   static Future<void> show(BuildContext context, String? beatId) {
     return BottomSheetHelper.show(
       context,
-      (context, padding) => BeatSheet(beatId: beatId),
+      (context, padding) => const BeatSheet(),
       isScrollControlled: true,
     );
   }
@@ -37,12 +38,13 @@ class BeatSheet extends StatefulWidget {
 
 class _BeatSheetState extends State<BeatSheet> {
   File? cover;
+
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _currentFiles = <String, BeatViewObject?>{
-    '.mp3': null,
-    '.wav': null,
-    '.zip': null,
+    'mp3': null,
+    'wav': null,
+    'zip': null,
   };
   List<String> _currentGenres = [];
   int _currentTempo = 20;
@@ -51,137 +53,169 @@ class _BeatSheetState extends State<BeatSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<BeatSheetCubit>()..loadBeat(widget.beatId),
-      child: BlocBuilder<BeatSheetCubit, BeatSheetState>(
-        builder: (context, state) {
-          return GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height * 0.4,
-                maxHeight: MediaQuery.of(context).size.height * 0.85,
-              ),
-              child: Padding(
-                padding: MediaQuery.of(context).viewInsets,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.beatId == null ? 'beat_sheet_add_title'.tr() : 'beat_sheet_edit_title'.tr(),
-                        style: currentTextTheme(context).titleLarge?.copyWith(
-                              color: currentColorScheme(context).primary,
+      create: (context) => getIt.get<BeatSheetCubit>(),
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Form(
+          child: BlocBuilder<BeatSheetCubit, BeatSheetState>(
+            builder: (context, state) {
+              return Container(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height * 0.4,
+                  maxHeight: MediaQuery.of(context).size.height * 0.85,
+                ),
+                child: Padding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'beat_sheet_add_title'.tr(),
+                          style: currentTextTheme(context).titleLarge?.copyWith(
+                                color: currentColorScheme(context).primary,
+                              ),
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _Cover(
+                              cover: cover,
+                              onChoosed: (coverFile) {
+                                setState(() {
+                                  cover = coverFile;
+                                });
+                              },
                             ),
-                      ),
-                      const SizedBox(height: 24),
-                      Row(
-                        children: [
-                          _Cover(
-                            cover: cover,
-                            onChoosed: (coverFile) {
-                              setState(() {
-                                cover = coverFile;
-                              });
-                            },
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextField(
-                              controller: _titleController,
-                              decoration: InputDecoration(
-                                hintText: 'beat_sheet_title_hint'.tr(),
-                                labelText: 'beat_sheet_title_label'.tr(),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _titleController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty || value.length <= 5) {
+                                    return 'ошибка';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'beat_sheet_title_hint'.tr(),
+                                  labelText: 'beat_sheet_title_label'.tr(),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      TextField(
-                        controller: _descriptionController,
-                        decoration: InputDecoration(
-                          hintText: 'beat_sheet_description_hint'.tr(),
-                          labelText: 'beat_sheet_description_label'.tr(),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'beat_sheet_tracks_title'.tr(),
-                            style: currentTextTheme(context).titleMedium?.copyWith(
-                                  color: currentColorScheme(context).primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          controller: _descriptionController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty || value.length <= 5) {
+                              return 'ошибка';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'beat_sheet_description_hint'.tr(),
+                            labelText: 'beat_sheet_description_label'.tr(),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'beats_sheet_tracks_hint'.tr(),
-                            style: currentTextTheme(context).bodyMedium?.copyWith(
-                                  color: currentColorScheme(context).onBackground.withOpacity(0.7),
-                                ),
-                          ),
-                          const SizedBox(height: 16),
-                          BeatFilesWidget(
-                            files: _currentFiles,
-                            onFileChanged: (fileType, file) {
-                              setState(() {
-                                _currentFiles[fileType] = file;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      _Genre(
-                        genres: _currentGenres,
-                        onChanged: (newGenres) {
-                          setState(() {
-                            _currentGenres = newGenres;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      _TempoSlider(
-                        initialTempo: _currentTempo,
-                        onChanged: (newTempo) {
-                          setState(() {
-                            _currentTempo = newTempo;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      _Dimension(
-                        currentIndex: _currentDimensionIndex,
-                        dimensions: const ['4/4', '2/4', '3/4', '5/4', '3/8', '6/8'],
-                        onChanged: (index) {
-                          setState(() {
-                            _currentDimensionIndex = index;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 32),
-                      FilledButton(
-                        onPressed: () {},
-                        child: const Center(
-                          child: Text('Создать'),
                         ),
-                      ),
-                      const SizedBox(height: screenBottomScrollPadding * 2),
-                    ],
+                        const SizedBox(height: 24),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'beat_sheet_tracks_title'.tr(),
+                              style: currentTextTheme(context).titleMedium?.copyWith(
+                                    color: currentColorScheme(context).primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'beats_sheet_tracks_hint'.tr(),
+                              style: currentTextTheme(context).bodyMedium?.copyWith(
+                                    color: currentColorScheme(context).onBackground.withOpacity(0.7),
+                                  ),
+                            ),
+                            const SizedBox(height: 16),
+                            BeatFilesWidget(
+                              files: _currentFiles,
+                              onFileChanged: (fileType, file) {
+                                setState(() {
+                                  _currentFiles[fileType] = file;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        _Genre(
+                          genres: _currentGenres,
+                          onChanged: (newGenres) {
+                            setState(() {
+                              _currentGenres = newGenres;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        _TempoSlider(
+                          initialTempo: _currentTempo,
+                          onChanged: (newTempo) {
+                            setState(() {
+                              _currentTempo = newTempo;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        _Dimension(
+                          currentIndex: _currentDimensionIndex,
+                          dimensions: availableDimensions,
+                          onChanged: (index) {
+                            setState(() {
+                              _currentDimensionIndex = index;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 32),
+                        FilledButton(
+                          onPressed: () {
+                            if (Form.of(context).validate() &&
+                                cover != null &&
+                                _currentFiles['mp3'] != null &&
+                                _currentGenres.isNotEmpty) {
+                              context.read<BeatSheetCubit>().createBeat(
+                                    cover: cover!,
+                                    title: _titleController.text,
+                                    description: _descriptionController.text,
+                                    mp3File: _currentFiles['mp3']!.file,
+                                    wavFile: _currentFiles['wav']?.file,
+                                    zipFile: _currentFiles['zip']?.file,
+                                    genres: _currentGenres,
+                                    tempo: _currentTempo,
+                                    dimension: availableDimensions[_currentDimensionIndex],
+                                  );
+                            }
+                          },
+                          child: Center(
+                            child: Text('Создать'),
+                          ),
+                        ),
+                        const SizedBox(height: screenBottomScrollPadding * 2),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -1,12 +1,12 @@
 part of 'cubit.dart';
 
-
-
 @freezed
-class BeatSheetState with _$BeatSheetState{
+class BeatSheetState with _$BeatSheetState {
+  const factory BeatSheetState.initial() = _BeatSheetInitialState;
   const factory BeatSheetState.loading() = _BeatSheetLoadingState;
-  const factory BeatSheetState.beat(BeatEntity? beat) = _BeatSheetState;
-  const factory BeatSheetState.applyLoading() = _BeatSheetApplyLoadingState;
-  const factory BeatSheetState.failure(String message) = _BeatSheetFailureState;
-
+  const factory BeatSheetState.success() = _BeatSheetSuccessState;
+  const factory BeatSheetState.failure({
+    required String title,
+    required String message,
+  }) = _BeatSheetFailureState;
 }

@@ -18,50 +18,50 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BeatSheetState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BeatEntity? beat) beat,
-    required TResult Function() applyLoading,
-    required TResult Function(String message) failure,
+    required TResult Function() success,
+    required TResult Function(String title, String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BeatEntity? beat)? beat,
-    TResult? Function()? applyLoading,
-    TResult? Function(String message)? failure,
+    TResult? Function()? success,
+    TResult? Function(String title, String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BeatEntity? beat)? beat,
-    TResult Function()? applyLoading,
-    TResult Function(String message)? failure,
+    TResult Function()? success,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_BeatSheetInitialState value) initial,
     required TResult Function(_BeatSheetLoadingState value) loading,
-    required TResult Function(_BeatSheetState value) beat,
-    required TResult Function(_BeatSheetApplyLoadingState value) applyLoading,
+    required TResult Function(_BeatSheetSuccessState value) success,
     required TResult Function(_BeatSheetFailureState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatSheetInitialState value)? initial,
     TResult? Function(_BeatSheetLoadingState value)? loading,
-    TResult? Function(_BeatSheetState value)? beat,
-    TResult? Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult? Function(_BeatSheetSuccessState value)? success,
     TResult? Function(_BeatSheetFailureState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatSheetInitialState value)? initial,
     TResult Function(_BeatSheetLoadingState value)? loading,
-    TResult Function(_BeatSheetState value)? beat,
-    TResult Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult Function(_BeatSheetSuccessState value)? success,
     TResult Function(_BeatSheetFailureState value)? failure,
     required TResult orElse(),
   }) =>
@@ -84,6 +84,120 @@ class _$BeatSheetStateCopyWithImpl<$Res, $Val extends BeatSheetState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_BeatSheetInitialStateCopyWith<$Res> {
+  factory _$$_BeatSheetInitialStateCopyWith(_$_BeatSheetInitialState value,
+          $Res Function(_$_BeatSheetInitialState) then) =
+      __$$_BeatSheetInitialStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_BeatSheetInitialStateCopyWithImpl<$Res>
+    extends _$BeatSheetStateCopyWithImpl<$Res, _$_BeatSheetInitialState>
+    implements _$$_BeatSheetInitialStateCopyWith<$Res> {
+  __$$_BeatSheetInitialStateCopyWithImpl(_$_BeatSheetInitialState _value,
+      $Res Function(_$_BeatSheetInitialState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_BeatSheetInitialState implements _BeatSheetInitialState {
+  const _$_BeatSheetInitialState();
+
+  @override
+  String toString() {
+    return 'BeatSheetState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_BeatSheetInitialState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String title, String message) failure,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String title, String message)? failure,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String title, String message)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_BeatSheetInitialState value) initial,
+    required TResult Function(_BeatSheetLoadingState value) loading,
+    required TResult Function(_BeatSheetSuccessState value) success,
+    required TResult Function(_BeatSheetFailureState value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatSheetInitialState value)? initial,
+    TResult? Function(_BeatSheetLoadingState value)? loading,
+    TResult? Function(_BeatSheetSuccessState value)? success,
+    TResult? Function(_BeatSheetFailureState value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatSheetInitialState value)? initial,
+    TResult Function(_BeatSheetLoadingState value)? loading,
+    TResult Function(_BeatSheetSuccessState value)? success,
+    TResult Function(_BeatSheetFailureState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BeatSheetInitialState implements BeatSheetState {
+  const factory _BeatSheetInitialState() = _$_BeatSheetInitialState;
 }
 
 /// @nodoc
@@ -124,10 +238,10 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BeatEntity? beat) beat,
-    required TResult Function() applyLoading,
-    required TResult Function(String message) failure,
+    required TResult Function() success,
+    required TResult Function(String title, String message) failure,
   }) {
     return loading();
   }
@@ -135,10 +249,10 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BeatEntity? beat)? beat,
-    TResult? Function()? applyLoading,
-    TResult? Function(String message)? failure,
+    TResult? Function()? success,
+    TResult? Function(String title, String message)? failure,
   }) {
     return loading?.call();
   }
@@ -146,10 +260,10 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BeatEntity? beat)? beat,
-    TResult Function()? applyLoading,
-    TResult Function(String message)? failure,
+    TResult Function()? success,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -161,9 +275,9 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_BeatSheetInitialState value) initial,
     required TResult Function(_BeatSheetLoadingState value) loading,
-    required TResult Function(_BeatSheetState value) beat,
-    required TResult Function(_BeatSheetApplyLoadingState value) applyLoading,
+    required TResult Function(_BeatSheetSuccessState value) success,
     required TResult Function(_BeatSheetFailureState value) failure,
   }) {
     return loading(this);
@@ -172,9 +286,9 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatSheetInitialState value)? initial,
     TResult? Function(_BeatSheetLoadingState value)? loading,
-    TResult? Function(_BeatSheetState value)? beat,
-    TResult? Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult? Function(_BeatSheetSuccessState value)? success,
     TResult? Function(_BeatSheetFailureState value)? failure,
   }) {
     return loading?.call(this);
@@ -183,9 +297,9 @@ class _$_BeatSheetLoadingState implements _BeatSheetLoadingState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatSheetInitialState value)? initial,
     TResult Function(_BeatSheetLoadingState value)? loading,
-    TResult Function(_BeatSheetState value)? beat,
-    TResult Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult Function(_BeatSheetSuccessState value)? success,
     TResult Function(_BeatSheetFailureState value)? failure,
     required TResult orElse(),
   }) {
@@ -201,197 +315,35 @@ abstract class _BeatSheetLoadingState implements BeatSheetState {
 }
 
 /// @nodoc
-abstract class _$$_BeatSheetStateCopyWith<$Res> {
-  factory _$$_BeatSheetStateCopyWith(
-          _$_BeatSheetState value, $Res Function(_$_BeatSheetState) then) =
-      __$$_BeatSheetStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({BeatEntity? beat});
-
-  $BeatEntityCopyWith<$Res>? get beat;
+abstract class _$$_BeatSheetSuccessStateCopyWith<$Res> {
+  factory _$$_BeatSheetSuccessStateCopyWith(_$_BeatSheetSuccessState value,
+          $Res Function(_$_BeatSheetSuccessState) then) =
+      __$$_BeatSheetSuccessStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_BeatSheetStateCopyWithImpl<$Res>
-    extends _$BeatSheetStateCopyWithImpl<$Res, _$_BeatSheetState>
-    implements _$$_BeatSheetStateCopyWith<$Res> {
-  __$$_BeatSheetStateCopyWithImpl(
-      _$_BeatSheetState _value, $Res Function(_$_BeatSheetState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? beat = freezed,
-  }) {
-    return _then(_$_BeatSheetState(
-      freezed == beat
-          ? _value.beat
-          : beat // ignore: cast_nullable_to_non_nullable
-              as BeatEntity?,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BeatEntityCopyWith<$Res>? get beat {
-    if (_value.beat == null) {
-      return null;
-    }
-
-    return $BeatEntityCopyWith<$Res>(_value.beat!, (value) {
-      return _then(_value.copyWith(beat: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$_BeatSheetState implements _BeatSheetState {
-  const _$_BeatSheetState(this.beat);
-
-  @override
-  final BeatEntity? beat;
-
-  @override
-  String toString() {
-    return 'BeatSheetState.beat(beat: $beat)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BeatSheetState &&
-            (identical(other.beat, beat) || other.beat == beat));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, beat);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_BeatSheetStateCopyWith<_$_BeatSheetState> get copyWith =>
-      __$$_BeatSheetStateCopyWithImpl<_$_BeatSheetState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loading,
-    required TResult Function(BeatEntity? beat) beat,
-    required TResult Function() applyLoading,
-    required TResult Function(String message) failure,
-  }) {
-    return beat(this.beat);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
-    TResult? Function(BeatEntity? beat)? beat,
-    TResult? Function()? applyLoading,
-    TResult? Function(String message)? failure,
-  }) {
-    return beat?.call(this.beat);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(BeatEntity? beat)? beat,
-    TResult Function()? applyLoading,
-    TResult Function(String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (beat != null) {
-      return beat(this.beat);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_BeatSheetLoadingState value) loading,
-    required TResult Function(_BeatSheetState value) beat,
-    required TResult Function(_BeatSheetApplyLoadingState value) applyLoading,
-    required TResult Function(_BeatSheetFailureState value) failure,
-  }) {
-    return beat(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_BeatSheetLoadingState value)? loading,
-    TResult? Function(_BeatSheetState value)? beat,
-    TResult? Function(_BeatSheetApplyLoadingState value)? applyLoading,
-    TResult? Function(_BeatSheetFailureState value)? failure,
-  }) {
-    return beat?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_BeatSheetLoadingState value)? loading,
-    TResult Function(_BeatSheetState value)? beat,
-    TResult Function(_BeatSheetApplyLoadingState value)? applyLoading,
-    TResult Function(_BeatSheetFailureState value)? failure,
-    required TResult orElse(),
-  }) {
-    if (beat != null) {
-      return beat(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _BeatSheetState implements BeatSheetState {
-  const factory _BeatSheetState(final BeatEntity? beat) = _$_BeatSheetState;
-
-  BeatEntity? get beat;
-  @JsonKey(ignore: true)
-  _$$_BeatSheetStateCopyWith<_$_BeatSheetState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_BeatSheetApplyLoadingStateCopyWith<$Res> {
-  factory _$$_BeatSheetApplyLoadingStateCopyWith(
-          _$_BeatSheetApplyLoadingState value,
-          $Res Function(_$_BeatSheetApplyLoadingState) then) =
-      __$$_BeatSheetApplyLoadingStateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_BeatSheetApplyLoadingStateCopyWithImpl<$Res>
-    extends _$BeatSheetStateCopyWithImpl<$Res, _$_BeatSheetApplyLoadingState>
-    implements _$$_BeatSheetApplyLoadingStateCopyWith<$Res> {
-  __$$_BeatSheetApplyLoadingStateCopyWithImpl(
-      _$_BeatSheetApplyLoadingState _value,
-      $Res Function(_$_BeatSheetApplyLoadingState) _then)
+class __$$_BeatSheetSuccessStateCopyWithImpl<$Res>
+    extends _$BeatSheetStateCopyWithImpl<$Res, _$_BeatSheetSuccessState>
+    implements _$$_BeatSheetSuccessStateCopyWith<$Res> {
+  __$$_BeatSheetSuccessStateCopyWithImpl(_$_BeatSheetSuccessState _value,
+      $Res Function(_$_BeatSheetSuccessState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
-  const _$_BeatSheetApplyLoadingState();
+class _$_BeatSheetSuccessState implements _BeatSheetSuccessState {
+  const _$_BeatSheetSuccessState();
 
   @override
   String toString() {
-    return 'BeatSheetState.applyLoading()';
+    return 'BeatSheetState.success()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BeatSheetApplyLoadingState);
+        (other.runtimeType == runtimeType && other is _$_BeatSheetSuccessState);
   }
 
   @override
@@ -400,36 +352,36 @@ class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BeatEntity? beat) beat,
-    required TResult Function() applyLoading,
-    required TResult Function(String message) failure,
+    required TResult Function() success,
+    required TResult Function(String title, String message) failure,
   }) {
-    return applyLoading();
+    return success();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BeatEntity? beat)? beat,
-    TResult? Function()? applyLoading,
-    TResult? Function(String message)? failure,
+    TResult? Function()? success,
+    TResult? Function(String title, String message)? failure,
   }) {
-    return applyLoading?.call();
+    return success?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BeatEntity? beat)? beat,
-    TResult Function()? applyLoading,
-    TResult Function(String message)? failure,
+    TResult Function()? success,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
-    if (applyLoading != null) {
-      return applyLoading();
+    if (success != null) {
+      return success();
     }
     return orElse();
   }
@@ -437,43 +389,43 @@ class _$_BeatSheetApplyLoadingState implements _BeatSheetApplyLoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_BeatSheetInitialState value) initial,
     required TResult Function(_BeatSheetLoadingState value) loading,
-    required TResult Function(_BeatSheetState value) beat,
-    required TResult Function(_BeatSheetApplyLoadingState value) applyLoading,
+    required TResult Function(_BeatSheetSuccessState value) success,
     required TResult Function(_BeatSheetFailureState value) failure,
   }) {
-    return applyLoading(this);
+    return success(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatSheetInitialState value)? initial,
     TResult? Function(_BeatSheetLoadingState value)? loading,
-    TResult? Function(_BeatSheetState value)? beat,
-    TResult? Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult? Function(_BeatSheetSuccessState value)? success,
     TResult? Function(_BeatSheetFailureState value)? failure,
   }) {
-    return applyLoading?.call(this);
+    return success?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatSheetInitialState value)? initial,
     TResult Function(_BeatSheetLoadingState value)? loading,
-    TResult Function(_BeatSheetState value)? beat,
-    TResult Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult Function(_BeatSheetSuccessState value)? success,
     TResult Function(_BeatSheetFailureState value)? failure,
     required TResult orElse(),
   }) {
-    if (applyLoading != null) {
-      return applyLoading(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
 }
 
-abstract class _BeatSheetApplyLoadingState implements BeatSheetState {
-  const factory _BeatSheetApplyLoadingState() = _$_BeatSheetApplyLoadingState;
+abstract class _BeatSheetSuccessState implements BeatSheetState {
+  const factory _BeatSheetSuccessState() = _$_BeatSheetSuccessState;
 }
 
 /// @nodoc
@@ -482,7 +434,7 @@ abstract class _$$_BeatSheetFailureStateCopyWith<$Res> {
           $Res Function(_$_BeatSheetFailureState) then) =
       __$$_BeatSheetFailureStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({String title, String message});
 }
 
 /// @nodoc
@@ -496,10 +448,15 @@ class __$$_BeatSheetFailureStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
     Object? message = null,
   }) {
     return _then(_$_BeatSheetFailureState(
-      null == message
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
@@ -510,14 +467,16 @@ class __$$_BeatSheetFailureStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_BeatSheetFailureState implements _BeatSheetFailureState {
-  const _$_BeatSheetFailureState(this.message);
+  const _$_BeatSheetFailureState({required this.title, required this.message});
 
+  @override
+  final String title;
   @override
   final String message;
 
   @override
   String toString() {
-    return 'BeatSheetState.failure(message: $message)';
+    return 'BeatSheetState.failure(title: $title, message: $message)';
   }
 
   @override
@@ -525,11 +484,12 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BeatSheetFailureState &&
+            (identical(other.title, title) || other.title == title) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, title, message);
 
   @JsonKey(ignore: true)
   @override
@@ -541,36 +501,36 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BeatEntity? beat) beat,
-    required TResult Function() applyLoading,
-    required TResult Function(String message) failure,
+    required TResult Function() success,
+    required TResult Function(String title, String message) failure,
   }) {
-    return failure(message);
+    return failure(title, message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BeatEntity? beat)? beat,
-    TResult? Function()? applyLoading,
-    TResult? Function(String message)? failure,
+    TResult? Function()? success,
+    TResult? Function(String title, String message)? failure,
   }) {
-    return failure?.call(message);
+    return failure?.call(title, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BeatEntity? beat)? beat,
-    TResult Function()? applyLoading,
-    TResult Function(String message)? failure,
+    TResult Function()? success,
+    TResult Function(String title, String message)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure(message);
+      return failure(title, message);
     }
     return orElse();
   }
@@ -578,9 +538,9 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_BeatSheetInitialState value) initial,
     required TResult Function(_BeatSheetLoadingState value) loading,
-    required TResult Function(_BeatSheetState value) beat,
-    required TResult Function(_BeatSheetApplyLoadingState value) applyLoading,
+    required TResult Function(_BeatSheetSuccessState value) success,
     required TResult Function(_BeatSheetFailureState value) failure,
   }) {
     return failure(this);
@@ -589,9 +549,9 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_BeatSheetInitialState value)? initial,
     TResult? Function(_BeatSheetLoadingState value)? loading,
-    TResult? Function(_BeatSheetState value)? beat,
-    TResult? Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult? Function(_BeatSheetSuccessState value)? success,
     TResult? Function(_BeatSheetFailureState value)? failure,
   }) {
     return failure?.call(this);
@@ -600,9 +560,9 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_BeatSheetInitialState value)? initial,
     TResult Function(_BeatSheetLoadingState value)? loading,
-    TResult Function(_BeatSheetState value)? beat,
-    TResult Function(_BeatSheetApplyLoadingState value)? applyLoading,
+    TResult Function(_BeatSheetSuccessState value)? success,
     TResult Function(_BeatSheetFailureState value)? failure,
     required TResult orElse(),
   }) {
@@ -614,9 +574,11 @@ class _$_BeatSheetFailureState implements _BeatSheetFailureState {
 }
 
 abstract class _BeatSheetFailureState implements BeatSheetState {
-  const factory _BeatSheetFailureState(final String message) =
-      _$_BeatSheetFailureState;
+  const factory _BeatSheetFailureState(
+      {required final String title,
+      required final String message}) = _$_BeatSheetFailureState;
 
+  String get title;
   String get message;
   @JsonKey(ignore: true)
   _$$_BeatSheetFailureStateCopyWith<_$_BeatSheetFailureState> get copyWith =>
