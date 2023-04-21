@@ -19,22 +19,31 @@ mixin _$PurchaseState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<OfferEntity> offers, String? currentGrade)
-        unactive,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
     required TResult Function(String message) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
     TResult? Function(String message)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) =>
@@ -42,21 +51,27 @@ mixin _$PurchaseState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PurchaseLoadingState value) loading,
-    required TResult Function(_PurchaseUnactiveState value) unactive,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
     required TResult Function(_PurchaseFailureState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PurchaseLoadingState value)? loading,
-    TResult? Function(_PurchaseUnactiveState value)? unactive,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
     TResult? Function(_PurchaseFailureState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PurchaseLoadingState value)? loading,
-    TResult Function(_PurchaseUnactiveState value)? unactive,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
     TResult Function(_PurchaseFailureState value)? failure,
     required TResult orElse(),
   }) =>
@@ -120,8 +135,11 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<OfferEntity> offers, String? currentGrade)
-        unactive,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
     required TResult Function(String message) failure,
   }) {
     return loading();
@@ -131,7 +149,10 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
     TResult? Function(String message)? failure,
   }) {
     return loading?.call();
@@ -141,7 +162,10 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -155,7 +179,9 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PurchaseLoadingState value) loading,
-    required TResult Function(_PurchaseUnactiveState value) unactive,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
     required TResult Function(_PurchaseFailureState value) failure,
   }) {
     return loading(this);
@@ -165,7 +191,9 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PurchaseLoadingState value)? loading,
-    TResult? Function(_PurchaseUnactiveState value)? unactive,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
     TResult? Function(_PurchaseFailureState value)? failure,
   }) {
     return loading?.call(this);
@@ -175,7 +203,9 @@ class _$_PurchaseLoadingState implements _PurchaseLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PurchaseLoadingState value)? loading,
-    TResult Function(_PurchaseUnactiveState value)? unactive,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
     TResult Function(_PurchaseFailureState value)? failure,
     required TResult orElse(),
   }) {
@@ -191,46 +221,56 @@ abstract class _PurchaseLoadingState implements PurchaseState {
 }
 
 /// @nodoc
-abstract class _$$_PurchaseUnactiveStateCopyWith<$Res> {
-  factory _$$_PurchaseUnactiveStateCopyWith(_$_PurchaseUnactiveState value,
-          $Res Function(_$_PurchaseUnactiveState) then) =
-      __$$_PurchaseUnactiveStateCopyWithImpl<$Res>;
+abstract class _$$_PurchasesOffersStateCopyWith<$Res> {
+  factory _$$_PurchasesOffersStateCopyWith(_$_PurchasesOffersState value,
+          $Res Function(_$_PurchasesOffersState) then) =
+      __$$_PurchasesOffersStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<OfferEntity> offers, String? currentGrade});
+  $Res call({List<OfferEntity> offers, OfferEntity currentOffer});
+
+  $OfferEntityCopyWith<$Res> get currentOffer;
 }
 
 /// @nodoc
-class __$$_PurchaseUnactiveStateCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseUnactiveState>
-    implements _$$_PurchaseUnactiveStateCopyWith<$Res> {
-  __$$_PurchaseUnactiveStateCopyWithImpl(_$_PurchaseUnactiveState _value,
-      $Res Function(_$_PurchaseUnactiveState) _then)
+class __$$_PurchasesOffersStateCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchasesOffersState>
+    implements _$$_PurchasesOffersStateCopyWith<$Res> {
+  __$$_PurchasesOffersStateCopyWithImpl(_$_PurchasesOffersState _value,
+      $Res Function(_$_PurchasesOffersState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? offers = null,
-    Object? currentGrade = freezed,
+    Object? currentOffer = null,
   }) {
-    return _then(_$_PurchaseUnactiveState(
+    return _then(_$_PurchasesOffersState(
       offers: null == offers
           ? _value._offers
           : offers // ignore: cast_nullable_to_non_nullable
               as List<OfferEntity>,
-      currentGrade: freezed == currentGrade
-          ? _value.currentGrade
-          : currentGrade // ignore: cast_nullable_to_non_nullable
-              as String?,
+      currentOffer: null == currentOffer
+          ? _value.currentOffer
+          : currentOffer // ignore: cast_nullable_to_non_nullable
+              as OfferEntity,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OfferEntityCopyWith<$Res> get currentOffer {
+    return $OfferEntityCopyWith<$Res>(_value.currentOffer, (value) {
+      return _then(_value.copyWith(currentOffer: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$_PurchaseUnactiveState implements _PurchaseUnactiveState {
-  const _$_PurchaseUnactiveState(
-      {required final List<OfferEntity> offers, this.currentGrade})
+class _$_PurchasesOffersState implements _PurchasesOffersState {
+  const _$_PurchasesOffersState(
+      {required final List<OfferEntity> offers, required this.currentOffer})
       : _offers = offers;
 
   final List<OfferEntity> _offers;
@@ -242,65 +282,74 @@ class _$_PurchaseUnactiveState implements _PurchaseUnactiveState {
   }
 
   @override
-  final String? currentGrade;
+  final OfferEntity currentOffer;
 
   @override
   String toString() {
-    return 'PurchaseState.unactive(offers: $offers, currentGrade: $currentGrade)';
+    return 'PurchaseState.offers(offers: $offers, currentOffer: $currentOffer)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseUnactiveState &&
+            other is _$_PurchasesOffersState &&
             const DeepCollectionEquality().equals(other._offers, _offers) &&
-            (identical(other.currentGrade, currentGrade) ||
-                other.currentGrade == currentGrade));
+            (identical(other.currentOffer, currentOffer) ||
+                other.currentOffer == currentOffer));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_offers), currentGrade);
+      runtimeType, const DeepCollectionEquality().hash(_offers), currentOffer);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseUnactiveStateCopyWith<_$_PurchaseUnactiveState> get copyWith =>
-      __$$_PurchaseUnactiveStateCopyWithImpl<_$_PurchaseUnactiveState>(
+  _$$_PurchasesOffersStateCopyWith<_$_PurchasesOffersState> get copyWith =>
+      __$$_PurchasesOffersStateCopyWithImpl<_$_PurchasesOffersState>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<OfferEntity> offers, String? currentGrade)
-        unactive,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
     required TResult Function(String message) failure,
   }) {
-    return unactive(offers, currentGrade);
+    return offers(this.offers, currentOffer);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
     TResult? Function(String message)? failure,
   }) {
-    return unactive?.call(offers, currentGrade);
+    return offers?.call(this.offers, currentOffer);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
-    if (unactive != null) {
-      return unactive(offers, currentGrade);
+    if (offers != null) {
+      return offers(this.offers, currentOffer);
     }
     return orElse();
   }
@@ -309,47 +358,302 @@ class _$_PurchaseUnactiveState implements _PurchaseUnactiveState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PurchaseLoadingState value) loading,
-    required TResult Function(_PurchaseUnactiveState value) unactive,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
     required TResult Function(_PurchaseFailureState value) failure,
   }) {
-    return unactive(this);
+    return offers(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PurchaseLoadingState value)? loading,
-    TResult? Function(_PurchaseUnactiveState value)? unactive,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
     TResult? Function(_PurchaseFailureState value)? failure,
   }) {
-    return unactive?.call(this);
+    return offers?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PurchaseLoadingState value)? loading,
-    TResult Function(_PurchaseUnactiveState value)? unactive,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
     TResult Function(_PurchaseFailureState value)? failure,
     required TResult orElse(),
   }) {
-    if (unactive != null) {
-      return unactive(this);
+    if (offers != null) {
+      return offers(this);
     }
     return orElse();
   }
 }
 
-abstract class _PurchaseUnactiveState implements PurchaseState {
-  const factory _PurchaseUnactiveState(
+abstract class _PurchasesOffersState implements PurchaseState {
+  const factory _PurchasesOffersState(
       {required final List<OfferEntity> offers,
-      final String? currentGrade}) = _$_PurchaseUnactiveState;
+      required final OfferEntity currentOffer}) = _$_PurchasesOffersState;
 
   List<OfferEntity> get offers;
-  String? get currentGrade;
+  OfferEntity get currentOffer;
   @JsonKey(ignore: true)
-  _$$_PurchaseUnactiveStateCopyWith<_$_PurchaseUnactiveState> get copyWith =>
+  _$$_PurchasesOffersStateCopyWith<_$_PurchasesOffersState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PuchasesBuyLoadingStateCopyWith<$Res> {
+  factory _$$_PuchasesBuyLoadingStateCopyWith(_$_PuchasesBuyLoadingState value,
+          $Res Function(_$_PuchasesBuyLoadingState) then) =
+      __$$_PuchasesBuyLoadingStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_PuchasesBuyLoadingStateCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$_PuchasesBuyLoadingState>
+    implements _$$_PuchasesBuyLoadingStateCopyWith<$Res> {
+  __$$_PuchasesBuyLoadingStateCopyWithImpl(_$_PuchasesBuyLoadingState _value,
+      $Res Function(_$_PuchasesBuyLoadingState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_PuchasesBuyLoadingState implements _PuchasesBuyLoadingState {
+  const _$_PuchasesBuyLoadingState();
+
+  @override
+  String toString() {
+    return 'PurchaseState.buyLoading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PuchasesBuyLoadingState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
+    required TResult Function(String message) failure,
+  }) {
+    return buyLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
+    TResult? Function(String message)? failure,
+  }) {
+    return buyLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
+    TResult Function(String message)? failure,
+    required TResult orElse(),
+  }) {
+    if (buyLoading != null) {
+      return buyLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PurchaseLoadingState value) loading,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
+    required TResult Function(_PurchaseFailureState value) failure,
+  }) {
+    return buyLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PurchaseLoadingState value)? loading,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
+    TResult? Function(_PurchaseFailureState value)? failure,
+  }) {
+    return buyLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PurchaseLoadingState value)? loading,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
+    TResult Function(_PurchaseFailureState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (buyLoading != null) {
+      return buyLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PuchasesBuyLoadingState implements PurchaseState {
+  const factory _PuchasesBuyLoadingState() = _$_PuchasesBuyLoadingState;
+}
+
+/// @nodoc
+abstract class _$$_PurchasesSuccessStateCopyWith<$Res> {
+  factory _$$_PurchasesSuccessStateCopyWith(_$_PurchasesSuccessState value,
+          $Res Function(_$_PurchasesSuccessState) then) =
+      __$$_PurchasesSuccessStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_PurchasesSuccessStateCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchasesSuccessState>
+    implements _$$_PurchasesSuccessStateCopyWith<$Res> {
+  __$$_PurchasesSuccessStateCopyWithImpl(_$_PurchasesSuccessState _value,
+      $Res Function(_$_PurchasesSuccessState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_PurchasesSuccessState implements _PurchasesSuccessState {
+  const _$_PurchasesSuccessState();
+
+  @override
+  String toString() {
+    return 'PurchaseState.success()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_PurchasesSuccessState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
+    required TResult Function(String message) failure,
+  }) {
+    return success();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
+    TResult? Function(String message)? failure,
+  }) {
+    return success?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
+    TResult Function(String message)? failure,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PurchaseLoadingState value) loading,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
+    required TResult Function(_PurchaseFailureState value) failure,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PurchaseLoadingState value)? loading,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
+    TResult? Function(_PurchaseFailureState value)? failure,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PurchaseLoadingState value)? loading,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
+    TResult Function(_PurchaseFailureState value)? failure,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PurchasesSuccessState implements PurchaseState {
+  const factory _PurchasesSuccessState() = _$_PurchasesSuccessState;
 }
 
 /// @nodoc
@@ -418,8 +722,11 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<OfferEntity> offers, String? currentGrade)
-        unactive,
+    required TResult Function(
+            List<OfferEntity> offers, OfferEntity currentOffer)
+        offers,
+    required TResult Function() buyLoading,
+    required TResult Function() success,
     required TResult Function(String message) failure,
   }) {
     return failure(message);
@@ -429,7 +736,10 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult? Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult? Function()? buyLoading,
+    TResult? Function()? success,
     TResult? Function(String message)? failure,
   }) {
     return failure?.call(message);
@@ -439,7 +749,10 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<OfferEntity> offers, String? currentGrade)? unactive,
+    TResult Function(List<OfferEntity> offers, OfferEntity currentOffer)?
+        offers,
+    TResult Function()? buyLoading,
+    TResult Function()? success,
     TResult Function(String message)? failure,
     required TResult orElse(),
   }) {
@@ -453,7 +766,9 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PurchaseLoadingState value) loading,
-    required TResult Function(_PurchaseUnactiveState value) unactive,
+    required TResult Function(_PurchasesOffersState value) offers,
+    required TResult Function(_PuchasesBuyLoadingState value) buyLoading,
+    required TResult Function(_PurchasesSuccessState value) success,
     required TResult Function(_PurchaseFailureState value) failure,
   }) {
     return failure(this);
@@ -463,7 +778,9 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PurchaseLoadingState value)? loading,
-    TResult? Function(_PurchaseUnactiveState value)? unactive,
+    TResult? Function(_PurchasesOffersState value)? offers,
+    TResult? Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult? Function(_PurchasesSuccessState value)? success,
     TResult? Function(_PurchaseFailureState value)? failure,
   }) {
     return failure?.call(this);
@@ -473,7 +790,9 @@ class _$_PurchaseFailureState implements _PurchaseFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PurchaseLoadingState value)? loading,
-    TResult Function(_PurchaseUnactiveState value)? unactive,
+    TResult Function(_PurchasesOffersState value)? offers,
+    TResult Function(_PuchasesBuyLoadingState value)? buyLoading,
+    TResult Function(_PurchasesSuccessState value)? success,
     TResult Function(_PurchaseFailureState value)? failure,
     required TResult orElse(),
   }) {

@@ -4,14 +4,14 @@ part of 'cubit.dart';
 class PurchaseState with _$PurchaseState {
   const factory PurchaseState.loading() = _PurchaseLoadingState;
 
-  const factory PurchaseState.unactive({
+  const factory PurchaseState.offers({
     required List<OfferEntity> offers,
-    String? currentGrade,
-  }) = _PurchaseUnactiveState;
+    required OfferEntity currentOffer,
+  }) = _PurchasesOffersState;
 
-  // const factory PurchaseState.chosen({required String grade}) =
-  //     _PurchaseChosenState;
+  const factory PurchaseState.buyLoading() = _PuchasesBuyLoadingState;
 
-  const factory PurchaseState.failure({required String message}) =
-      _PurchaseFailureState;
+  const factory PurchaseState.success() = _PurchasesSuccessState;
+
+  const factory PurchaseState.failure({required String message}) = _PurchaseFailureState;
 }

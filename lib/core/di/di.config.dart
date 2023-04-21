@@ -163,8 +163,10 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i31.ProfileRepository>(),
           gh<_i22.UsersRepository>(),
         ));
-    gh.factory<_i41.PurchaseCubit>(
-        () => _i41.PurchaseCubit(gh<_i33.PurchasesRepository>()));
+    gh.factory<_i41.PurchaseCubit>(() => _i41.PurchaseCubit(
+          gh<_i24.AuthRepository>(),
+          gh<_i33.PurchasesRepository>(),
+        ));
     return this;
   }
 }

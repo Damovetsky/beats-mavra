@@ -10,6 +10,7 @@ import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
 import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/chip.dart';
+import '../../core/ui/kit/loader.dart';
 import '../../core/ui/text_styles.dart';
 import '../../domain/beats/entity/beat_entity.dart';
 import '../../domain/purchases/entity/offer_entity.dart';
@@ -38,7 +39,6 @@ class PurchaseSheet extends StatefulWidget {
 class _PurchaseSheetState extends State<PurchaseSheet> {
   bool _isShown = false;
 
-  List<OfferEntity> offers = [];
   static const Map<String, String> _map = {
     'gold': 'All sequencer tracks + mp3 and mav',
     'silver': 'MAV + mp3 files',
@@ -48,91 +48,92 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt.get<PurchaseCubit>()..loadOffers(widget.beat.beatId),
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
+      create: (context) => getIt.get<PurchaseCubit>()..loadOffers(widget.beat.beatId),
+      child: BlocListener<PurchaseCubit, PurchaseState>(
+        listener: (context, state) {
+          state.mapOrNull(
+            success: (value) => Navigator.pop(context),
+          );
         },
-        child: Container(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height * 0.4,
-            maxHeight: MediaQuery.of(context).size.height * 0.85,
-          ),
-          child: Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: screenHorizontalMargin),
-              child: Column(
-                children: [
-                  BeatCard(beat: widget.beat),
-                  const SizedBox(height: 50),
-                  Text(
-                    'purchase_sheet_tracks_hint'.tr(),
-                    textAlign: TextAlign.left,
-                    style: currentTextTheme(context).bodyMedium?.copyWith(
-                          color: currentColorScheme(context)
-                              .onBackground
-                              .withOpacity(0.7),
-                        ),
-                  ),
-                  const SizedBox(height: 16),
-                  //Beat Files
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minHeight: 120,
-                      maxHeight: 130,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height * 0.4,
+              maxHeight: MediaQuery.of(context).size.height * 0.85,
+            ),
+            child: Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: screenHorizontalMargin),
+                child: Column(
+                  children: [
+                    BeatCard(beat: widget.beat),
+                    const SizedBox(height: 50),
+                    Text(
+                      'purchase_sheet_tracks_hint'.tr(),
+                      textAlign: TextAlign.left,
+                      style: currentTextTheme(context).bodyMedium?.copyWith(
+                            color: currentColorScheme(context).onBackground.withOpacity(0.7),
+                          ),
                     ),
-                    child: RotatedBox(
-                      quarterTurns: -1,
-                      child: BlocBuilder<PurchaseCubit, PurchaseState>(
-                        builder: (context, state) {
-                          return ListWheelScrollView(
-                            //diameterRatio: 2,
-                            perspective: 0.0048,
-                            squeeze: 0.9,
-                            itemExtent: 170,
-                            children: List.generate(
-                              //number of cards
-                              state.mapOrNull(
-                                    loading: (_) => 1,
-                                    unactive: (value) {
-                                      offers = value.offers;
-                                      return value.offers.length;
+                    const SizedBox(height: 16),
+                    //Beat Files
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minHeight: 120,
+                        maxHeight: 130,
+                      ),
+                      child: RotatedBox(
+                        quarterTurns: -1,
+                        child: BlocBuilder<PurchaseCubit, PurchaseState>(
+                          buildWhen: (previous, current) =>
+                              current.mapOrNull(loading: (value) => true, offers: (value) => true) ?? false,
+                          builder: (context, state) {
+                            return AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              child: state.maybeMap(
+                                offers: (value) {
+                                  return ListWheelScrollView(
+                                    perspective: 0.0048,
+                                    squeeze: 0.9,
+                                    itemExtent: 170,
+                                    onSelectedItemChanged: (index) {
+                                      context.read<PurchaseCubit>().changeOffer(value.offers, value.offers[index]);
                                     },
-                                  ) ??
-                                  0,
-                              (index) {
-                                return Center(
-                                  child: RotatedBox(
-                                    quarterTurns: 1,
-                                    child: state.mapOrNull(
-                                              loading: (_) => true,
-                                            ) ??
-                                            false
-                                        ? const CircularProgressIndicator()
-                                        : _FileCard(
-                                            grade: offers[index].fileType,
-                                            description:
-                                                _map[offers[index].fileType],
-                                            price: offers[index].price / 100,
+                                    children: List.generate(
+                                      value.offers.length,
+                                      (index) {
+                                        return Center(
+                                          child: RotatedBox(
+                                            quarterTurns: 1,
+                                            child: _FileCard(
+                                              offer: value.offers[index],
+                                              description: _map[value.offers[index].fileType] ?? 'Unknown offer',
+                                            ),
                                           ),
-                                  ),
-                                );
-                              },
-                            ).reversed.toList(),
-                          );
-                        },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                loading: (value) => const AppLoader(),
+                                orElse: () => const SizedBox.shrink(),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 50),
-                  const _ConfirmPurchaseButton(),
-                  const SizedBox(height: 30),
-                ],
+                    const SizedBox(height: 50),
+                    const _ConfirmPurchaseButton(),
+                    const SizedBox(height: 30),
+                  ],
+                ),
               ),
             ),
           ),
@@ -148,82 +149,62 @@ class _ConfirmPurchaseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PurchaseCubit, PurchaseState>(
-      buildWhen: (_, current) =>
-          current.mapOrNull(
-            unactive: (_) => true,
-          ) ??
-          false,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Stack(
-            alignment: Alignment.bottomLeft,
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.decelerate,
-                  padding: const EdgeInsets.only(bottom: 28),
-                  child: Center(
-                    child: Text('700'),
-                    // child: RichText(
-                    //   text: TextSpan(
-                    //     children: [
-                    //       TextSpan(
-                    //         text: 'Итог: ',
-                    //         style: currentTextTheme(context)
-                    //             .titleMedium
-                    //             ?.copyWith(fontWeight: FontWeight.normal),
-                    //       ),
-                    //       TextSpan(
-                    //         text: context
-                    //             .read<PurchaseCubit>()
-                    //             .offers
-                    //             .firstWhere(
-                    //               (element) =>
-                    //                   element.fileType ==
-                    //                   state.mapOrNull(
-                    //                     unactive: (value) => value.currentGrade,
-                    //                   ),
-                    //             )
-                    //             .price
-                    //             .toString(),
-                    //         style: currentTextTheme(context)
-                    //             .titleMedium
-                    //             ?.copyWith(fontWeight: FontWeight.normal),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                  ),
-                  height: state.mapOrNull(
-                            unactive: (value) =>
-                                value.currentGrade != null ? true : false,
-                          ) ??
-                          false
-                      ? 65
-                      : 0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: currentColorScheme(context).secondaryContainer,
-                  ),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                child: state.maybeMap(
+                  offers: (value) {
+                    return Container(
+                      height: 32,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: currentColorScheme(context).secondaryContainer,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Итого: ',
+                              style: currentTextTheme(context).bodyLarge?.copyWith(
+                                    color: currentColorScheme(context).primary,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: '${value.currentOffer.price.toStringAsFixed(0)} ₽',
+                              style: currentTextTheme(context).bodyMedium,
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
                 ),
               ),
+              const SizedBox(height: 8),
               FilledButton(
-                onPressed: state.mapOrNull(
-                          unactive: (value) =>
-                              value.currentGrade != null ? true : false,
-                        ) ??
-                        false
-                    ? () {}
-                    : null,
+                onPressed: state.mapOrNull(buyLoading: (value) => true) ?? false
+                    ? null
+                    : () {
+                        state.mapOrNull(
+                          offers: (value) {
+                            context.read<PurchaseCubit>().buy(value.currentOffer);
+                          },
+                        );
+                      },
                 style: FilledButton.styleFrom(
-                  disabledBackgroundColor:
-                      currentColorScheme(context).outlineVariant,
+                  disabledBackgroundColor: currentColorScheme(context).outlineVariant,
                 ),
-                child: Center(
-                  child: Text('purchase_sheet_confirm_purchase'.tr()),
+                child: state.maybeMap(
+                  loading: (value) => const AppLoader(),
+                  orElse: () => Center(
+                    child: Text('purchase_sheet_confirm_purchase'.tr()),
+                  ),
                 ),
               ),
             ],
@@ -235,92 +216,82 @@ class _ConfirmPurchaseButton extends StatelessWidget {
 }
 
 class _FileCard extends StatelessWidget {
-  const _FileCard({
-    required this.description,
-    required this.grade,
-    required this.price,
-  });
+  final OfferEntity offer;
+  final String description;
 
-  final String? description;
-  final String grade;
-  final double price;
+  const _FileCard({
+    required this.offer,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BouncingGestureDetector(
-      onTap: () {
-        print('0');
-        context.read<PurchaseCubit>().changeGrade(grade);
-      },
-      child: Container(
-        height: 120,
-        decoration: BoxDecoration(
-          color: currentColorScheme(context).primary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: currentColorScheme(context).primary,
-            width: 2,
-          ),
+    return Container(
+      height: 120,
+      decoration: BoxDecoration(
+        color: currentColorScheme(context).primary.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: currentColorScheme(context).primary,
+          width: 2,
         ),
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      description ?? 'no description',
-                      style: currentTextTheme(context).bodyMedium?.copyWith(
-                            color: currentColorScheme(context).primary,
-                          ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Center(
+                  child: Text(
+                    description,
+                    style: currentTextTheme(context).bodyMedium?.copyWith(
+                          color: currentColorScheme(context).primary,
+                        ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                  child: AppChip(
-                    color: currentColorScheme(context).primary,
-                    child: Text(
-                      '$price ₽',
-                      style: currentTextTheme(context).labelLarge?.copyWith(
-                            color: currentColorScheme(context).onPrimary,
-                          ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                decoration: BoxDecoration(
-                  color: currentColorScheme(context).primary,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    topRight: Radius.circular(6),
-                  ),
-                ),
-                child: Text(
-                  grade,
-                  style: currentTextTheme(context).labelLarge?.copyWith(
-                        color: currentColorScheme(context).onPrimary,
-                        height: 1.6,
-                      ),
-                  textAlign: TextAlign.center,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                child: AppChip(
+                  color: currentColorScheme(context).primary,
+                  child: Text(
+                    '${offer.price} ₽',
+                    style: currentTextTheme(context).labelLarge?.copyWith(
+                          color: currentColorScheme(context).onPrimary,
+                        ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+              decoration: BoxDecoration(
+                color: currentColorScheme(context).primary,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  topRight: Radius.circular(6),
+                ),
+              ),
+              child: Text(
+                offer.fileType,
+                style: currentTextTheme(context).labelLarge?.copyWith(
+                      color: currentColorScheme(context).onPrimary,
+                      height: 1.6,
+                    ),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
