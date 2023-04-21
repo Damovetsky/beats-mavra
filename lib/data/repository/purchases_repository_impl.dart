@@ -63,9 +63,7 @@ class PurchasesRepositoryImpl implements PurchasesRepository {
   ) async {
     try {
       return Right(
-        (await purchasesService.get(beatId))
-            .map((e) => OfferModelToOfferEntityConverter().convert(e))
-            .toList(),
+        (await purchasesService.get(beatId)).map((e) => OfferModelToOfferEntityConverter().convert(e)).toList(),
       );
     } catch (_) {
       return Left(UnknownFailure());
@@ -73,14 +71,12 @@ class PurchasesRepositoryImpl implements PurchasesRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateOffer(
-      String offerId, UpdateOfferEntity updateOfferEntity) async {
+  Future<Either<Failure, void>> updateOffer(String offerId, UpdateOfferEntity updateOfferEntity) async {
     try {
       return Right(
         purchasesService.getOffer(offerId).then(
               (value) => purchasesService.updateOffer(
-                UpdateOfferEntityToOfferModelConverter(offerId)
-                    .convert(updateOfferEntity),
+                UpdateOfferEntityToOfferModelConverter(offerId).convert(updateOfferEntity),
               ),
             ),
       );
@@ -104,6 +100,13 @@ class PurchasesRepositoryImpl implements PurchasesRepository {
       return (await getOffer(offerId)).fold((l) => Left(l), (offer) async {
         await usersService.changeBalance(buyerId, -offer.price);
         await usersService.changeBalance(offer.authorId, offer.price);
+        await usersService.changeBeatInMap(
+          userId: buyerId,
+          beatId: offer.beatId,
+          mapName: 'bought',
+          checked: true,
+        );
+
         await purchasesService.createPurchase(
           PurchaseModel(
             purchaseId: const Uuid().v4(),

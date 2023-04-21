@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import '../../../core/ui/text_styles.dart';
 import '../../../domain/beats/entity/beat_entity.dart';
 import '../../../domain/beats/entity/playable_beat_entity.dart';
 import '../../../domain/beats/repository/beats_repository.dart';
+import '../../purchase_sheet/purchase_sheet.dart';
 import 'cubit/cubit.dart';
 
 class BeatCard extends StatelessWidget {
@@ -81,8 +84,14 @@ class BeatCard extends StatelessWidget {
                   child: Row(
                     children: [
                       const _BeatFormat(title: 'MP3'),
-                      if (beat.wavFileId != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'WAV')],
-                      if (beat.zipFileId != null) ...const [SizedBox(width: 8), _BeatFormat(title: 'ZIP')],
+                      if (beat.wavFileId != null) ...const [
+                        SizedBox(width: 8),
+                        _BeatFormat(title: 'WAV')
+                      ],
+                      if (beat.zipFileId != null) ...const [
+                        SizedBox(width: 8),
+                        _BeatFormat(title: 'ZIP')
+                      ],
                       const SizedBox(width: 8),
                       Expanded(
                         child: ShaderMask(
@@ -127,14 +136,17 @@ class BeatCard extends StatelessWidget {
                     children: [
                       Pulse(
                         preferences: AnimationPreferences(
-                          duration: Duration(milliseconds: (60 * 1000 / beat.temp).round()),
+                          duration: Duration(
+                              milliseconds: (60 * 1000 / beat.temp).round()),
                           autoPlay: AnimationPlayStates.Loop,
                         ),
                         child: AppChip(
                           color: currentColorScheme(context).secondaryContainer,
                           child: Text(
                             '${beat.temp} BMP',
-                            style: currentTextTheme(context).bodyMedium?.copyWith(
+                            style: currentTextTheme(context)
+                                .bodyMedium
+                                ?.copyWith(
                                   color: currentColorScheme(context).primary,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -158,12 +170,17 @@ class BeatCard extends StatelessWidget {
                           color: redColor.withOpacity(0.3),
                         ),
                       ),
-                      AppChip(
-                        color: currentColorScheme(context).secondaryContainer,
-                        child: Icon(
-                          Icons.shopping_cart_outlined,
-                          size: 18,
-                          color: currentColorScheme(context).primary,
+                      BouncingGestureDetector(
+                        onTap: () {
+                          unawaited(PurchaseSheet.show(context, beat));
+                        },
+                        child: AppChip(
+                          color: currentColorScheme(context).secondaryContainer,
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 18,
+                            color: currentColorScheme(context).primary,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -172,7 +189,9 @@ class BeatCard extends StatelessWidget {
                           context.read<BeatCardCubit>().play(
                                 PlayableBeatEntity(
                                   entity: beat,
-                                  status: playing ? BeatPlayingStatus.paused : BeatPlayingStatus.started,
+                                  status: playing
+                                      ? BeatPlayingStatus.paused
+                                      : BeatPlayingStatus.started,
                                 ),
                               );
                         },
@@ -180,7 +199,8 @@ class BeatCard extends StatelessWidget {
                           height: 32,
                           width: 32,
                           decoration: BoxDecoration(
-                            color: currentColorScheme(context).secondaryContainer,
+                            color:
+                                currentColorScheme(context).secondaryContainer,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(

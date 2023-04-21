@@ -19,7 +19,7 @@ import 'package:beats/data/converters/users/private_user_model_to_private_user_e
     as _i13;
 import 'package:beats/data/converters/users/public_user_model_to_public_user_entity_converter.dart'
     as _i14;
-import 'package:beats/data/module/firebase_module.dart' as _i41;
+import 'package:beats/data/module/firebase_module.dart' as _i42;
 import 'package:beats/data/repository/auth_repository_impl.dart' as _i25;
 import 'package:beats/data/repository/beats_repository_impl.dart' as _i27;
 import 'package:beats/data/repository/files_repository_impl.dart' as _i29;
@@ -48,6 +48,7 @@ import 'package:beats/view/beat_sheet/cubit/cubit.dart' as _i39;
 import 'package:beats/view/player_sheet/cubit/cubit.dart' as _i30;
 import 'package:beats/view/profile_page/beat_list_page/cubit/cubit.dart' as _i5;
 import 'package:beats/view/profile_page/cubit/cubit.dart' as _i40;
+import 'package:beats/view/purchase_sheet/cubit/cubit.dart' as _i41;
 import 'package:beats/view/search_page/cubit/cubit.dart' as _i35;
 import 'package:beats/view/splash_page/cubit/cubit.dart' as _i16;
 import 'package:beats/view/widget/beat_card/cubit/cubit.dart' as _i37;
@@ -162,8 +163,12 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i31.ProfileRepository>(),
           gh<_i22.UsersRepository>(),
         ));
+    gh.factory<_i41.PurchaseCubit>(() => _i41.PurchaseCubit(
+          gh<_i24.AuthRepository>(),
+          gh<_i33.PurchasesRepository>(),
+        ));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i41.FirebaseModule {}
+class _$FirebaseModule extends _i42.FirebaseModule {}

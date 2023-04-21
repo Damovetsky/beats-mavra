@@ -43,7 +43,9 @@ class _PlayerSheetState extends State<PlayerSheet> {
                 await _player.setUrl(state.beatUrl);
                 _player.play();
               } else {
-                state.status == BeatPlayingStatus.resumed ? _player.play() : _player.pause();
+                state.status == BeatPlayingStatus.resumed
+                    ? _player.play()
+                    : _player.pause();
               }
             },
           );
@@ -93,7 +95,8 @@ class _HeaderBar extends StatelessWidget {
                 opacity: animation,
                 child: SizeTransition(
                   axisAlignment: -1,
-                  sizeFactor: CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn),
+                  sizeFactor: CurvedAnimation(
+                      parent: animation, curve: Curves.fastOutSlowIn),
                   child: child,
                 ),
               );
@@ -123,15 +126,19 @@ class _HeaderBar extends StatelessWidget {
                             ),
                             Flexible(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 24),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       state.entity.title,
                                       textAlign: TextAlign.center,
-                                      style: currentTextTheme(context).bodyMedium?.copyWith(
-                                            color: currentColorScheme(context).primary,
+                                      style: currentTextTheme(context)
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: currentColorScheme(context)
+                                                .primary,
                                             fontWeight: FontWeight.w600,
                                           ),
                                       maxLines: 1,
@@ -141,7 +148,8 @@ class _HeaderBar extends StatelessWidget {
                                       Text(
                                         state.author!.nickname,
                                         textAlign: TextAlign.center,
-                                        style: currentTextTheme(context).bodySmall,
+                                        style:
+                                            currentTextTheme(context).bodySmall,
                                       ),
                                   ],
                                 ),
@@ -157,13 +165,17 @@ class _HeaderBar extends StatelessWidget {
                                     context.read<PlayerCubit>().play(
                                           PlayableBeatEntity(
                                             entity: state.entity,
-                                            status: playing ? BeatPlayingStatus.paused : BeatPlayingStatus.resumed,
+                                            status: playing
+                                                ? BeatPlayingStatus.paused
+                                                : BeatPlayingStatus.resumed,
                                           ),
                                         );
                                     playing ? player.pause() : player.play();
                                   },
                                   icon: Icon(
-                                    playing ? Icons.pause : Icons.play_arrow_rounded,
+                                    playing
+                                        ? Icons.pause
+                                        : Icons.play_arrow_rounded,
                                     size: 30,
                                   ),
                                 );
@@ -215,11 +227,11 @@ class _MusicPlayer extends StatelessWidget {
           builder: (context, data) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.only(
-                left: screenHorizontalMargin,
-                right: screenHorizontalMargin,
-              ),
               child: Container(
+                padding: const EdgeInsets.only(
+                  left: screenHorizontalMargin,
+                  right: screenHorizontalMargin,
+                ),
                 color: currentColorScheme(context).surfaceVariant,
                 child: Column(
                   children: [
@@ -260,7 +272,8 @@ class _MusicPlayer extends StatelessWidget {
                         }
 
                         final currentPosition = player.duration != null
-                            ? snapshot.data!.inMilliseconds / player.duration!.inMilliseconds
+                            ? snapshot.data!.inMilliseconds /
+                                player.duration!.inMilliseconds
                             : 0.0;
 
                         return Column(
@@ -279,7 +292,10 @@ class _MusicPlayer extends StatelessWidget {
                                     unawaited(
                                       player.seek(
                                         Duration(
-                                          milliseconds: (player.duration!.inMilliseconds * position).round(),
+                                          milliseconds:
+                                              (player.duration!.inMilliseconds *
+                                                      position)
+                                                  .round(),
                                         ),
                                       ),
                                     );
@@ -291,12 +307,15 @@ class _MusicPlayer extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(snapshot.data!.mmss()),
-                                  if (player.duration != null) Text(player.duration!.mmss()),
+                                  if (player.duration != null)
+                                    Text(player.duration!.mmss()),
                                 ],
                               ),
                             )
@@ -309,13 +328,19 @@ class _MusicPlayer extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            final positionMilliseconds = player.position.inMilliseconds;
-                            final deltaMilliseconds = const Duration(seconds: 10).inMilliseconds;
+                            final positionMilliseconds =
+                                player.position.inMilliseconds;
+                            final deltaMilliseconds =
+                                const Duration(seconds: 10).inMilliseconds;
 
-                            final resultMilliseconds = positionMilliseconds - deltaMilliseconds;
+                            final resultMilliseconds =
+                                positionMilliseconds - deltaMilliseconds;
 
                             player.seek(
-                              Duration(milliseconds: resultMilliseconds >= 0 ? resultMilliseconds : 0),
+                              Duration(
+                                  milliseconds: resultMilliseconds >= 0
+                                      ? resultMilliseconds
+                                      : 0),
                             );
                           },
                           icon: const Icon(
@@ -334,7 +359,9 @@ class _MusicPlayer extends StatelessWidget {
                                 playing ? player.pause() : player.play();
                               },
                               icon: Icon(
-                                playing ? Icons.pause_circle_outline_rounded : Icons.play_circle_outline_rounded,
+                                playing
+                                    ? Icons.pause_circle_outline_rounded
+                                    : Icons.play_circle_outline_rounded,
                                 size: 60,
                               ),
                             );
@@ -343,14 +370,17 @@ class _MusicPlayer extends StatelessWidget {
                         const SizedBox(width: 10),
                         IconButton(
                           onPressed: () async {
-                            final positionMilliseconds = player.position.inMilliseconds;
+                            final positionMilliseconds =
+                                player.position.inMilliseconds;
 
-                            final resultMilliseconds = positionMilliseconds + deltaMilliseconds;
+                            final resultMilliseconds =
+                                positionMilliseconds + deltaMilliseconds;
 
                             if (player.duration != null) {
                               player.seek(
                                 Duration(
-                                  milliseconds: resultMilliseconds <= player.duration!.inMilliseconds
+                                  milliseconds: resultMilliseconds <=
+                                          player.duration!.inMilliseconds
                                       ? resultMilliseconds
                                       : player.duration!.inMilliseconds,
                                 ),
