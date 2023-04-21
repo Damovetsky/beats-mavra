@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -19,16 +20,19 @@ import '../converters/beats/create_beat_entity_to_beat_model_converter.dart';
 import '../converters/beats/update_beat_entity_to_beat_model_converter.dart';
 import '../service/beats_service/beats_service.dart';
 import '../service/files_service/files_service.dart';
+import '../service/users_service/users_service.dart';
 
 @LazySingleton(as: BeatsRepository)
 class BeatsRepositoryImpl extends BeatsRepository {
   final BeatsService beatsService;
+  final UserService usersService;
   final FilesService filesService;
 
   final BeatModelToBeatEntityConverter beatEntityConverter;
 
   BeatsRepositoryImpl(
     this.beatsService,
+    this.usersService,
     this.filesService,
     this.beatEntityConverter,
   );
@@ -59,15 +63,20 @@ class BeatsRepositoryImpl extends BeatsRepository {
     CreateBeatEntity createBeatEntity,
   ) async {
     try {
-      return Right(
-        BeatModelToBeatEntityConverter().convert(
-          await beatsService.createBeat(
-            CreateBeatEntityToBeatModelConverter(const Uuid().v4()).convert(
-              createBeatEntity,
-            ),
-          ),
+      final beat = await beatsService.createBeat(
+        CreateBeatEntityToBeatModelConverter(const Uuid().v4()).convert(
+          createBeatEntity,
         ),
       );
+
+      await usersService.changeBeatInMap(
+        userId: createBeatEntity.authorId,
+        beatId: beat.beatId,
+        mapName: 'created',
+        checked: true,
+      );
+
+      return Right(BeatModelToBeatEntityConverter().convert(beat));
     } on AlreadyExistException {
       return Left(UnknownFailure());
     } on UnknownException {
@@ -118,6 +127,15 @@ class BeatsRepositoryImpl extends BeatsRepository {
     } on NotFoundException {
       return Left(NotFoundFailure());
     } on UnknownException {
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<double>>> getGraph(File beatFile) async {
+    try {
+      return Right(await beatsService.getGraph(beatFile));
+    } catch (_) {
       return Left(UnknownFailure());
     }
   }

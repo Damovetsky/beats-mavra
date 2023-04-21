@@ -20,6 +20,6 @@ class BeatEntityToBeatModelConverter extends Converter<BeatEntity, BeatModel> {
         genres: input.genres,
         temp: input.temp,
         dimension: input.dimension,
-        graph: [],
+        graph: input.graph,
       );
 }

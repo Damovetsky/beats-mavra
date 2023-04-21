@@ -65,6 +65,12 @@ class _ProfilePageState extends State<ProfilePage> {
               _ProfileLanguagePopupButton(),
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
+                  // return IconButton(
+                  //   onPressed: () {
+                  //     unawaited(context.read<ProfileCubit>().signOut());
+                  //   },
+                  //   icon: const Icon(Icons.logout),
+                  // );
                   return Padding(
                     padding: const EdgeInsets.only(right: screenHorizontalMargin),
                     child: state.maybeMap(
@@ -276,11 +282,11 @@ class _NeedAuth extends StatelessWidget {
               onPressed: () {
                 AuthSheet.show(context);
               },
-              child: Text('Войти в аккаунт'),
+              child: Text('profile_sign_in_button'.tr()),
             ),
             const SizedBox(height: 16),
             Text(
-              'Профиль будет доступен после авторизации',
+              'profile_need_auth_hint'.tr(),
               style: currentTextTheme(context).titleMedium,
               textAlign: TextAlign.center,
             ),

@@ -8,7 +8,7 @@ class PlayerState with _$PlayerState {
     required BeatPlayingStatus status,
     required PublicUserEntity? author,
     required BeatEntity entity,
-    required File beatFile,
+    required String beatUrl,
   }) = _PlayerState;
   const factory PlayerState.failure({required String title, required String message}) = _PlayerFailureState;
 }

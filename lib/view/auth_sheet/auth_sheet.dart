@@ -72,7 +72,8 @@ class _AuthSheetState extends State<AuthSheet> {
                   title: value.title,
                   message: value.message,
                   position: FlushbarPosition.TOP,
-                ));
+                ),
+                );
               },
             );
           },

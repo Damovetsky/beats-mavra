@@ -27,7 +27,7 @@ class PlayerCubit extends Cubit<PlayerState> {
   final BehaviorSubject<PlayableBeatEntity> playableBeat = BehaviorSubject<PlayableBeatEntity>();
   StreamSubscription? playableBeatSubscription;
 
-  Tuple2<String, File>? currentBeatFile;
+  Tuple2<String, String>? currentBeatFile;
 
   PlayerCubit(
     this.beatsRepository,
@@ -50,30 +50,27 @@ class PlayerCubit extends Cubit<PlayerState> {
             status: playableBeat.status,
             entity: playableBeat.entity,
             author: author,
-            beatFile: currentBeatFile!.value2,
+            beatUrl: currentBeatFile!.value2,
           );
         }
 
         emit(const PlayerState.loading());
-        final beatFileEither = await filesRepository.downloadFile(
-          fileId: playableBeat.entity.mp3FileId,
-          extension: '.mp3',
-        );
+        final beatUrlEither = await filesRepository.getFileUrl(playableBeat.entity.mp3FileId);
 
-        return beatFileEither.fold(
+        return beatUrlEither.fold(
           (failure) {
             return PlayerState.failure(
               title: 'unknown_error_title'.tr(),
               message: 'unknown_error_description'.tr(),
             );
           },
-          (beatFile) {
-            currentBeatFile = Tuple2(playableBeat.entity.mp3FileId, beatFile);
+          (beatUrl) {
+            currentBeatFile = Tuple2(playableBeat.entity.mp3FileId, beatUrl);
             return PlayerState.player(
               status: BeatPlayingStatus.started,
               entity: playableBeat.entity,
               author: author,
-              beatFile: beatFile,
+              beatUrl: beatUrl,
             );
           },
         );

@@ -26,7 +26,7 @@ abstract class BeatsService {
 
   Future<void> deleteBeat(String beatId);
 
-  Future<List<double>?> getGraph(File file);
+  Future<List<double>> getGraph(File file);
 }
 
 @Injectable(as: BeatsService)
@@ -46,16 +46,14 @@ class BeatsServiceImpl implements BeatsService {
         .set(beatModel.toJson())
         .then((value) => getBeat(beatModel.beatId))
         .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
   @override
   Future<void> deleteBeat(String beatId) async {
     return beatsCollection.doc(beatId).delete().then((value) => null).onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -65,13 +63,11 @@ class BeatsServiceImpl implements BeatsService {
         .doc(beatId)
         .get()
         .then(
-          (value) => value.exists
-              ? BeatModel.fromJson(value.data()!)
-              : throw exceptionFactory.generateException('not-found'),
+          (value) =>
+              value.exists ? BeatModel.fromJson(value.data()!) : throw exceptionFactory.generateException('not-found'),
         )
         .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -89,13 +85,10 @@ class BeatsServiceImpl implements BeatsService {
     return cursor
         .get()
         .then(
-          (snapshots) => snapshots.docs
-              .map((element) => BeatModel.fromJson(element.data()))
-              .toList(growable: false),
+          (snapshots) => snapshots.docs.map((element) => BeatModel.fromJson(element.data())).toList(growable: false),
         )
         .onError(
-          (FirebaseException error, stackTrace) =>
-              throw exceptionFactory.generateException(error.code),
+          (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
         );
   }
 
@@ -107,8 +100,7 @@ class BeatsServiceImpl implements BeatsService {
           .set(beatModel.toJson())
           .then((value) => getBeat(beatModel.beatId))
           .onError(
-            (FirebaseException error, stackTrace) =>
-                throw exceptionFactory.generateException(error.code),
+            (FirebaseException error, stackTrace) => throw exceptionFactory.generateException(error.code),
           ),
     );
   }
@@ -117,7 +109,7 @@ class BeatsServiceImpl implements BeatsService {
   Future<List<double>> getGraph(File file) async {
     final bytes = await file.readAsBytes();
     final bytesRes = [];
-    final resolution = bytes.length ~/ 300;
+    final resolution = bytes.length ~/ 200;
     for (int i = 0; i < bytes.length; ++i) {
       if (i % resolution == 0) {
         bytesRes.add(bytes[i]);
@@ -125,7 +117,7 @@ class BeatsServiceImpl implements BeatsService {
     }
 
     final response = await http.post(
-      Uri.parse('http://localhost:8084/music/'),
+      Uri.parse('http://185.231.154.246:8080/music/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -134,9 +126,7 @@ class BeatsServiceImpl implements BeatsService {
       }),
     );
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final dataNew = data.map((e) => double.parse(e.toString())).toList();
-      return dataNew;
+      return (json.decode(response.body) as List).map((e) => double.parse(e.toString())).toList();
     }
     if (response.statusCode == 400) {
       throw BadRequestException();

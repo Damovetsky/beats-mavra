@@ -44,40 +44,41 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBG3i-FFafK7mueKm6ZtOEDCHuxzNgqk40',
-    appId: '1:886145540803:web:a1818ae4548a02de2d7876',
-    messagingSenderId: '886145540803',
-    projectId: 'mvara-beats',
-    authDomain: 'mvara-beats.firebaseapp.com',
-    storageBucket: 'mvara-beats.appspot.com',
-    measurementId: 'G-4LP3EW7HFZ',
+    apiKey: 'AIzaSyD_eGNhLOWfBwMaw7fZCSDTEVSq17kIclI',
+    appId: '1:206740748769:web:5cd5f256df6fa567a4faa0',
+    messagingSenderId: '206740748769',
+    projectId: 'mvara-beats1',
+    authDomain: 'mvara-beats1.firebaseapp.com',
+    storageBucket: 'mvara-beats1.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBajlvjNnJLVcOMF8Z39UnKOD8-mekOBbY',
-    appId: '1:886145540803:android:7b9bac81cd4529b32d7876',
-    messagingSenderId: '886145540803',
-    projectId: 'mvara-beats',
-    storageBucket: 'mvara-beats.appspot.com',
+    apiKey: 'AIzaSyC3z47nuXGIxjwgEVKK3sbgG7-n_qqotQM',
+    appId: '1:206740748769:android:61377cad59e7e955a4faa0',
+    messagingSenderId: '206740748769',
+    projectId: 'mvara-beats1',
+    storageBucket: 'mvara-beats1.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB_tmuIyuygYvJgxtXRSVd7bQWcXDGppAU',
-    appId: '1:886145540803:ios:6587d2c896232f312d7876',
-    messagingSenderId: '886145540803',
-    projectId: 'mvara-beats',
-    storageBucket: 'mvara-beats.appspot.com',
-    iosClientId: '886145540803-fva14nhoq21snlstaurigmnsho9jl2f7.apps.googleusercontent.com',
-    iosBundleId: 'com.example.beats',
+    apiKey: 'AIzaSyAnzKZFdJKb2RsNHw_3rly8eJc6igIhDSU',
+    appId: '1:206740748769:ios:2639154ab98af2dea4faa0',
+    messagingSenderId: '206740748769',
+    projectId: 'mvara-beats1',
+    storageBucket: 'mvara-beats1.appspot.com',
+    androidClientId: '206740748769-su4e4k2i1n6pdbkg5k3acmkvoglberof.apps.googleusercontent.com',
+    iosClientId: '206740748769-19jinn54vi0anpkb3n4ke30rlsfj1cnd.apps.googleusercontent.com',
+    iosBundleId: 'com.mvara.beats',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB_tmuIyuygYvJgxtXRSVd7bQWcXDGppAU',
-    appId: '1:886145540803:ios:6587d2c896232f312d7876',
-    messagingSenderId: '886145540803',
-    projectId: 'mvara-beats',
-    storageBucket: 'mvara-beats.appspot.com',
-    iosClientId: '886145540803-fva14nhoq21snlstaurigmnsho9jl2f7.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAnzKZFdJKb2RsNHw_3rly8eJc6igIhDSU',
+    appId: '1:206740748769:ios:03bda32a2436d1c3a4faa0',
+    messagingSenderId: '206740748769',
+    projectId: 'mvara-beats1',
+    storageBucket: 'mvara-beats1.appspot.com',
+    androidClientId: '206740748769-su4e4k2i1n6pdbkg5k3acmkvoglberof.apps.googleusercontent.com',
+    iosClientId: '206740748769-3b9fjmggk8fgs8chpso2k14v9lqghnsu.apps.googleusercontent.com',
     iosBundleId: 'com.example.beats',
   );
 }

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../core/error/failure.dart';
 import '../../domain/files/files_repository.dart';
 import '../service/files_service/files_service.dart';
@@ -25,6 +23,15 @@ class FilesRepositoryImpl implements FilesRepository {
       return Left(UnknownFailure());
     }
     return Right(uploadFileModel.fileId);
+  }
+
+  @override
+  Future<Either<Failure, String>> getFileUrl(String fileId) async {
+    try {
+      return Right(await filesService.getFileUrl(fileId));
+    } catch (_) {
+      return Left(UnknownFailure());
+    }
   }
 
   @override

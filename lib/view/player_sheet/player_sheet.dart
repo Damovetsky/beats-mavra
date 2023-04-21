@@ -17,111 +17,6 @@ import '../widget/wave.dart';
 import '../../core/helper/duration_helper.dart';
 import 'cubit/cubit.dart';
 
-const test = [
-  0.466,
-  0.284,
-  0.569,
-  0.529,
-  0.768,
-  0.763,
-  0.765,
-  0.905,
-  0.152,
-  0.954,
-  0.187,
-  0.215,
-  0.429,
-  0.694,
-  0.324,
-  0.689,
-  0.603,
-  0.522,
-  0.750,
-  0.658,
-  0.874,
-  0.438,
-  0.029,
-  0.695,
-  0.645,
-  0.077,
-  0.797,
-  0.417,
-  0.992,
-  0.881,
-  0.638,
-  0.181,
-  0.803,
-  0.272,
-  0.192,
-  0.975,
-  0.357,
-  0.788,
-  0.678,
-  0.131,
-  0.102,
-  0.910,
-  0.547,
-  0.109,
-  0.602,
-  0.141,
-  0.712,
-  0.196,
-  0.839,
-  0.867,
-  0.438,
-  0.208,
-  0.711,
-  0.145,
-  0.905,
-  0.765,
-  0.295,
-  0.518,
-  0.529,
-  0.994,
-  0.076,
-  0.570,
-  0.139,
-  0.919,
-  0.368,
-  0.845,
-  0.974,
-  0.172,
-  0.216,
-  0.048,
-  0.052,
-  0.036,
-  0.398,
-  0.712,
-  0.861,
-  0.981,
-  0.497,
-  0.341,
-  0.459,
-  0.120,
-  0.150,
-  0.580,
-  0.320,
-  0.750,
-  0.878,
-  0.080,
-  0.058,
-  0.952,
-  0.464,
-  0.441,
-  0.778,
-  0.198,
-  0.738,
-  0.841,
-  0.245,
-  0.774,
-  0.657,
-  0.567,
-  0.684,
-  0.515,
-  0.553,
-  0.423
-];
-
 class PlayerSheet extends StatefulWidget {
   final SolidController controller;
 
@@ -145,7 +40,7 @@ class _PlayerSheetState extends State<PlayerSheet> {
           state.mapOrNull(
             player: (state) async {
               if (state.status == BeatPlayingStatus.started) {
-                await _player.setFilePath(state.beatFile.path);
+                await _player.setUrl(state.beatUrl);
                 _player.play();
               } else {
                 state.status == BeatPlayingStatus.resumed ? _player.play() : _player.pause();
@@ -372,9 +267,8 @@ class _MusicPlayer extends StatelessWidget {
                           children: [
                             SizedBox(
                               height: 64,
-                              width: size.width,
                               child: WaveWidget(
-                                graph: test,
+                                graph: data.entity.graph,
                                 positionPercent: currentPosition,
                                 onPositionChanged: (position) {
                                   if (player.playing) {
