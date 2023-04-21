@@ -4,10 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../core/firebase_options.dart';
+
 @module
 abstract class FirebaseModule {
   @preResolve
-  Future<FirebaseApp> get firebaseApp => Firebase.initializeApp();
+  Future<FirebaseApp> get firebaseApp => Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
