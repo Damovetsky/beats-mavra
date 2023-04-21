@@ -69,12 +69,13 @@ class _AuthSheetState extends State<AuthSheet> {
                 Form.of(context).reset();
               },
               commonFailure: (value) {
-                unawaited(showSnackbar(
-                  context,
-                  title: value.title,
-                  message: value.message,
-                  position: FlushbarPosition.TOP,
-                ),
+                unawaited(
+                  showSnackbar(
+                    context,
+                    title: value.title,
+                    message: value.message,
+                    position: FlushbarPosition.TOP,
+                  ),
                 );
               },
             );
@@ -113,7 +114,7 @@ class _AuthSheetState extends State<AuthSheet> {
                             padding: const EdgeInsets.only(
                                 top: 32, bottom: 64, left: 32, right: 32),
                             child: Image.asset(
-                              'assets/images/beats.png',
+                              'assets/images/beats_final.png',
                             ),
                           ),
                         ),

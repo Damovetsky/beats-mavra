@@ -8,6 +8,7 @@ import '../../core/di/di.dart';
 import '../../core/helper/sheet_helper.dart';
 import '../../core/ui/color_schemes.dart';
 import '../../core/ui/dimens.dart';
+import '../../core/ui/kit/bouncing_gesture_detector.dart';
 import '../../core/ui/kit/chip.dart';
 import '../../core/ui/text_styles.dart';
 import '../../domain/beats/entity/beat_entity.dart';
@@ -47,7 +48,8 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<PurchaseCubit>(),
+      create: (context) =>
+          getIt.get<PurchaseCubit>()..loadOffers(widget.beat.beatId),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
@@ -87,11 +89,8 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
                       quarterTurns: -1,
                       child: BlocBuilder<PurchaseCubit, PurchaseState>(
                         builder: (context, state) {
-                          context
-                              .read<PurchaseCubit>()
-                              .loadOffers(widget.beat.beatId);
                           return ListWheelScrollView(
-                            diameterRatio: 2,
+                            //diameterRatio: 2,
                             perspective: 0.0048,
                             squeeze: 0.9,
                             itemExtent: 170,
@@ -106,18 +105,21 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
                                   ) ??
                                   0,
                               (index) {
-                                return RotatedBox(
-                                  quarterTurns: 1,
-                                  child:
-                                      state.mapOrNull(loading: (_) => true) ??
-                                              false
-                                          ? const CircularProgressIndicator()
-                                          : _FileCard(
-                                              grade: offers[index].fileType,
-                                              description:
-                                                  _map[offers[index].fileType],
-                                              price: offers[index].price / 100,
-                                            ),
+                                return Center(
+                                  child: RotatedBox(
+                                    quarterTurns: 1,
+                                    child: state.mapOrNull(
+                                              loading: (_) => true,
+                                            ) ??
+                                            false
+                                        ? const CircularProgressIndicator()
+                                        : _FileCard(
+                                            grade: offers[index].fileType,
+                                            description:
+                                                _map[offers[index].fileType],
+                                            price: offers[index].price / 100,
+                                          ),
+                                  ),
                                 );
                               },
                             ).reversed.toList(),
@@ -128,7 +130,7 @@ class _PurchaseSheetState extends State<PurchaseSheet> {
                   ),
 
                   const SizedBox(height: 50),
-                  _ConfirmPurchaseButton(),
+                  const _ConfirmPurchaseButton(),
                   const SizedBox(height: 30),
                 ],
               ),
@@ -164,35 +166,36 @@ class _ConfirmPurchaseButton extends StatelessWidget {
                   curve: Curves.decelerate,
                   padding: const EdgeInsets.only(bottom: 28),
                   child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Итог: ',
-                            style: currentTextTheme(context)
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.normal),
-                          ),
-                          TextSpan(
-                            text: context
-                                .read<PurchaseCubit>()
-                                .offers
-                                .firstWhere(
-                                  (element) =>
-                                      element.fileType ==
-                                      state.mapOrNull(
-                                        unactive: (value) => value.currentGrade,
-                                      ),
-                                )
-                                .price
-                                .toString(),
-                            style: currentTextTheme(context)
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.normal),
-                          )
-                        ],
-                      ),
-                    ),
+                    child: Text('700'),
+                    // child: RichText(
+                    //   text: TextSpan(
+                    //     children: [
+                    //       TextSpan(
+                    //         text: 'Итог: ',
+                    //         style: currentTextTheme(context)
+                    //             .titleMedium
+                    //             ?.copyWith(fontWeight: FontWeight.normal),
+                    //       ),
+                    //       TextSpan(
+                    //         text: context
+                    //             .read<PurchaseCubit>()
+                    //             .offers
+                    //             .firstWhere(
+                    //               (element) =>
+                    //                   element.fileType ==
+                    //                   state.mapOrNull(
+                    //                     unactive: (value) => value.currentGrade,
+                    //                   ),
+                    //             )
+                    //             .price
+                    //             .toString(),
+                    //         style: currentTextTheme(context)
+                    //             .titleMedium
+                    //             ?.copyWith(fontWeight: FontWeight.normal),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                   ),
                   height: state.mapOrNull(
                             unactive: (value) =>
@@ -244,8 +247,11 @@ class _FileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.read<PurchaseCubit>().changeGrade(grade),
+    return BouncingGestureDetector(
+      onTap: () {
+        print('0');
+        context.read<PurchaseCubit>().changeGrade(grade);
+      },
       child: Container(
         height: 120,
         decoration: BoxDecoration(
@@ -264,14 +270,16 @@ class _FileCard extends StatelessWidget {
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    description ?? 'no description',
-                    style: currentTextTheme(context).bodyMedium?.copyWith(
-                          color: currentColorScheme(context).primary,
-                        ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  child: Center(
+                    child: Text(
+                      description ?? 'no description',
+                      style: currentTextTheme(context).bodyMedium?.copyWith(
+                            color: currentColorScheme(context).primary,
+                          ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 Padding(
