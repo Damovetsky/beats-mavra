@@ -1,49 +1,48 @@
 {
   "project_info": {
-    "project_number": "886145540803",
-    "firebase_url": "https://mvara-beats-default-rtdb.firebaseio.com",
-    "project_id": "mvara-beats",
-    "storage_bucket": "mvara-beats.appspot.com"
+    "project_number": "206740748769",
+    "project_id": "mvara-beats1",
+    "storage_bucket": "mvara-beats1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:886145540803:android:7b9bac81cd4529b32d7876",
+        "mobilesdk_app_id": "1:206740748769:android:9836fc16882ba301a4faa0",
         "android_client_info": {
-          "package_name": "com.example.beats"
+          "package_name": "com.mvara.beats"
         }
       },
       "oauth_client": [
         {
-          "client_id": "886145540803-9s1bulgsarrg717o4236irrg88c7rjtv.apps.googleusercontent.com",
+          "client_id": "206740748769-su4e4k2i1n6pdbkg5k3acmkvoglberof.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.beats",
+            "package_name": "com.mvara.beats",
             "certificate_hash": "bb7f362572fe692731be4eae96a543ef06e1d57c"
           }
         },
         {
-          "client_id": "886145540803-e4qdh4u24j5lsmgj6u2ca9a54rp3ik7q.apps.googleusercontent.com",
+          "client_id": "206740748769-arrb6ij3uvjl1209g7a5os6jqlh2l11k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBajlvjNnJLVcOMF8Z39UnKOD8-mekOBbY"
+          "current_key": "AIzaSyC3z47nuXGIxjwgEVKK3sbgG7-n_qqotQM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "886145540803-0c8tef6g7dprfs3rp90d4lck1c6h2o2f.apps.googleusercontent.com",
+              "client_id": "206740748769-arrb6ij3uvjl1209g7a5os6jqlh2l11k.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "886145540803-fva14nhoq21snlstaurigmnsho9jl2f7.apps.googleusercontent.com",
+              "client_id": "206740748769-19jinn54vi0anpkb3n4ke30rlsfj1cnd.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.beats"
+                "bundle_id": "com.mvara.beats"
               }
             }
           ]

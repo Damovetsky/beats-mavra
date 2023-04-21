@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,5 +16,9 @@ class BeatCardCubit extends Cubit<BeatCardInitialState> {
 
   void play(PlayableBeatEntity playableBeat) {
     beatsRepository.play(playableBeat);
+  }
+
+  void like(String beatId) {
+    unawaited(beatsRepository.like(beatId: beatId));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'dart:async';
 import '../../../core/error/failure.dart';
@@ -21,6 +23,10 @@ abstract class BeatsRepository {
   Future<Either<Failure, void>> deleteBeat(String beatId);
 
   Future<Either<Failure, BeatEntity>> createBeat(CreateBeatEntity createBeatEntity);
+
+  Future<Either<Failure, List<double>>> getGraph(File beatFile);
+
+  Future<Either<Failure, void>> like({required String beatId});
 
   void play(PlayableBeatEntity playableBeat);
 

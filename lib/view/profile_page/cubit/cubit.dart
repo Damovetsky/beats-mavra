@@ -53,6 +53,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     }).listen(emit);
   }
 
+  void updateUser() {
+    
+  }
+
   Future<void> signOut() async {
     final signOutEither = await profileRepository.signOut();
 

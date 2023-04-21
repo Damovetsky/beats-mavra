@@ -68,7 +68,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       try {
-        userService.getPrivateUser(user.uid);
+        await userService.getPrivateUser(user.uid);
       } on NotFoundException {
         final nickname = user.displayName ?? 'User';
 
@@ -96,7 +96,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(UnknownFailure());
       }
       try {
-        userService.getPrivateUser(user.uid);
+        await userService.getPrivateUser(user.uid);
       } on NotFoundException {
         final nickname = user.displayName ?? 'User';
 

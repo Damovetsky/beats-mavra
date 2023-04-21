@@ -85,7 +85,11 @@ class _BeatCardListState extends State<BeatCardList> {
               }
             },
             playableBeat: (value) {
-              currentPlayableBeatId = value.beatId;
+              if (value.status == BeatPlayingStatus.paused) {
+                currentPlayableBeatId = null;
+              } else {
+                currentPlayableBeatId = value.beatId;
+              }
             },
             stop: (value) {
               currentPlayableBeatId = null;

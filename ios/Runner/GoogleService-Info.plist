@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>886145540803-fva14nhoq21snlstaurigmnsho9jl2f7.apps.googleusercontent.com</string>
+	<string>206740748769-19jinn54vi0anpkb3n4ke30rlsfj1cnd.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.886145540803-fva14nhoq21snlstaurigmnsho9jl2f7</string>
+	<string>com.googleusercontent.apps.206740748769-19jinn54vi0anpkb3n4ke30rlsfj1cnd</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB_tmuIyuygYvJgxtXRSVd7bQWcXDGppAU</string>
+	<string>AIzaSyAnzKZFdJKb2RsNHw_3rly8eJc6igIhDSU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>886145540803</string>
+	<string>206740748769</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.beats</string>
+	<string>com.mvara.beats</string>
 	<key>PROJECT_ID</key>
-	<string>mvara-beats</string>
+	<string>mvara-beats1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mvara-beats.appspot.com</string>
+	<string>mvara-beats1.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:886145540803:ios:6587d2c896232f312d7876</string>
+	<string>1:206740748769:ios:2639154ab98af2dea4faa0</string>
 </dict>
 </plist>

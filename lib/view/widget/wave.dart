@@ -23,6 +23,7 @@ class WaveWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return GestureDetector(
+          behavior: HitTestBehavior.translucent,
           onTapDown: (details) {
             onPositionChanged(details.globalPosition.dx / constraints.maxWidth);
           },
@@ -35,11 +36,15 @@ class WaveWidget extends StatelessWidget {
           onHorizontalDragEnd: (details) {
             onPositionFinished();
           },
-          child: CustomPaint(
-            painter: AmplitudePainter(
-              context,
-              amplitudeData: graph,
-              percentOfDurability: positionPercent,
+          child: SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            child: CustomPaint(
+              painter: AmplitudePainter(
+                context,
+                amplitudeData: graph,
+                percentOfDurability: positionPercent,
+              ),
             ),
           ),
         );

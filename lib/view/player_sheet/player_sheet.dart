@@ -17,111 +17,6 @@ import '../widget/wave.dart';
 import '../../core/helper/duration_helper.dart';
 import 'cubit/cubit.dart';
 
-const test = [
-  0.466,
-  0.284,
-  0.569,
-  0.529,
-  0.768,
-  0.763,
-  0.765,
-  0.905,
-  0.152,
-  0.954,
-  0.187,
-  0.215,
-  0.429,
-  0.694,
-  0.324,
-  0.689,
-  0.603,
-  0.522,
-  0.750,
-  0.658,
-  0.874,
-  0.438,
-  0.029,
-  0.695,
-  0.645,
-  0.077,
-  0.797,
-  0.417,
-  0.992,
-  0.881,
-  0.638,
-  0.181,
-  0.803,
-  0.272,
-  0.192,
-  0.975,
-  0.357,
-  0.788,
-  0.678,
-  0.131,
-  0.102,
-  0.910,
-  0.547,
-  0.109,
-  0.602,
-  0.141,
-  0.712,
-  0.196,
-  0.839,
-  0.867,
-  0.438,
-  0.208,
-  0.711,
-  0.145,
-  0.905,
-  0.765,
-  0.295,
-  0.518,
-  0.529,
-  0.994,
-  0.076,
-  0.570,
-  0.139,
-  0.919,
-  0.368,
-  0.845,
-  0.974,
-  0.172,
-  0.216,
-  0.048,
-  0.052,
-  0.036,
-  0.398,
-  0.712,
-  0.861,
-  0.981,
-  0.497,
-  0.341,
-  0.459,
-  0.120,
-  0.150,
-  0.580,
-  0.320,
-  0.750,
-  0.878,
-  0.080,
-  0.058,
-  0.952,
-  0.464,
-  0.441,
-  0.778,
-  0.198,
-  0.738,
-  0.841,
-  0.245,
-  0.774,
-  0.657,
-  0.567,
-  0.684,
-  0.515,
-  0.553,
-  0.423
-];
-
 class PlayerSheet extends StatefulWidget {
   final SolidController controller;
 
@@ -145,10 +40,12 @@ class _PlayerSheetState extends State<PlayerSheet> {
           state.mapOrNull(
             player: (state) async {
               if (state.status == BeatPlayingStatus.started) {
-                await _player.setFilePath(state.beatFile.path);
+                await _player.setUrl(state.beatUrl);
                 _player.play();
               } else {
-                state.status == BeatPlayingStatus.resumed ? _player.play() : _player.pause();
+                state.status == BeatPlayingStatus.resumed
+                    ? _player.play()
+                    : _player.pause();
               }
             },
           );
@@ -198,7 +95,8 @@ class _HeaderBar extends StatelessWidget {
                 opacity: animation,
                 child: SizeTransition(
                   axisAlignment: -1,
-                  sizeFactor: CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn),
+                  sizeFactor: CurvedAnimation(
+                      parent: animation, curve: Curves.fastOutSlowIn),
                   child: child,
                 ),
               );
@@ -228,15 +126,19 @@ class _HeaderBar extends StatelessWidget {
                             ),
                             Flexible(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 24),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       state.entity.title,
                                       textAlign: TextAlign.center,
-                                      style: currentTextTheme(context).bodyMedium?.copyWith(
-                                            color: currentColorScheme(context).primary,
+                                      style: currentTextTheme(context)
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: currentColorScheme(context)
+                                                .primary,
                                             fontWeight: FontWeight.w600,
                                           ),
                                       maxLines: 1,
@@ -246,7 +148,8 @@ class _HeaderBar extends StatelessWidget {
                                       Text(
                                         state.author!.nickname,
                                         textAlign: TextAlign.center,
-                                        style: currentTextTheme(context).bodySmall,
+                                        style:
+                                            currentTextTheme(context).bodySmall,
                                       ),
                                   ],
                                 ),
@@ -262,13 +165,17 @@ class _HeaderBar extends StatelessWidget {
                                     context.read<PlayerCubit>().play(
                                           PlayableBeatEntity(
                                             entity: state.entity,
-                                            status: playing ? BeatPlayingStatus.paused : BeatPlayingStatus.resumed,
+                                            status: playing
+                                                ? BeatPlayingStatus.paused
+                                                : BeatPlayingStatus.resumed,
                                           ),
                                         );
                                     playing ? player.pause() : player.play();
                                   },
                                   icon: Icon(
-                                    playing ? Icons.pause : Icons.play_arrow_rounded,
+                                    playing
+                                        ? Icons.pause
+                                        : Icons.play_arrow_rounded,
                                     size: 30,
                                   ),
                                 );
@@ -320,11 +227,11 @@ class _MusicPlayer extends StatelessWidget {
           builder: (context, data) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.only(
-                left: screenHorizontalMargin,
-                right: screenHorizontalMargin,
-              ),
               child: Container(
+                padding: const EdgeInsets.only(
+                  left: screenHorizontalMargin,
+                  right: screenHorizontalMargin,
+                ),
                 color: currentColorScheme(context).surfaceVariant,
                 child: Column(
                   children: [
@@ -365,16 +272,16 @@ class _MusicPlayer extends StatelessWidget {
                         }
 
                         final currentPosition = player.duration != null
-                            ? snapshot.data!.inMilliseconds / player.duration!.inMilliseconds
+                            ? snapshot.data!.inMilliseconds /
+                                player.duration!.inMilliseconds
                             : 0.0;
 
                         return Column(
                           children: [
                             SizedBox(
                               height: 64,
-                              width: size.width,
                               child: WaveWidget(
-                                graph: test,
+                                graph: data.entity.graph,
                                 positionPercent: currentPosition,
                                 onPositionChanged: (position) {
                                   if (player.playing) {
@@ -385,7 +292,10 @@ class _MusicPlayer extends StatelessWidget {
                                     unawaited(
                                       player.seek(
                                         Duration(
-                                          milliseconds: (player.duration!.inMilliseconds * position).round(),
+                                          milliseconds:
+                                              (player.duration!.inMilliseconds *
+                                                      position)
+                                                  .round(),
                                         ),
                                       ),
                                     );
@@ -397,12 +307,15 @@ class _MusicPlayer extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(snapshot.data!.mmss()),
-                                  if (player.duration != null) Text(player.duration!.mmss()),
+                                  if (player.duration != null)
+                                    Text(player.duration!.mmss()),
                                 ],
                               ),
                             )
@@ -415,13 +328,19 @@ class _MusicPlayer extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            final positionMilliseconds = player.position.inMilliseconds;
-                            final deltaMilliseconds = const Duration(seconds: 10).inMilliseconds;
+                            final positionMilliseconds =
+                                player.position.inMilliseconds;
+                            final deltaMilliseconds =
+                                const Duration(seconds: 10).inMilliseconds;
 
-                            final resultMilliseconds = positionMilliseconds - deltaMilliseconds;
+                            final resultMilliseconds =
+                                positionMilliseconds - deltaMilliseconds;
 
                             player.seek(
-                              Duration(milliseconds: resultMilliseconds >= 0 ? resultMilliseconds : 0),
+                              Duration(
+                                  milliseconds: resultMilliseconds >= 0
+                                      ? resultMilliseconds
+                                      : 0),
                             );
                           },
                           icon: const Icon(
@@ -440,7 +359,9 @@ class _MusicPlayer extends StatelessWidget {
                                 playing ? player.pause() : player.play();
                               },
                               icon: Icon(
-                                playing ? Icons.pause_circle_outline_rounded : Icons.play_circle_outline_rounded,
+                                playing
+                                    ? Icons.pause_circle_outline_rounded
+                                    : Icons.play_circle_outline_rounded,
                                 size: 60,
                               ),
                             );
@@ -449,14 +370,17 @@ class _MusicPlayer extends StatelessWidget {
                         const SizedBox(width: 10),
                         IconButton(
                           onPressed: () async {
-                            final positionMilliseconds = player.position.inMilliseconds;
+                            final positionMilliseconds =
+                                player.position.inMilliseconds;
 
-                            final resultMilliseconds = positionMilliseconds + deltaMilliseconds;
+                            final resultMilliseconds =
+                                positionMilliseconds + deltaMilliseconds;
 
                             if (player.duration != null) {
                               player.seek(
                                 Duration(
-                                  milliseconds: resultMilliseconds <= player.duration!.inMilliseconds
+                                  milliseconds: resultMilliseconds <=
+                                          player.duration!.inMilliseconds
                                       ? resultMilliseconds
                                       : player.duration!.inMilliseconds,
                                 ),

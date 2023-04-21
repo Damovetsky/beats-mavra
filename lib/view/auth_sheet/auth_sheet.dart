@@ -26,7 +26,9 @@ class SigningState extends InheritedNotifier<ValueNotifier<bool>> {
   });
 
   static ValueNotifier<bool> of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SigningState>()!.notifier!;
+    return context
+        .dependOnInheritedWidgetOfExactType<SigningState>()!
+        .notifier!;
   }
 }
 
@@ -67,12 +69,14 @@ class _AuthSheetState extends State<AuthSheet> {
                 Form.of(context).reset();
               },
               commonFailure: (value) {
-                unawaited(showSnackbar(
-                  context,
-                  title: value.title,
-                  message: value.message,
-                  position: FlushbarPosition.TOP,
-                ));
+                unawaited(
+                  showSnackbar(
+                    context,
+                    title: value.title,
+                    message: value.message,
+                    position: FlushbarPosition.TOP,
+                  ),
+                );
               },
             );
           },
@@ -107,9 +111,10 @@ class _AuthSheetState extends State<AuthSheet> {
                             magnitude: 0.3,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 32, bottom: 64, left: 32, right: 32),
+                            padding: const EdgeInsets.only(
+                                top: 32, bottom: 64, left: 32, right: 32),
                             child: Image.asset(
-                              'assets/images/beats.png',
+                              'assets/images/beats_final.png',
                             ),
                           ),
                         ),
@@ -156,7 +161,9 @@ class _SwitchScreenTextState extends State<_SwitchScreenText> {
             style: currentTextTheme(context).bodyLarge,
             children: [
               TextSpan(
-                text: SigningState.of(context).value ? 'auth_not_registered'.tr() : 'auth_already_registered'.tr(),
+                text: SigningState.of(context).value
+                    ? 'auth_not_registered'.tr()
+                    : 'auth_already_registered'.tr(),
                 style: TextStyle(
                   color: currentColorScheme(context).onBackground,
                 ),
@@ -216,7 +223,9 @@ class _SubmitButton extends StatelessWidget {
           ),
           child: state.maybeWhen(
             orElse: () => Text(
-              SigningState.of(context).value ? 'auth_sign_in'.tr() : 'auth_sign_up'.tr(),
+              SigningState.of(context).value
+                  ? 'auth_sign_in'.tr()
+                  : 'auth_sign_up'.tr(),
               style: currentTextTheme(context).bodyLarge?.copyWith(
                     color: currentColorScheme(context).onPrimary,
                     fontWeight: FontWeight.w600,
@@ -255,7 +264,8 @@ class _EmailTextField extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: 'email'.tr(),
-              errorText: state.mapOrNull(fieldFailure: (value) => value.emailError),
+              errorText:
+                  state.mapOrNull(fieldFailure: (value) => value.emailError),
             ),
           ),
         );
@@ -304,7 +314,8 @@ class _NicknameTextField extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       labelText: 'username'.tr(),
-                      errorText: state.mapOrNull(fieldFailure: (value) => value.nicknameError),
+                      errorText: state.mapOrNull(
+                          fieldFailure: (value) => value.nicknameError),
                     ),
                   ),
                 )
@@ -343,7 +354,8 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             },
             decoration: InputDecoration(
               labelText: 'password'.tr(),
-              errorText: state.mapOrNull(fieldFailure: (value) => value.passwordError),
+              errorText:
+                  state.mapOrNull(fieldFailure: (value) => value.passwordError),
               suffixIcon: BouncingGestureDetector(
                 child: _obscurePassword
                     ? const Icon(Icons.visibility_off_outlined)
@@ -407,7 +419,9 @@ class _AlternativeSigning extends StatelessWidget {
                         _LogoCard(
                           logo: 'assets/images/logos/google-icon.svg',
                           size: 32,
-                          loading: state.mapOrNull(googleLoading: (value) => true) ?? false,
+                          loading:
+                              state.mapOrNull(googleLoading: (value) => true) ??
+                                  false,
                           onTap: () {
                             context.read<AuthCubit>().signInWithGoogle();
                           },
@@ -462,7 +476,9 @@ class _LogoCard extends StatelessWidget {
         ),
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 400),
-          child: loading ? const AppLoader() : SvgPicture.asset(logo, height: size),
+          child: loading
+              ? const AppLoader()
+              : SvgPicture.asset(logo, height: size),
         ),
       ),
     );

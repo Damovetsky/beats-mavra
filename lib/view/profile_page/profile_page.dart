@@ -4,6 +4,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,6 +66,12 @@ class _ProfilePageState extends State<ProfilePage> {
               _ProfileLanguagePopupButton(),
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
+                  // return IconButton(
+                  //   onPressed: () {
+                  //     unawaited(context.read<ProfileCubit>().signOut());
+                  //   },
+                  //   icon: const Icon(Icons.logout),
+                  // );
                   return Padding(
                     padding: const EdgeInsets.only(right: screenHorizontalMargin),
                     child: state.maybeMap(
@@ -120,15 +127,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Column(
                           children: [
-                            ShimmerBuilder(
-                              data: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
-                              loadingChild: const CircleShimmer(radius: _profileAvatarSize / 2),
-                              builder: (context, data) {
-                                return EditableAvatar(
-                                  size: _profileAvatarSize,
-                                  url: data,
-                                );
-                              },
+                            EditableAvatar(
+                              size: _profileAvatarSize,
+                              url: state.mapOrNull(profile: (value) => value.publicUser.avatarUrl),
+                              onEdit: () {},
                             ),
                             const SizedBox(height: 12),
                             _ProfileBalance(
@@ -154,16 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     loadingChild: const CircleBordersShimmer(height: titleLargeHeight),
                                     builder: (context, data) {
-                                      return Row(
-                                        children: [
-                                          Text(data, style: currentTextTheme(context).titleLarge),
-                                          const SizedBox(width: 8),
-                                          Icon(
-                                            Icons.edit,
-                                            color: currentColorScheme(context).onBackground.withOpacity(0.2),
-                                          ),
-                                        ],
-                                      );
+                                      return Text(data, style: currentTextTheme(context).titleLarge);
                                     },
                                   ),
                                 ),
@@ -276,11 +269,11 @@ class _NeedAuth extends StatelessWidget {
               onPressed: () {
                 AuthSheet.show(context);
               },
-              child: Text('Войти в аккаунт'),
+              child: Text('profile_sign_in_button'.tr()),
             ),
             const SizedBox(height: 16),
             Text(
-              'Профиль будет доступен после авторизации',
+              'profile_need_auth_hint'.tr(),
               style: currentTextTheme(context).titleMedium,
               textAlign: TextAlign.center,
             ),
