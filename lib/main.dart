@@ -1,5 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
@@ -11,8 +12,10 @@ const localeGlobalKey = GlobalObjectKey<LocaleBuilderState>('localeGlobalKey');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
   await EasyLocalization.ensureInitialized();
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   runApp(
     EasyLocalization(

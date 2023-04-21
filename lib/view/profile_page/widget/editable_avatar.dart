@@ -4,18 +4,20 @@ import '../../widget/avatar.dart';
 
 class EditableAvatar extends StatelessWidget {
   final double size;
-  final String url;
+  final String? url;
+  final VoidCallback onEdit;
 
   const EditableAvatar({
     super.key,
     required this.size,
     required this.url,
+    required this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
     return BouncingGestureDetector(
-      onTap: () {},
+      onTap: onEdit,
       child: Avatar(
         size: size,
         url: url,

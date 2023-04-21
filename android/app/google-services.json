@@ -7,42 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:206740748769:android:61377cad59e7e955a4faa0",
-        "android_client_info": {
-          "package_name": "com.mvara.beats"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "206740748769-arrb6ij3uvjl1209g7a5os6jqlh2l11k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC3z47nuXGIxjwgEVKK3sbgG7-n_qqotQM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "206740748769-arrb6ij3uvjl1209g7a5os6jqlh2l11k.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "206740748769-19jinn54vi0anpkb3n4ke30rlsfj1cnd.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.mvara.beats"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:206740748769:android:9836fc16882ba301a4faa0",
         "android_client_info": {
           "package_name": "com.mvara.beats"
