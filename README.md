@@ -1,6 +1,6 @@
 # Beats App
 
-Beats is a cross-platform mobile app built in `Flutter` that makes it easy for beatmakers to post their music and sell them to rappers. The app has a range of features that help users find, customize, and purchase the beats they need, including the ability to put up beats for sale in three different formats, customize beats with *cover art*, *tempo*, *genre*, and more, search for beats by genre with filters, buy beats using cash transactions, listen to beats with our built-in music player, and add beats to favorites. The app also includes additional features such as authorization, user profile customization, *light/dark* themes, *English/Russian* localization, and search with filters.
+Beats is a cross-platform mobile app built in Flutter that makes it easy for beatmakers to post their music and sell them to rappers. The app has a range of features that help users find, customize, and purchase the beats they need, including the ability to put up beats for sale in three different formats, customize beats with *cover art*, *tempo*, *genre*, and more, search for beats by genre with filters, buy beats using cash transactions, listen to beats with our built-in music player, and add beats to favorites. The app also includes additional features such as authorization, user profile customization, *light/dark* themes, *English/Russian* localization, and search with filters.
 
 ---
 
@@ -18,31 +18,11 @@ Beats is a cross-platform mobile app built in `Flutter` that makes it easy for b
 
 ---
 
-## Installation and launch
+## Demo
 
-**Step 1:**
+https://github.com/Damovetsky/beats-mavra/assets/124775284/9dad6afd-c5f2-46c2-8a38-1f611dc750ed
 
-Download or clone this repo:
 
-```Console
-git clone https://gitlab.com/mvara1/beats
-```
-
-**Step 2:**
-
-Go to project root and execute the following command in console to get the required dependencies: 
-
-```
-flutter pub get 
-```
-
-**Step 3:**
-
-```
-flutter packages pub run build_runner build --delete-conflicting-outputs
-```
-
----
 
 ## Usage
 1. Sign up or log in to your account
